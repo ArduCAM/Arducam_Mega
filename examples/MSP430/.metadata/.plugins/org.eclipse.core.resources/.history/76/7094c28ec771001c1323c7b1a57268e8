@@ -1,0 +1,26 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../HardWare/spi/spi.c 
+
+C_DEPS += \
+./HardWare/spi/spi.d 
+
+OBJS += \
+./HardWare/spi/spi.obj 
+
+OBJS__QUOTED += \
+"HardWare\spi\spi.obj" 
+
+C_DEPS__QUOTED += \
+"HardWare\spi\spi.d" 
+
+C_SRCS__QUOTED += \
+"../HardWare/spi/spi.c" 
+
+

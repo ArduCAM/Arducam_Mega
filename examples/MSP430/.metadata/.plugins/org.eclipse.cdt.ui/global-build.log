@@ -1,0 +1,1246 @@
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+Finished building: "../main.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 1 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="/HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'main.obj' failed
+"../main.c", line 1: fatal error #1965: cannot open source file "Arducam.h"
+1 catastrophic error detected in the compilation of "../main.c".
+Compilation terminated.
+gmake: *** [main.obj] Error 1
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="/HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+ 
+>> Compilation failure
+HardWare/arducam/subdir_rules.mk:9: recipe for target 'HardWare/arducam/Arducam.obj' failed
+"..\HardWare\arducam\Msp430Hal.h", line 16: fatal error #1965: cannot open source file "delay.h"
+1 catastrophic error detected in the compilation of "../HardWare/arducam/Arducam.c".
+Compilation terminated.
+gmake: *** [HardWare/arducam/Arducam.obj] Error 1
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="/HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+ 
+>> Compilation failure
+HardWare/uart/subdir_rules.mk:9: recipe for target 'HardWare/uart/uart.obj' failed
+"..\HardWare\uart\uart.h", line 4: fatal error #1965: cannot open source file "Arducam.h"
+1 catastrophic error detected in the compilation of "../HardWare/uart/uart.c".
+Compilation terminated.
+gmake: *** [HardWare/uart/uart.obj] Error 1
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="/HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="/HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'main.obj' failed
+"../main.c", line 1: fatal error #1965: cannot open source file "Arducam.h"
+1 catastrophic error detected in the compilation of "../main.c".
+Compilation terminated.
+gmake: *** [main.obj] Error 1
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+ 
+>> Compilation failure
+HardWare/arducam/subdir_rules.mk:9: recipe for target 'HardWare/arducam/Arducam.obj' failed
+"..\HardWare\arducam\Msp430Hal.h", line 16: fatal error #1965: cannot open source file "delay.h"
+1 catastrophic error detected in the compilation of "../HardWare/arducam/Arducam.c".
+Compilation terminated.
+gmake: *** [HardWare/arducam/Arducam.obj] Error 1
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+ 
+>> Compilation failure
+HardWare/uart/subdir_rules.mk:9: recipe for target 'HardWare/uart/uart.obj' failed
+"..\HardWare\uart\uart.h", line 4: fatal error #1965: cannot open source file "Arducam.h"
+1 catastrophic error detected in the compilation of "../HardWare/uart/uart.c".
+Compilation terminated.
+gmake: *** [HardWare/uart/uart.obj] Error 1
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="HardWare/arducam" --include_path="/HardWare/delay" --include_path="/HardWare/spi" --include_path="/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+ 
+>> Compilation failure
+subdir_rules.mk:9: recipe for target 'main.obj' failed
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: error #256: type name is not allowed
+"../main.c", line 68: error #66: expected a ";"
+"../main.c", line 68: error #20: identifier "i" is undefined
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+3 errors detected in the compilation of "../main.c".
+gmake: *** [main.obj] Error 1
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+ 
+>> Compilation failure
+HardWare/arducam/subdir_rules.mk:9: recipe for target 'HardWare/arducam/Arducam.obj' failed
+"../HardWare/arducam/Arducam.c", line 216: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 357: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 500: error #256: type name is not allowed
+"../HardWare/arducam/Arducam.c", line 500: error #66: expected a ";"
+"../HardWare/arducam/Arducam.c", line 500: error #20: identifier "count" is undefined
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 830: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 831: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 138: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 151: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 167: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 172: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+3 errors detected in the compilation of "../HardWare/arducam/Arducam.c".
+gmake: *** [HardWare/arducam/Arducam.obj] Error 1
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+ 
+>> Compilation failure
+HardWare/uart/subdir_rules.mk:9: recipe for target 'HardWare/uart/uart.obj' failed
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: error #256: type name is not allowed
+"../HardWare/uart/uart.c", line 166: error #66: expected a ";"
+"../HardWare/uart/uart.c", line 166: error #20: identifier "i" is undefined
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+3 errors detected in the compilation of "../HardWare/uart/uart.c".
+gmake: *** [HardWare/uart/uart.obj] Error 1
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+gmake: Target 'all' not remade because of errors.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 216: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 357: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 500: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 500: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 830: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 831: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 138: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 151: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 167: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 172: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 220: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 361: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 504: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 504: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 832: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 833: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 834: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 835: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 142: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 155: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 171: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 176: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 220: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 361: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 504: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 504: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 832: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 833: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 834: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 835: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 142: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 155: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 171: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 176: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 198: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 322: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 465: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 465: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 534: warning #179-D: variable "DeviceAdd" was declared but never referenced
+"../HardWare/arducam/Arducam.c", line 789: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 790: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 791: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 792: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 797: warning #1-D: last line of file ends without a newline
+"../HardWare/arducam/Arducam.c", line 124: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 136: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 151: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 156: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 202: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 326: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 469: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 469: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 538: warning #179-D: variable "DeviceAdd" was declared but never referenced
+"../HardWare/arducam/Arducam.c", line 793: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 794: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 795: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 796: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 128: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 140: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 155: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 160: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 209: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 355: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 826: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 827: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 131: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 144: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 160: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 165: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 209: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 355: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 826: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 827: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 131: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 144: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 160: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 165: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 209: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 355: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 826: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 827: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 131: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 144: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 160: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 165: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 209: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 355: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 826: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 827: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 131: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 144: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 160: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 165: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../HardWare/spi/spi.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/spi/spi.d_raw" --obj_directory="HardWare/spi"  "../HardWare/spi/spi.c"
+"../HardWare/spi/spi.c", line 46: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/spi/spi.c", line 48: remark #1528-D: (ULP 3.1) Detected flag polling using UCBUSY. Recommend using an interrupt combined with enter LPMx and ISR
+Finished building: "../HardWare/spi/spi.c"
+ 
+Building file: "../HardWare/delay/delay.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/delay/delay.d_raw" --obj_directory="HardWare/delay"  "../HardWare/delay/delay.c"
+"../HardWare/delay/delay.c", line 7: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/delay/delay.c", line 16: remark #1533-D: (ULP 6.1) Detected use of multiplication on a device that has no hardware multiplier
+Finished building: "../HardWare/delay/delay.c"
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 209: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 355: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 498: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 826: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 827: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 828: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 829: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 131: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 144: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 160: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 165: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+Building file: "../main.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"../main.c", line 18: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 68: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../main.c", line 9: remark #1535-D: (ULP 8.1) variable "sendFlag" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../main.c"
+ 
+Building file: "../HardWare/uart/uart.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/uart/uart.d_raw" --obj_directory="HardWare/uart"  "../HardWare/uart/uart.c"
+"../HardWare/uart/uart.c", line 12: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 23: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 21: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 47: remark #1528-D: (ULP 3.1) Detected flag polling using IFG2. Recommend using an interrupt combined with enter LPMx and ISR
+"../HardWare/uart/uart.c", line 54: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 166: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/uart/uart.c", line 189: warning #183-D: argument is incompatible with corresponding format string conversion
+"../HardWare/uart/uart.c", line 179: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 180: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 181: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 182: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 183: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 184: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 185: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 186: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 187: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 188: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 189: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 190: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 192: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 193: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 194: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 195: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 196: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 197: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../HardWare/uart/uart.c", line 8: remark #1535-D: (ULP 8.1) variable "rxData" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/uart/uart.c"
+ 
+Building file: "../HardWare/arducam/Arducam.c"
+Invoking: MSP430 Compiler
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --include_path="D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera" --include_path="D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/arducam" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/delay" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/spi" --include_path="D:/arduino1.8/libraries/ArducamSpiCamera/examples/MSP430/SmartCamera/HardWare/uart" --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number --preproc_with_compile --preproc_dependency="HardWare/arducam/Arducam.d_raw" --obj_directory="HardWare/arducam"  "../HardWare/arducam/Arducam.c"
+"../HardWare/arducam/Arducam.c", line 224: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../HardWare/arducam/Arducam.c", line 374: remark #2553-D: (ULP 14.1) Array index (involving "iso_sense") of type "int". Recommend using "unsigned int"
+"../HardWare/arducam/Arducam.c", line 517: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 517: remark #1544-D: (ULP 13.1) Detected loop counting up. Recommend loops count down as detecting zeros is easier
+"../HardWare/arducam/Arducam.c", line 845: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 846: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 847: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 848: remark #1546-D: (ULP 15.1) Detected consecutive bitfield assigns. Recommend using bit mask instead
+"../HardWare/arducam/Arducam.c", line 146: remark #1535-D: (ULP 8.1) variable "OV5640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 159: remark #1535-D: (ULP 8.1) variable "OV3640_CameraInfo" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 175: remark #1535-D: (ULP 8.1) variable "ov5640DefaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+"../HardWare/arducam/Arducam.c", line 180: remark #1535-D: (ULP 8.1) variable "ov3640efaultState" is used as a constant. Recommend declaring variable as either 'static const' or 'const'
+Finished building: "../HardWare/arducam/Arducam.c"
+ 
+Building target: "SmartCamera.out"
+Invoking: MSP430 Linker
+"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --c99 --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"SmartCamera.map" --heap_size=80 --stack_size=80 -i"D:/CCSV_MSP430/Install/ccs/ccs_base/msp430/include" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/lib" -i"D:/CCSV_MSP430/Install/ccs/tools/compiler/ti-cgt-msp430_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="SmartCamera_linkInfo.xml" --use_hw_mpy=none --rom_model -o "SmartCamera.out" "./main.obj" "./HardWare/arducam/Arducam.obj" "./HardWare/delay/delay.obj" "./HardWare/spi/spi.obj" "./HardWare/uart/uart.obj" "../lnk_msp430g2553.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "SmartCamera.out"
+ 
+
+**** Build Finished ****
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****

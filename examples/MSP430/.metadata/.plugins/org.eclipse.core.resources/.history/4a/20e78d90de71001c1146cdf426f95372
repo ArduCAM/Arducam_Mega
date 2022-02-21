@@ -1,0 +1,26 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../HardWare/delay/delay.c 
+
+C_DEPS += \
+./HardWare/delay/delay.d 
+
+OBJS += \
+./HardWare/delay/delay.obj 
+
+OBJS__QUOTED += \
+"HardWare\delay\delay.obj" 
+
+C_DEPS__QUOTED += \
+"HardWare\delay\delay.d" 
+
+C_SRCS__QUOTED += \
+"../HardWare/delay/delay.c" 
+
+

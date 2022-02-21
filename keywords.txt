@@ -1,0 +1,32 @@
+#######################################
+# Syntax Coloring Map Arducam
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Arducam	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+arducamSpiBegin	KEYWORD2              
+arducamSpiTransfer	KEYWORD2     
+arducamSpiCsPinHigh	KEYWORD2   
+arducamSpiCsPinLow	KEYWORD2   
+arducamCsOutputMode	KEYWORD2       
+arducamDelayMs	KEYWORD2             
+arducamDelayUs	KEYWORD2         
+arducamUartBegin	KEYWORD2        
+arducamUartWrite	KEYWORD2          
+arducamUartWriteBuff	KEYWORD2     
+arcucamUartRead	KEYWORD2               
+arducamUartAvailable	KEYWORD2           
+     
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################

@@ -1,0 +1,8 @@
+
+**** Build of configuration Debug for project SmartCamera ****
+
+"D:\\CCSV_MSP430\\Install\\ccs\\utils\\bin\\gmake" -k -j 12 all -O 
+ 
+gmake[1]: 'SmartCamera.out' is up to date.
+
+**** Build Finished ****

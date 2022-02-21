@@ -1,0 +1,26 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../HardWare/uart/uart.c 
+
+C_DEPS += \
+./HardWare/uart/uart.d 
+
+OBJS += \
+./HardWare/uart/uart.obj 
+
+OBJS__QUOTED += \
+"HardWare\uart\uart.obj" 
+
+C_DEPS__QUOTED += \
+"HardWare\uart\uart.d" 
+
+C_SRCS__QUOTED += \
+"../HardWare/uart/uart.c" 
+
+

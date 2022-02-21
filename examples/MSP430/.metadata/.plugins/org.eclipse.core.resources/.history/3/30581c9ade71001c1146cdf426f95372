@@ -1,0 +1,26 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+SHELL = cmd.exe
+
+# Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../HardWare/arducam/Arducam.c 
+
+C_DEPS += \
+./HardWare/arducam/Arducam.d 
+
+OBJS += \
+./HardWare/arducam/Arducam.obj 
+
+OBJS__QUOTED += \
+"HardWare\arducam\Arducam.obj" 
+
+C_DEPS__QUOTED += \
+"HardWare\arducam\Arducam.d" 
+
+C_SRCS__QUOTED += \
+"../HardWare/arducam/Arducam.c" 
+
+
