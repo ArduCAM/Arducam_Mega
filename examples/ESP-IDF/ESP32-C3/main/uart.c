@@ -38,7 +38,7 @@ void uartInit(uint32_t baudrate)
     int intr_alloc_flags = 0;
     ESP_ERROR_CHECK(uart_driver_install(ECHO_UART_PORT_NUM, BUF_SIZE * 2, 0, 0, NULL, intr_alloc_flags));
     ESP_ERROR_CHECK(uart_param_config(ECHO_UART_PORT_NUM, &uart_config));
-    ESP_ERROR_CHECK(uart_set_pin(ECHO_UART_PORT_NUM, 3, 2, ECHO_TEST_RTS, ECHO_TEST_CTS));   
+    ESP_ERROR_CHECK(uart_set_pin(ECHO_UART_PORT_NUM, -1, -1, ECHO_TEST_RTS, ECHO_TEST_CTS));   
 }
 
 uint32_t arducamUartAvailable(void)

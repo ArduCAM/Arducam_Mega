@@ -14,13 +14,6 @@
 #define  __PLATFORM_H
 
 
-// #if defined (STM32F10X_MD)
-//     #include "Stm32Hal.h"
-// #elif defined (__AVR__) || defined(__SAM3X8E__)  || defined  (ESP32) || defined  (ESP8266) || defined (ARDUINO_ARCH_NRF52840) || defined  (ARDUINO_ARCH_RP2040)
-//     #include "ArduinoHal.h"
-// #elif defined (__MSP430G2553__)
-//     #include "Msp430Hal.h"
-// #endif
 #include "esp32Hal.h"
 
 #endif /*__PLATFORM_H*/
