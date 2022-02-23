@@ -63,10 +63,7 @@ void ArducamLink::cameraGetPicture(Arducam* myCamera)
 	while (myCamera->getReceivedLength())		
 	{
 		rtLength=readBuff(cameraInstance,buff,READ_IMAGE_LENGTH);
-		for (uint8_t i = 0; i < rtLength; i++)
-		{
-			arducamUartWrite(buff[i]);
-		}
+		arducamUartWriteBuff(buff,rtLength);
 	}
 	arducamUartWrite(0x55);
 	arducamUartWrite(0xBB);
@@ -174,7 +171,7 @@ void ArducamLink::arducamUartWriteBuff(uint8_t* buff,uint8_t length)
 void ArducamLink::arducamUartWrite(uint8_t data)
 {
     Serial.write(data);
-    delayMicroseconds(140);
+    delayMicroseconds(10);
 }
 
 uint32_t ArducamLink::arducamUartAvailable(void)
