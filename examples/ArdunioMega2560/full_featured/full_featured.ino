@@ -77,7 +77,7 @@ uint8_t readBuffer(uint8_t* imagebuf,uint8_t length)
 }
 
 void setup() {
-  myUart.arducamUartBegin(921600);
+  myUart.arducamUartBegin(115200);
   myCAM.begin();
   myCAM.registerCallBack(readBuffer,200);
 }
