@@ -125,7 +125,7 @@ public:
     CamStatus setAutoISOSensitive(uint8_t val);
     //**********************************************
     //!
-    //! @brief Set the exposure time Manually
+    //! @brief Set the gain time Manually
     //!
     //! @param  val Value of gain 
     //!
