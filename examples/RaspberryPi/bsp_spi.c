@@ -15,96 +15,122 @@
 #include <stdio.h>
 #include<string.h>
 #include <unistd.h>
+#include <sys/mman.h>
+#include <stdlib.h>
+
+
+
 
 int fb;
 const char* spiDevice = "/dev/spidev0.0";
 static unsigned char bits = 8;
-static unsigned int  speed = 20000000;
+static unsigned int  speed = 4000000;
 
+// Pointers that will be memory mapped when pioInit() is called
+volatile unsigned int *gpio; //pointer to base of gpio
+volatile unsigned int *spi;  //pointer to base of spi registers
+
+
+struct spi_ioc_transfer spiDev ;
 
 void spiBegin(void)
 {
-    unsigned int mode = SPI_MODE_0;
-    int ret = 0;
-    if ((fb = open(spiDevice,O_RDWR)) < 0)
-    {
-        printf("spiDevice open failed\r\n");
-        return;
-    }
-	/*
-	 * spi mode
-	 */
-	ret = ioctl(fb, SPI_IOC_WR_MODE, &mode);
-	if (ret == -1)
-		printf("can't set spi mode");
+    pioInit();
+    //set GPIO 8 (CE), 9 (MISO), 10 (MOSI), 11 (SCLK) alt fxn 0 (SPI0)
+    //pinMode(8, ALT0);
+    SPI0CSbits.TA = 0;          // turn SPI on with the "transfer active" bit
+    pinMode(9, ALT0);
+    pinMode(10, ALT0);
+    pinMode(11, ALT0);
 
-	ret = ioctl(fb, SPI_IOC_WR_MODE, &mode);
-	if (ret == -1)
-		printf("can't get spi mode");
-
-	/*
-	 * bits per word
-	 */
-	ret = ioctl(fb, SPI_IOC_WR_BITS_PER_WORD, &bits);
-	if (ret == -1)
-		printf("can't set bits per word");
-
-	ret = ioctl(fb, SPI_IOC_RD_BITS_PER_WORD, &bits);
-	if (ret == -1)
-		printf("can't get bits per word");
-
-	/*
-	 * max speed hz
-	 */
-	ret = ioctl(fb, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
-	if (ret == -1)
-		printf("can't set max speed hz");
-
-	ret = ioctl(fb, SPI_IOC_RD_MAX_SPEED_HZ, &speed);
-	if (ret == -1)
-		printf("can't get max speed hz");
+    //Note: clock divisor will be rounded to the nearest power of 2
+    SPI0CLK = 250000000/speed;   // set SPI clock to 250MHz / freq
+    SPI0CS = 0;  
+	SPI0CSbits.CLEAR = 3;   // this is very important 
+    SPI0CSbits.TA = 1;          // turn SPI on with the "transfer active" bit
 }
 unsigned char spiReadWriteByte(unsigned char data)
 {
-    unsigned char tx_data[1] = {0};
-    unsigned char rx_data[1] = {0};
-    int i = 0;
-    struct spi_ioc_transfer spiDev ;
-    tx_data[0] = data;
-    memset (&spiDev,0, sizeof(spiDev)) ;
-    spiDev.tx_buf        = (unsigned long)tx_data ;
-    spiDev.rx_buf        = (unsigned long)rx_data ;
-    spiDev.len           = 1 ;
-    spiDev.delay_usecs   = 0 ;
-    spiDev.speed_hz      = speed ;
-    spiDev.bits_per_word = bits ;
-    ioctl(fb, SPI_IOC_MESSAGE(1), &spiDev);
-    return rx_data[0];
+	SPI0FIFO = data;            // send data to slave
+	while(!SPI0CSbits.DONE);	// wait until SPI transmission complete
+    return SPI0FIFO;            // return received data
 }
+
+void pioInit(void) 
+{
+	int  mem_fd;
+	void *reg_map;
+
+	// /dev/mem is a psuedo-driver for accessing memory in the Linux filesystem
+	if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
+	      printf("can't open /dev/mem \n");
+	      exit(-1);
+	}
+
+	reg_map = mmap(
+	  NULL,             //Address at which to start local mapping (null means don't-care)
+      BLOCK_SIZE,       //Size of mapped memory block
+      PROT_READ|PROT_WRITE,// Enable both reading and writing to the mapped memory
+      MAP_SHARED,       // This program does not have exclusive access to this memory
+      mem_fd,           // Map to /dev/mem
+      GPIO_BASE);       // Offset to GPIO peripheral
+
+	if (reg_map == MAP_FAILED) {
+      printf("gpio mmap error %d\n", (int)reg_map);
+      close(mem_fd);
+      exit(-1);
+    }
+
+	gpio = (volatile unsigned *)reg_map;
+
+    reg_map = mmap(
+	  NULL,             //Address at which to start local mapping (null means don't-care)
+      BLOCK_SIZE,       //Size of mapped memory block
+      PROT_READ|PROT_WRITE,// Enable both reading and writing to the mapped memory
+      MAP_SHARED,       // This program does not have exclusive access to this memory
+      mem_fd,           // Map to /dev/mem
+      SPI0_BASE);       // Offset to SPI peripheral
+
+    if (reg_map == MAP_FAILED) {
+      printf("spi mmap error %d\n", (int)reg_map);
+      close(mem_fd);
+      exit(-1);
+    }
+
+    spi = (volatile unsigned *)reg_map;
+
+	close(mem_fd);
+}
+
+void pinMode(int pin, int function) 
+{
+    int reg      =  pin/10;
+    int offset   = (pin%10)*3;
+    GPFSEL[reg] &= ~((0b111 & ~function) << offset);
+    GPFSEL[reg] |=  ((0b111 &  function) << offset);
+}
+
+void digitalWrite(int pin, int val) 
+{
+    int reg = pin / 32;
+    int offset = pin % 32;
+
+    if (val) GPSET[reg] = 1 << offset;
+    else     GPCLR[reg] = 1 << offset;
+}
+
 
 void spiCsHigh(int pin)
 {
-    FILE * fp;
-    char command[30] = {0};
-    sprintf(command,"raspi-gpio set %d dh",pin);
-    fp=popen(command,"r");
-    pclose(fp);
+    digitalWrite(pin,HIGH);
 }
 void spiCsLow(int pin)
 {
-    FILE * fp;
-    char command[30] = {0};
-    sprintf(command,"raspi-gpio set %d dl",pin);
-    fp=popen(command,"r");
-    pclose(fp);
+    digitalWrite(pin,LOW);
 }
 void spiCsOutputMode(int pin)
 {
-    FILE * fp;
-    char command[30] = {0};
-    sprintf(command,"raspi-gpio set %d op",pin);
-    fp=popen(command,"r");
-    pclose(fp);
+    pinMode(pin, OUTPUT);   
 }
 
 void spiRelease(void)
