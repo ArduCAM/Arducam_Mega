@@ -1,4 +1,4 @@
-Target := smartCamera
+Target := Arducam_Mega
 CXX := gcc
 Source := $(wildcard *.c)
 DIR := $(notdir $(Source)) 
