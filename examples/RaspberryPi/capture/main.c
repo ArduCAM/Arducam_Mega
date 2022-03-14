@@ -49,11 +49,6 @@ void saveImage(ArducamCamera myCAM)
         printf("Create file failed\r\n");
         return;
     }
-    // for ( value = 0; value < myCAM.totalLength; value++)
-    // {
-    //     data = readByte(&myCAM);
-    //     fputc(data,fl);
-    // }
     while (myCAM.receivedLength)
     {
         imageLength = readBuff(&myCAM,imageBuff,200);
@@ -72,18 +67,21 @@ int main(void)
 	myCAM = createArducamCamera(csPin);
 	begin(&myCAM);
 	printf("Camera Init Succeed\r\n");
-
+    printf("Click the 's' button on the keyboard to save the image\r\n");
+    printf("Press the keyboard 'q' key to exit\r\n");
     while (1)
     {
         key = scanKeyboard();
         if(key == 's')  //'s'
         {
+            printf("\r\n");
             takePicture(&myCAM,CAM_IMAGE_MODE_QVGA,CAM_IMAGE_PIX_FMT_JPG);
             saveImage(myCAM);
             printf("Image save succeed\r\n");
         }
         else if(key == 'q')
         {
+            printf("\r\n");
             printf("quit picture mode\r\n");
             break;
         }

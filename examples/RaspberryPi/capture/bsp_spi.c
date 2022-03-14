@@ -22,16 +22,10 @@
 
 
 int fb;
-const char* spiDevice = "/dev/spidev0.0";
-static unsigned char bits = 8;
 static unsigned int  speed = 4000000;
-
 // Pointers that will be memory mapped when pioInit() is called
 volatile unsigned int *gpio; //pointer to base of gpio
 volatile unsigned int *spi;  //pointer to base of spi registers
-
-
-struct spi_ioc_transfer spiDev ;
 
 void spiBegin(void)
 {
