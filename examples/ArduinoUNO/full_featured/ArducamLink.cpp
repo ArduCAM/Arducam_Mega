@@ -174,7 +174,7 @@ void ArducamLink::arducamUartWriteBuff(uint8_t* buff,uint8_t length)
 void ArducamLink::arducamUartWrite(uint8_t data)
 {
     Serial.write(data);
-    delayMicroseconds(5);
+    delayMicroseconds(12);
 }
 
 uint32_t ArducamLink::arducamUartAvailable(void)
