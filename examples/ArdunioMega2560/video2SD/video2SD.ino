@@ -21,7 +21,7 @@
 // 18-1B :Hdr1 contains avih piece of identification 
 // 1C-1F :The size of the avih
 // 20-23 :Maintain time per frame picture
-#include "Arducam.hpp"
+#include "Arducam.h"
 #include "Platform.h"
 #include <SD.h>
 

@@ -6,7 +6,7 @@
 // This demo was made for ArduCAM Spi Camera.
 // It needs to be used in combination with PC software.
 // It can test ArduCAM Spi Camerafunctions
-#include "Arducam.hpp"
+#include "Arducam.h"
 #include "Platform.h"
 #include "ArducamLink.h"
 #include "Arduino.h"

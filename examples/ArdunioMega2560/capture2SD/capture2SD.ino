@@ -8,7 +8,7 @@
 // 2. Capture a JPEG photo and buffer the image to FIFO
 // 3.Write the picture data to the SD card
 // 5.close the file
-#include "Arducam.hpp"
+#include "Arducam.h"
 #include "Platform.h"
 #include <SD.h>
 
