@@ -13,15 +13,24 @@
 #define __SMARTSPICAM_H
 #include "Arducam/ArducamCamera.h"
 
+
+#if defined (STM32F10X_MD)
+    #include "Arducam/Stm32Hal.h"
+#elif defined (__AVR__) || defined(__SAM3X8E__)  || defined  (ESP32) || defined  (ESP8266) || defined (ARDUINO_ARCH_NRF52840) || defined  (ARDUINO_ARCH_RP2040) || defined (NRF52833_XXAA)
+    #include "Arducam/ArduinoHal.h"
+#elif defined (__MSP430G2553__)
+    #include "Arducam/Msp430Hal.h"
+#endif
+
 /**
-* @file Arducam.h
+* @file Arducam_Mega.h
 * @author Arducam
 * @date 2021/12/6
 * @version V1.0
 * @copyright Arducam
 */
 
-class Arducam
+class Arducam_Mega
 {
 private:
 
@@ -35,7 +44,7 @@ private:
 public:
 
 
-    Arducam(int cs);
+    Arducam_Mega(int cs);
     //**********************************************
     //!
     //! @brief Initialize the configuration of the camera module

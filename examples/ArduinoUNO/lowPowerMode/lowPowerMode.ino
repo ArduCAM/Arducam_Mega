@@ -8,12 +8,12 @@
 // 1. Set the camera to JPEG output mode.
 // 2. Read data from Serial port and deal with it
 // 3. If receive 0x10,camera will capture a JPEG photo and buffer the image to FIFO.Then write datas to Serial port.
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "Platform.h"
 #include "ArducamLink.h"
 
 const int CS = 7;
-Arducam myCAM( CS );
+Arducam_Mega myCAM( CS );
 ArducamLink myUart;
 uint8_t temp = 0xff;
 uint8_t sendFlag = TRUE;

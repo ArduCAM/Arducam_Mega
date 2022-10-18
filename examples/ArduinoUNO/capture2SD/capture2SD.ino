@@ -8,7 +8,7 @@
 // 2. Capture a JPEG photo and buffer the image to FIFO
 // 3.Write the picture data to the SD card
 // 5.close the file
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "Platform.h"
 #include <SD.h>
 
@@ -26,7 +26,7 @@ uint8_t headFlag = 0;
 unsigned int i = 0;
 uint8_t imageBuff[BUFFER_SIZE] = {0};
 
-Arducam myCAM( CS );
+Arducam_Mega myCAM( CS );
 uint8_t keyState = 0;
 uint8_t isCaptureFlag = 0;
 void setup() {

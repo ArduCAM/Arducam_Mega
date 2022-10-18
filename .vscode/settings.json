@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "arducam.h": "c",
+        "platform.h": "c"
+    }
+}
