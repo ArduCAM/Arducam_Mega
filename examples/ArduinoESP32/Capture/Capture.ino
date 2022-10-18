@@ -3,7 +3,7 @@
 // Web: http://www.ArduCAM.com
 #include <WiFi.h>
 #include <WebServer.h>
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "Platform.h"
 
 const char* ssid = "ArducamWifi";
@@ -12,7 +12,7 @@ const char* passwoed = NULL;
 CAM_IMAGE_MODE imageMode = CAM_IMAGE_MODE_QVGA;
 WebServer server(80);
 const int CS = 17;
-Arducam myCAM( CS );
+Arducam_Mega myCAM( CS );
 uint8_t imageData = 0;
 uint8_t imageDataNext = 0;
 uint8_t headFlag = 0;

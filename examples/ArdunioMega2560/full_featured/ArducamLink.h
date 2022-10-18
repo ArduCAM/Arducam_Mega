@@ -8,7 +8,7 @@
  */
 #ifndef __ARDUCAMLINK_H
 #define __ARDUCAMLINK_H
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "stdint.h"
 
 
@@ -40,9 +40,9 @@ public:
     ArducamLink();
     ~ArducamLink();
     void arducamUartBegin(uint32_t);
-    uint8_t uartCommandProcessing(Arducam*,uint8_t*);
-    void reportCameraInfo(Arducam*);
-    void cameraGetPicture(Arducam*);
+    uint8_t uartCommandProcessing(Arducam_Mega*,uint8_t*);
+    void reportCameraInfo(Arducam_Mega*);
+    void cameraGetPicture(Arducam_Mega*);
     void arducamUartWrite(uint8_t);
     void arducamUartWriteBuff(uint8_t*,uint8_t);
     uint32_t arducamUartAvailable(void);

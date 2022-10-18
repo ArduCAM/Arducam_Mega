@@ -24,7 +24,7 @@ void ArducamLink::arducamUartBegin(uint32_t baudRate)
 }
 
 
-void ArducamLink::reportCameraInfo(Arducam* myCamera)
+void ArducamLink::reportCameraInfo(Arducam_Mega* myCamera)
 {
 	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
 	Serial.println("ReportCameraInfo");
@@ -48,7 +48,7 @@ void ArducamLink::reportCameraInfo(Arducam* myCamera)
 	Serial.println(cameraInstance->myCameraInfo.supportSharpness);
 }
 
-void ArducamLink::cameraGetPicture(Arducam* myCamera)
+void ArducamLink::cameraGetPicture(Arducam_Mega* myCamera)
 {
 	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
 	uint8_t buff[READ_IMAGE_LENGTH] = {0};
@@ -71,7 +71,7 @@ void ArducamLink::cameraGetPicture(Arducam* myCamera)
 
 
 
-uint8_t ArducamLink::uartCommandProcessing(Arducam* myCAM,uint8_t* commandBuff)
+uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM,uint8_t* commandBuff)
 {
 	ArducamCamera* cameraInstance = myCAM->getCameraInstance();
 	CamStatus state;

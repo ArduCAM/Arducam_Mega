@@ -9,144 +9,144 @@
  */
 
 
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "Platform.h"
 
-Arducam::Arducam(int CS)
+Arducam_Mega::Arducam_Mega(int CS)
 {
     cameraInfo = createArducamCamera(CS);
 }
 
 
 
-CamStatus Arducam::begin(void)
+CamStatus Arducam_Mega::begin(void)
 {
    return ::begin(&cameraInfo);
 }
 
-CamStatus Arducam::takePicture(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format)
+CamStatus Arducam_Mega::takePicture(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format)
 {
     return ::takePicture(&cameraInfo,mode,pixel_format);
 }
 
-CamStatus Arducam::takeMultiPictures(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format, uint8_t num)
+CamStatus Arducam_Mega::takeMultiPictures(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format, uint8_t num)
 {
     return ::takeMultiPictures(&cameraInfo,mode,pixel_format,num);
 }
 
 
-CamStatus Arducam::startPreview(CAM_VIDEO_MODE mode)
+CamStatus Arducam_Mega::startPreview(CAM_VIDEO_MODE mode)
 {
     return ::startPreview(&cameraInfo,mode);
 }
 
-CamStatus Arducam::stopPreview(void)
+CamStatus Arducam_Mega::stopPreview(void)
 {
     return ::stopPreview(&cameraInfo);
 }
 
-CamStatus Arducam::setAutoExposure(uint8_t val)
+CamStatus Arducam_Mega::setAutoExposure(uint8_t val)
 {
     return ::setAutoExposure(&cameraInfo,val);
 }
 
-CamStatus Arducam::setAbsoluteExposure(uint32_t val)
+CamStatus Arducam_Mega::setAbsoluteExposure(uint32_t val)
 {
     return ::setAbsoluteExposure(&cameraInfo,val);
 }
 
-CamStatus Arducam::setAutoISOSensitive(uint8_t val)
+CamStatus Arducam_Mega::setAutoISOSensitive(uint8_t val)
 {
     return ::setAutoISOSensitive(&cameraInfo,val);
 }
 
-CamStatus Arducam::setISOSensitivity(int val)
+CamStatus Arducam_Mega::setISOSensitivity(int val)
 {
     return ::setISOSensitivity(&cameraInfo,val);
 }
 
-CamStatus Arducam::setAutoWhiteBalance(uint8_t val)
+CamStatus Arducam_Mega::setAutoWhiteBalance(uint8_t val)
 {
     return ::setAutoWhiteBalance(&cameraInfo,val);
 }
-CamStatus Arducam::setAutoWhiteBalanceMode(CAM_WHITE_BALANCE mode)
+CamStatus Arducam_Mega::setAutoWhiteBalanceMode(CAM_WHITE_BALANCE mode)
 {
     return ::setAutoWhiteBalanceMode(&cameraInfo,mode);
 }
 
-CamStatus Arducam::setColorEffect(CAM_COLOR_FX effect)
+CamStatus Arducam_Mega::setColorEffect(CAM_COLOR_FX effect)
 {
     return ::setColorEffect(&cameraInfo,effect);
 }
 
-CamStatus Arducam::setAutoFocus(uint8_t val)
+CamStatus Arducam_Mega::setAutoFocus(uint8_t val)
 {
     return ::setAutoFocus(&cameraInfo,val);
 }
 
-CamStatus Arducam::setSaturation(CAM_STAURATION_LEVEL level)
+CamStatus Arducam_Mega::setSaturation(CAM_STAURATION_LEVEL level)
 {
     return ::setSaturation(&cameraInfo,level);
 }
 
-CamStatus Arducam::setEV(CAM_EV_LEVEL level)
+CamStatus Arducam_Mega::setEV(CAM_EV_LEVEL level)
 {
     return ::setEV(&cameraInfo,level);
 }
-CamStatus Arducam::setContrast(CAM_CONTRAST_LEVEL level)
+CamStatus Arducam_Mega::setContrast(CAM_CONTRAST_LEVEL level)
 {
     return ::setContrast(&cameraInfo,level);
 }
 
-CamStatus Arducam::setBrightness(CAM_BRIGHTNESS_LEVEL level)
+CamStatus Arducam_Mega::setBrightness(CAM_BRIGHTNESS_LEVEL level)
 {
     return ::setBrightness(&cameraInfo,level);
 }
 
-CamStatus Arducam::setSharpness(CAM_SHARPNESS_LEVEL level)
+CamStatus Arducam_Mega::setSharpness(CAM_SHARPNESS_LEVEL level)
 {
     return ::setSharpness(&cameraInfo,level);
 }
 
-uint8_t Arducam::readBuff(uint8_t*buff,uint8_t length)
+uint8_t Arducam_Mega::readBuff(uint8_t*buff,uint8_t length)
 {
     return ::readBuff(&cameraInfo,buff,length);
 }
-uint8_t Arducam::readByte(void)
+uint8_t Arducam_Mega::readByte(void)
 {
     return ::readByte(&cameraInfo);
 }
-void Arducam::debugWriteRegister(uint8_t* buff)
+void Arducam_Mega::debugWriteRegister(uint8_t* buff)
 {
     ::debugWriteRegister(&cameraInfo,buff);
 }
-void Arducam::registerCallBack(BUFFER_CALLBACK function,uint8_t blockSize)
+void Arducam_Mega::registerCallBack(BUFFER_CALLBACK function,uint8_t blockSize)
 {
     ::registerCallback(&cameraInfo,function,blockSize);
 }
 
-void Arducam::lowPowerOn(void)
+void Arducam_Mega::lowPowerOn(void)
 {
     ::lowPowerOn(&cameraInfo);
 }
 
 
-void Arducam::lowPowerOff(void)
+void Arducam_Mega::lowPowerOff(void)
 {
     ::lowPowerOff(&cameraInfo);
 }
 
-uint32_t Arducam::getTotalLength(void)
+uint32_t Arducam_Mega::getTotalLength(void)
 {
     return cameraInfo.totalLength;
 }
 
-uint32_t Arducam::getReceivedLength(void)
+uint32_t Arducam_Mega::getReceivedLength(void)
 {
     return cameraInfo.receivedLength;
 }
 
-ArducamCamera* Arducam::getCameraInstance(void)
+ArducamCamera* Arducam_Mega::getCameraInstance(void)
 {
     return &cameraInfo;
 }

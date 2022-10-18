@@ -6,13 +6,13 @@
 // This demo was made for ArduCAM Spi Camera.
 // It needs to be used in combination with PC software.
 // It can test ArduCAM Spi Camerafunctions
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "Platform.h"
 #include "ArducamLink.h"
 #include "Arduino.h"
 
 const int CS = 7;
-Arducam myCAM( CS );
+Arducam_Mega myCAM( CS );
 ArducamLink myUart;
 uint8_t temp = 0xff;
 uint8_t sendFlag = TRUE;

@@ -21,7 +21,7 @@
 // 18-1B :Hdr1 contains avih piece of identification 
 // 1C-1F :The size of the avih
 // 20-23 :Maintain time per frame picture
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "Platform.h"
 #include <SD.h>
 
@@ -33,7 +33,7 @@
 const int KEY = 2;
 const int CS = 7;
 const int SD_CS = 9;
-Arducam myCAM( CS );
+Arducam_Mega myCAM( CS );
 uint8_t count = 0;
 char name[10] = {0};
 uint8_t imageData = 0;
