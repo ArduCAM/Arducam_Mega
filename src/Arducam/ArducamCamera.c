@@ -8,7 +8,7 @@
  */
 
 
-#include "Arducam.h"
+#include "ArducamCamera.h"
 
 
 /// @cond

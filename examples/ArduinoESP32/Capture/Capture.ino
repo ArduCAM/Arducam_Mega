@@ -3,7 +3,7 @@
 // Web: http://www.ArduCAM.com
 #include <WiFi.h>
 #include <WebServer.h>
-#include "Arducam.hpp"
+#include "Arducam.h"
 #include "Platform.h"
 
 const char* ssid = "ArducamWifi";

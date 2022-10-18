@@ -8,7 +8,7 @@
  */
 #ifndef __ARDUCAMLINK_H
 #define __ARDUCAMLINK_H
-#include "Arducam.hpp"
+#include "Arducam.h"
 #include "stdint.h"
 
 

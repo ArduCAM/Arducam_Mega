@@ -9,7 +9,7 @@
  */
 
 
-#include "Arducam.hpp"
+#include "Arducam.h"
 #include "Platform.h"
 
 Arducam::Arducam(int CS)
