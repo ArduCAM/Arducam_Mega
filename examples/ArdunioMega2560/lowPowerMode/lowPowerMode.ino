@@ -9,7 +9,7 @@
 // 2. Read data from Serial port and deal with it
 // 3. If receive 0x10,camera will capture a JPEG photo and buffer the image to FIFO.Then write datas to Serial port.
 #include "Arducam_Mega.h"
-#include "Platform.h"
+// #include "Platform.h"
 #include "ArducamLink.h"
 
 const int CS = 7;

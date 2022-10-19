@@ -10,7 +10,7 @@
 
 
 #include "Arducam_Mega.h"
-#include "Platform.h"
+// #include "Platform.h"
 
 Arducam_Mega::Arducam_Mega(int CS)
 {

@@ -24,3 +24,4 @@ JLinkLog.txt
 *.map
 *.lst
 *.m51
+.vscode/

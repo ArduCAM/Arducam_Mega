@@ -4,7 +4,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 #include "Arducam_Mega.h"
-#include "Platform.h"
+// #include "Platform.h"
 
 const char* ssid = "ArducamWifi";
 const char* passwoed = NULL;

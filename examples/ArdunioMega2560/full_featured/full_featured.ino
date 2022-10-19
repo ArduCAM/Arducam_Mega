@@ -7,7 +7,7 @@
 // It needs to be used in combination with PC software.
 // It can test ArduCAM Spi Camerafunctions
 #include "Arducam_Mega.h"
-#include "Platform.h"
+// #include "Platform.h"
 #include "ArducamLink.h"
 
 const int CS = 7;

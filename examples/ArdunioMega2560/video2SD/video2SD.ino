@@ -22,7 +22,7 @@
 // 1C-1F :The size of the avih
 // 20-23 :Maintain time per frame picture
 #include "Arducam_Mega.h"
-#include "Platform.h"
+// #include "Platform.h"
 #include <SD.h>
 
 #define  FRAMES_NUM   200
