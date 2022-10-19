@@ -9,7 +9,7 @@
 // 3.Write the picture data to the SD card
 // 5.close the file
 #include "Arducam_Mega.h"
-#include "Platform.h"
+// #include "Platform.h"
 #include <SD.h>
 
 #define  BUFFER_SIZE  0xff

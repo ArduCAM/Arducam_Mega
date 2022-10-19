@@ -8,7 +8,7 @@
  */
 #ifndef __ARDUCAMLINK_H
 #define __ARDUCAMLINK_H
-#include "Arducam.h"
+#include "Arducam_Mega.h"
 #include "stdint.h"
 
 
@@ -49,11 +49,5 @@ public:
     uint8_t arducamUartRead(void);
     void arducamFlush(void);
 };
-
-
-
-
-
-
 
 #endif /*__ARDUCAMLINK_H*/
