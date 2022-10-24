@@ -1,0 +1,14 @@
+configName: arducam_mega
+folderName: same54_xpro_arducam_mega
+format_version: v1.0
+frameworkPath: E:\Microchip\framework\Harmony3
+processor: ATSAME54P20A
+projectName: same54_xpro_arducam_mega
+settings:
+  PackageFilter: csp;dev_packs;harmony-services;quick_docs
+  FORCE_OPTIMIZATION: 'false'
+  GENERATE_BACKUP: 'true'
+  TRUSTZONE: 'false'
+  CMSISPath: .\dev_packs\arm\CMSIS\5.8.0
+  MERGE_STRATEGY: USER_ALL
+  DFPPath: .\dev_packs\Microchip\SAME54_DFP\3.7.122\atdf\ATSAME54P20A.atdf

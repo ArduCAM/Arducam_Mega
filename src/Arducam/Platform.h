@@ -20,6 +20,8 @@
     #include "ArduinoHal.h"
 #elif defined (__MSP430G2553__)
     #include "Msp430Hal.h"
+#elif defined (__XC32)
+    #include "Same54Hal.h"
 #endif
 
 #endif /*__PLATFORM_H*/
