@@ -1,0 +1,207 @@
+format_version: v1.0
+type: UniqueComponent
+attributes: {id: tc0}
+children:
+- type: Symbols
+  children:
+  - type: File
+    attributes: {id: TC_CAPTURE_HEADER}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'false'}
+  - type: File
+    attributes: {id: TC_CAPTURE_SOURCE}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'false'}
+  - type: Long
+    attributes: {id: TC_COMPARE_CC0}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: label}
+        children:
+        - {type: Value, value: Compare 0 Value (Period)}
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '3000'}
+  - type: Long
+    attributes: {id: TC_COMPARE_CC1}
+    children:
+    - type: Attributes
+      children:
+      - type: Long
+        attributes: {id: max}
+        children:
+        - {type: Value, value: '3000'}
+  - type: KeyValueSet
+    attributes: {id: TC_COMPARE_CTRLBSET_DIR}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '1'}
+  - type: Boolean
+    attributes: {id: TC_COMPARE_EVCTRL_OVFEO}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: 'true'}
+  - type: File
+    attributes: {id: TC_COMPARE_HEADER}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'true'}
+  - type: Boolean
+    attributes: {id: TC_COMPARE_INTENSET_MC0}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: 'true'}
+  - type: Boolean
+    attributes: {id: TC_COMPARE_INTERRUPT_MODE}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tc0, value: 'true'}
+  - type: Menu
+    attributes: {id: TC_COMPARE_MENU}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'true'}
+  - type: Comment
+    attributes: {id: TC_COMPARE_PERIOD_COMMENT}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: text}
+        children:
+        - {type: Value, value: '**** Compare Period is 100.0 us ****'}
+  - type: File
+    attributes: {id: TC_COMPARE_SOURCE}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'true'}
+  - type: Comment
+    attributes: {id: TC_COMPARE_TOP}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: text}
+        children:
+        - {type: Value, value: '**** Period Value is 0xffff ****'}
+  - type: KeyValueSet
+    attributes: {id: TC_COMPARE_WAVE_WAVEGEN}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '1'}
+  - type: KeyValueSet
+    attributes: {id: TC_CTRLA_PRESCALER}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '1'}
+  - type: Integer
+    attributes: {id: TC_FREQUENCY}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tc0, value: '30000000'}
+  - type: Combo
+    attributes: {id: TC_OPERATION_MODE}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: Compare}
+  - type: Comment
+    attributes: {id: TC_Resolution}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: text}
+        children:
+        - {type: Value, value: '****Timer resolution is 33.3333333333 nS****'}
+  - type: File
+    attributes: {id: TC_TIMER_HEADER}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'false'}
+  - type: Menu
+    attributes: {id: TC_TIMER_MENU}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: visible}
+        children:
+        - {type: Value, value: 'false'}
+  - type: Long
+    attributes: {id: TC_TIMER_PERIOD}
+    children:
+    - type: Attributes
+      children:
+      - type: Long
+        attributes: {id: max}
+        children:
+        - {type: Value, value: '65535'}
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: tc0, value: '30000'}
+  - type: File
+    attributes: {id: TC_TIMER_SOURCE}
+    children:
+    - type: Attributes
+      children:
+      - type: Boolean
+        attributes: {id: enabled}
+        children:
+        - {type: Value, value: 'false'}
+  - type: Float
+    attributes: {id: TC_TIMER_TIME_MS}
+    children:
+    - type: Attributes
+      children:
+      - type: Float
+        attributes: {id: max}
+        children:
+        - {type: Value, value: '2.1845334'}
+- type: ElementPosition
+  attributes: {x: '960', y: '20', id: tc0}
