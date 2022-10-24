@@ -12,7 +12,7 @@
 #include "ArducamLink.h"
 
 const int CS = 7;
-Arducam myCAM(CS);
+Arducam_Mega myCAM(CS);
 ArducamLink myUart;
 uint8_t temp = 0xff;
 uint8_t sendFlag = TRUE;

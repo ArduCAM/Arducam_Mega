@@ -25,3 +25,4 @@ JLinkLog.txt
 *.lst
 *.m51
 .vscode/
+*.hex
