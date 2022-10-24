@@ -7,7 +7,7 @@
  *
  */
 #include "usart.h"
-#include "Arducam.h"
+#include "ArducamCamera.h"
 #include "Platform.h"
 
 
