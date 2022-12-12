@@ -30,6 +30,7 @@
 #define TAKE_PICTURE             0X10
 #define SET_SHARPNESS            0X11
 #define DEBUG_WRITE_REGISTER     0X12
+#define STOP_STREAM              0X21
 #define READ_IMAGE_LENGTH        255
 
 class ArducamLink
