@@ -24,6 +24,13 @@ void ArducamLink::arducamUartBegin(uint32_t baudRate)
 }
 
 
+void ArducamLink::reportVerInfo(Arducam_Mega* myCamera)
+{
+	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
+  Serial.write(cameraInstance->verDate,3);
+	Serial.println();
+}
+
 void ArducamLink::reportCameraInfo(Arducam_Mega* myCamera)
 {
 	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
@@ -153,6 +160,9 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM,uint8_t* commandB
 	case GET_CAMERA_INFO:															//Get Camera info
 		reportCameraInfo(myCAM);
 		break;
+  case GET_VER_INFO:															//Get Camera info
+		reportVerInfo(myCAM);
+		break;
 	case TAKE_PICTURE:
 		myCAM->takePicture((CAM_IMAGE_MODE)cameraResolution,(CAM_IMAGE_PIX_FMT)cameraFarmat);
 		cameraGetPicture(myCAM);
@@ -160,6 +170,7 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM,uint8_t* commandB
 	case DEBUG_WRITE_REGISTER:
 		myCAM->debugWriteRegister(commandBuff+1);
 		break;
+
 	default:
 		break;
 	}

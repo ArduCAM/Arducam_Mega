@@ -240,6 +240,7 @@ typedef struct {
 	struct CameraInfo myCameraInfo;	/**< Basic information of the current camera */
 	const struct CameraOperations* arducamCameraOp;  /**< Camera function interface */
 	BUFFER_CALLBACK callBackFunction;				/**< Camera callback function */
+	uint8_t verDate[3];             /**< Camera firmware version*/
 }ArducamCamera;
 
 

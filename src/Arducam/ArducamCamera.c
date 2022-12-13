@@ -62,6 +62,9 @@
 #define CAM_REG_MANUAL_EXPOSURE_BIT_15_8   			0X2E
 #define CAM_REG_MANUAL_EXPOSURE_BIT_7_0   	 		0X2F
 #define CAM_REG_SENSOR_ID 					 		0x40
+#define CAM_REG_YEAR_ID 					 		0x41
+#define CAM_REG_MONTH_ID 					 		0x42
+#define CAM_REG_DAY_ID 					 			0x43
 #define CAM_REG_SENSOR_STATE				 		0x44
 #define CAM_REG_DEBUG_DEVICE_ADDRESS  				0X0A
 #define CAM_REG_DEBUG_REGISTER_HIGH   				0X0B
@@ -202,6 +205,12 @@ CamStatus cameraBegin(ArducamCamera*camera)
 	writeReg(camera,CAM_REG_SENSOR_RESET,CAM_SENSOR_RESET_ENABLE);  //reset cpld and camera
 	waitI2cIdle(camera);																					//Wait I2c Idle
 	camera->cameraId=readReg(camera,CAM_REG_SENSOR_ID);
+	waitI2cIdle(camera);
+	camera->verDate[0]=readReg(camera,CAM_REG_YEAR_ID)&0x3F; //year
+	waitI2cIdle(camera);
+	camera->verDate[1]=readReg(camera,CAM_REG_MONTH_ID)&0x0F; //month
+	waitI2cIdle(camera);
+	camera->verDate[2]=readReg(camera,CAM_REG_DAY_ID)&0x1F; //day
 	waitI2cIdle(camera);
 	camera->cameraId&=0X0F;
 	camera->cameraId-=1;
