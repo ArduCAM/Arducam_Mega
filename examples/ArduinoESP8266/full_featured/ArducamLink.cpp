@@ -171,10 +171,10 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM,uint8_t* commandB
 	case GET_CAMERA_INFO:															//Get Camera info
 		reportCameraInfo(myCAM);
 		break;
-  case GET_FRM_VER_INFO:															//Get Camera info
+  case GET_FRM_VER_INFO:															//Get Firmware version info
 		reportVerInfo(myCAM);
 		break;
-  case GET_SDK_VER_INFO:															//Get Camera info
+  case GET_SDK_VER_INFO:															//Get sdk version info
 		reportSdkVerInfo(myCAM);
 		break;
 	case TAKE_PICTURE:
