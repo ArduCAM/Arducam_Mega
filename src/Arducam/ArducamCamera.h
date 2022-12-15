@@ -213,6 +213,7 @@ typedef enum  {
 	CAM_COLOR_FX_GRASS_GREEN, /**<Grass green */
 	CAM_COLOR_FX_OVER_EXPOSURE, /**<Over exposure*/
 	CAM_COLOR_FX_SOLARIZE,		/**< Solarize   */
+	CAM_COLOR_FX_YELLOWISH,
 }CAM_COLOR_FX;
 
 
