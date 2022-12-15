@@ -31,6 +31,17 @@ void ArducamLink::reportVerInfo(Arducam_Mega* myCamera)
 	Serial.println();
 }
 
+void ArducamLink::reportSdkVerInfo(Arducam_Mega* myCamera)
+{
+	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
+  
+  Serial.write((cameraInstance->currentSDK->sdkVersion>>24)&0xFF);
+  Serial.write((cameraInstance->currentSDK->sdkVersion>>16)&0xFF);
+  Serial.write((cameraInstance->currentSDK->sdkVersion>>8)&0xFF);
+  Serial.write((cameraInstance->currentSDK->sdkVersion)&0xFF);
+	Serial.println();
+}
+
 void ArducamLink::reportCameraInfo(Arducam_Mega* myCamera)
 {
 	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
@@ -160,8 +171,11 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM,uint8_t* commandB
 	case GET_CAMERA_INFO:															//Get Camera info
 		reportCameraInfo(myCAM);
 		break;
-  case GET_VER_INFO:															//Get Camera info
+  case GET_FRM_VER_INFO:															//Get Camera info
 		reportVerInfo(myCAM);
+		break;
+  case GET_SDK_VER_INFO:															//Get Camera info
+		reportSdkVerInfo(myCAM);
 		break;
 	case TAKE_PICTURE:
 		myCAM->takePicture((CAM_IMAGE_MODE)cameraResolution,(CAM_IMAGE_PIX_FMT)cameraFarmat);

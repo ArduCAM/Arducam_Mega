@@ -55,7 +55,6 @@ uint8_t readBuffer(uint8_t* imagebuf, uint8_t length) {
           myCAM.setSaturation((CAM_STAURATION_LEVEL)commandBuff[1]);
           break;
         case SET_EV:  //Set EV
-
           myCAM.setEV((CAM_EV_LEVEL)commandBuff[1]);
           break;
         case SET_WHITEBALANCE:  //Set White balance
@@ -80,7 +79,6 @@ uint8_t readBuffer(uint8_t* imagebuf, uint8_t length) {
           myCAM.setAutoWhiteBalance(commandBuff[1] & 0x01);
           break;
         case SET_SHARPNESS:
-        
           myCAM.setSharpness((CAM_SHARPNESS_LEVEL)commandBuff[1]);
           break;
         case SET_MANUAL_GAIN:  //manual gain control
@@ -124,7 +122,7 @@ uint8_t readBuffer(uint8_t* imagebuf, uint8_t length) {
 }
 
 void setup() {
-  myUart.arducamUartBegin(115200);
+  myUart.arducamUartBegin(921600);
   myCAM.begin();
   myCAM.registerCallBack(readBuffer, 200);
 }

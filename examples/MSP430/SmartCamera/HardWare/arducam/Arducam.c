@@ -8,7 +8,7 @@
  */
 
 
-#include "ArducamCamera.h"
+#include "Arducam.h"
 
 
 /// @cond
@@ -62,9 +62,6 @@
 #define CAM_REG_MANUAL_EXPOSURE_BIT_15_8   			0X2E
 #define CAM_REG_MANUAL_EXPOSURE_BIT_7_0   	 		0X2F
 #define CAM_REG_SENSOR_ID 					 		0x40
-#define CAM_REG_YEAR_ID 					 		0x41
-#define CAM_REG_MONTH_ID 					 		0x42
-#define CAM_REG_DAY_ID 					 			0x43
 #define CAM_REG_SENSOR_STATE				 		0x44
 #define CAM_REG_DEBUG_DEVICE_ADDRESS  				0X0A
 #define CAM_REG_DEBUG_REGISTER_HIGH   				0X0B
@@ -103,9 +100,6 @@
 #define RESOLUTION_1920X1080   (1<<7)
 #define RESOLUTION_2048X1536   (1<<8)
 #define RESOLUTION_2592X1944   (1<<9)
-#define RESOLUTION_320x320     (1<<10)
-#define RESOLUTION_128x128     (1<<11)
-#define RESOLUTION_96x96       (1<<12)
 
 #define SPECIAL_NORMAL       (0<<0)
 #define SPECIAL_BLUEISH      (1<<0)
@@ -114,11 +108,10 @@
 #define SPECIAL_SEPIA		 (1<<3)
 #define SPECIAL_NEGATIVE	 (1<<4)
 #define SPECIAL_GREENISH	 (1<<5)
+#define SPECIAL_OVEREXPOSURE (1<<6)
+#define SPECIAL_SOLARIZE	 (1<<7)
 #define SPECIAL_YELLOWISH    (1<<8)
 
-struct SdkInfo currentSDK = {
-	.sdkVersion = SDK_VERSION,
-};
 
 struct cameraDefaultState
 {
@@ -146,8 +139,8 @@ void startCapture(ArducamCamera*camera);
 
 struct CameraInfo OV5640_CameraInfo = {
 	.cameraId = "5MP",
-	.supportResolution = RESOLUTION_320x320|RESOLUTION_128x128|RESOLUTION_96x96|RESOLUTION_320X240|RESOLUTION_640X480|RESOLUTION_1280X720|RESOLUTION_1600X1200|RESOLUTION_1920X1080|RESOLUTION_2592X1944,				
-	.supportSpecialEffects = SPECIAL_BLUEISH|SPECIAL_REDISH|SPECIAL_BW|SPECIAL_SEPIA|SPECIAL_NEGATIVE|SPECIAL_GREENISH,
+	.supportResolution = RESOLUTION_320X240|RESOLUTION_640X480|RESOLUTION_1280X720|RESOLUTION_1600X1200|RESOLUTION_1920X1080|RESOLUTION_2592X1944,				
+	.supportSpecialEffects = SPECIAL_BLUEISH|SPECIAL_REDISH|SPECIAL_BW|SPECIAL_SEPIA|SPECIAL_NEGATIVE|SPECIAL_GREENISH|SPECIAL_OVEREXPOSURE|SPECIAL_SOLARIZE,
 	.exposureValueMax = 30000,	
 	.exposureValueMin = 1000,
 	.gainValueMax = 1023,
@@ -159,7 +152,7 @@ struct CameraInfo OV5640_CameraInfo = {
 
 struct CameraInfo OV3640_CameraInfo = {
 	.cameraId = "3MP",
-	.supportResolution = RESOLUTION_320x320|RESOLUTION_128x128|RESOLUTION_96x96|RESOLUTION_320X240|RESOLUTION_640X480|RESOLUTION_1280X720|RESOLUTION_1600X1200|RESOLUTION_1920X1080|RESOLUTION_2048X1536,
+	.supportResolution = RESOLUTION_320X240|RESOLUTION_640X480|RESOLUTION_1280X720|RESOLUTION_1600X1200|RESOLUTION_1920X1080|RESOLUTION_2048X1536,
 	.supportSpecialEffects=SPECIAL_BLUEISH|SPECIAL_REDISH|SPECIAL_BW|SPECIAL_SEPIA|SPECIAL_NEGATIVE|SPECIAL_GREENISH|SPECIAL_YELLOWISH,
 	.exposureValueMax = 1400,	
 	.exposureValueMin = 100,
@@ -206,12 +199,6 @@ CamStatus cameraBegin(ArducamCamera*camera)
 	writeReg(camera,CAM_REG_SENSOR_RESET,CAM_SENSOR_RESET_ENABLE);  //reset cpld and camera
 	waitI2cIdle(camera);																					//Wait I2c Idle
 	camera->cameraId=readReg(camera,CAM_REG_SENSOR_ID);
-	waitI2cIdle(camera);
-	camera->verDate[0]=readReg(camera,CAM_REG_YEAR_ID)&0x3F; //year
-	waitI2cIdle(camera);
-	camera->verDate[1]=readReg(camera,CAM_REG_MONTH_ID)&0x0F; //month
-	waitI2cIdle(camera);
-	camera->verDate[2]=readReg(camera,CAM_REG_DAY_ID)&0x1F; //day
 	waitI2cIdle(camera);
 	camera->cameraId&=0X0F;
 	camera->cameraId-=1;
@@ -854,7 +841,6 @@ ArducamCamera createArducamCamera(int CS)
 	camera.previewMode=FALSE;
 	camera.csPin = CS;
 	camera.arducamCameraOp = &ArducamcameraOperations;
-	camera.currentSDK = &currentSDK;
 	return camera;
 }
 

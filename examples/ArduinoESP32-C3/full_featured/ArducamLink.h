@@ -31,7 +31,8 @@
 #define SET_SHARPNESS            0X11
 #define DEBUG_WRITE_REGISTER     0X12
 #define STOP_STREAM              0X21
-#define GET_VER_INFO             0X30
+#define GET_FRM_VER_INFO         0X30
+#define GET_SDK_VER_INFO         0X40
 #define READ_IMAGE_LENGTH        255
 
 class ArducamLink
@@ -45,6 +46,7 @@ public:
     uint8_t uartCommandProcessing(Arducam_Mega*,uint8_t*);
     void reportCameraInfo(Arducam_Mega*);
     void reportVerInfo(Arducam_Mega* myCamera);
+    void reportSdkVerInfo(Arducam_Mega* myCamera);
     void cameraGetPicture(Arducam_Mega*);
     void arducamUartWrite(uint8_t);
     void arducamUartWriteBuff(uint8_t*,uint8_t);

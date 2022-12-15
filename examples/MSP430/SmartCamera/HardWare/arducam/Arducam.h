@@ -1,4 +1,3 @@
-
 /*
  * This file is part of the Arducam SPI Camera project.
  *
@@ -24,22 +23,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/// @cond
-#define SDK_VERSION  0X00010000 
-/// @endcond
+
 
 /// @cond
 #define TRUE  1  
 #define FALSE 0  
 /// @endcond
-
-/**
-* @struct SdkInfo
-* @brief Basic information of the sdk
-*/
-struct SdkInfo{
-	unsigned long sdkVersion;		/**<Sdk version */
-};
 
 /**
 * @struct CameraInfo
@@ -85,10 +74,10 @@ typedef enum {
 	CAM_IMAGE_MODE_FHD  = 0x07, /**<1920x1080*/
 	CAM_IMAGE_MODE_QXGA = 0x08, /**<2048x1536*/
 	CAM_IMAGE_MODE_WQXGA2 = 0x09, /**<2592x1944*/
-	CAM_IMAGE_MODE_96X96 = 0x0a, /**<96x96*/
+	CAM_IMAGE_MODE_9 = 0x0a, /**<Reserve*/
 /// @cond
-	CAM_IMAGE_MODE_128X128 = 0x0b, /**<128x128*/
-	CAM_IMAGE_MODE_320X320 = 0x0c, /**<320x320*/
+	CAM_IMAGE_MODE_10 = 0x0b, /**<Reserve*/
+	CAM_IMAGE_MODE_11 = 0x0c, /**<Reserve*/
 	CAM_IMAGE_MODE_12 = 0x0d, /**<Reserve*/
 	CAM_IMAGE_MODE_13 = 0x0e, /**<Reserve*/
 	CAM_IMAGE_MODE_14 = 0x0f, /**<Reserve*/
@@ -223,7 +212,6 @@ typedef enum  {
 	CAM_COLOR_FX_GRASS_GREEN, /**<Grass green */
 	CAM_COLOR_FX_OVER_EXPOSURE, /**<Over exposure*/
 	CAM_COLOR_FX_SOLARIZE,		/**< Solarize   */
-	CAM_COLOR_FX_YELLOWISH,
 }CAM_COLOR_FX;
 
 
@@ -251,8 +239,6 @@ typedef struct {
 	struct CameraInfo myCameraInfo;	/**< Basic information of the current camera */
 	const struct CameraOperations* arducamCameraOp;  /**< Camera function interface */
 	BUFFER_CALLBACK callBackFunction;				/**< Camera callback function */
-	uint8_t verDate[3];             /**< Camera firmware version*/
-	struct SdkInfo* currentSDK;     /**< Current SDK version*/
 }ArducamCamera;
 
 
