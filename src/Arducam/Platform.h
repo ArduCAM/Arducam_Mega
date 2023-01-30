@@ -8,21 +8,20 @@
  *
  */
 
+#ifndef __PLATFORM_H
+#define __PLATFORM_H
 
-
-#ifndef  __PLATFORM_H
-#define  __PLATFORM_H
-
-
-#if defined (STM32F10X_MD)
-    #include "Stm32Hal.h"
-#elif defined (__AVR__) || defined(__SAM3X8E__)  || defined  (ESP32) || defined  (ESP8266) || defined (ARDUINO_ARCH_NRF52840) || defined  (ARDUINO_ARCH_RP2040) || defined (NRF52833_XXAA)
-    #include "ArduinoHal.h"
-#elif defined (__MSP430G2553__)
-    #include "Msp430Hal.h"
-#elif defined (__XC32)
-    #include "Same54Hal.h"
+#if defined(STM32F10X_MD)
+#include "Stm32Hal.h"
+#elif defined(__AVR__) || defined(__SAM3X8E__) || defined(ESP32) || defined(ESP8266) ||                                \
+    defined(ARDUINO_ARCH_NRF52840) || defined(ARDUINO_ARCH_RP2040) || defined(NRF52833_XXAA)
+#include "ArduinoHal.h"
+#elif defined(__MSP430G2553__)
+#include "Msp430Hal.h"
+#elif defined(__XC32)
+#include "Same54Hal.h"
+#elif defined(PICO_BOARD)
+#include "picoHal.h"
 #endif
 
 #endif /*__PLATFORM_H*/
-

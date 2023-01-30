@@ -98,6 +98,7 @@ uint8_t readBuffer(uint8_t* imagebuf, uint8_t length) {
   }
   if (imagebuf[0] == 0xff && imagebuf[1] == 0xd8) {
     jpegHeadFlag = 1;
+    readImageLength = 0;
     myUart.arducamUartWrite(0x55);
     myUart.arducamUartWrite(0xAA);
     myUart.arducamUartWrite(CAM_IMAGE_PIX_FMT_JPG);
@@ -113,7 +114,6 @@ uint8_t readBuffer(uint8_t* imagebuf, uint8_t length) {
     }
   }
   if (readImageLength == myCAM.getTotalLength()) {
-    readImageLength = 0;
     jpegHeadFlag = 0;
     myUart.arducamUartWrite(0x55);
     myUart.arducamUartWrite(0xBB);

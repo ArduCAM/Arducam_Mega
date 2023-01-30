@@ -4,16 +4,14 @@
  *
  * Copyright 2021 Arducam Technology co., Ltd. All Rights Reserved.
  *
- * This work is licensed under the MIT license, see the file LICENSE for details.
+ * This work is licensed under the MIT license, see the file LICENSE for
+ * details.
  *
  */
 
-
-
 #include "ArducamSpi.h"
-#include <SPI.h>
 #include "Arduino.h"
-
+#include <SPI.h>
 
 void arducamSpiBegin(void)
 {
@@ -22,7 +20,7 @@ void arducamSpiBegin(void)
 
 uint8_t arducamSpiTransfer(uint8_t data)
 {
-    return SPI.transfer(data);   
+    return SPI.transfer(data);
 }
 
 void arducamSpiCsHigh(int pin)
@@ -37,7 +35,7 @@ void arducamSpiCsLow(int pin)
 
 void arducamSpiCsOutputMode(int pin)
 {
-    pinMode(pin,OUTPUT);
+    pinMode(pin, OUTPUT);
 }
 
 void arducamDelayMs(uint16_t num)
@@ -48,4 +46,3 @@ void arducamDelayUs(uint16_t num)
 {
     delayMicroseconds(num);
 }
-

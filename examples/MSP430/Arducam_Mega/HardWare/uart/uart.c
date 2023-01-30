@@ -174,7 +174,6 @@ void cameraGetPicture(ArducamCamera*camera)
         for (uint8_t i = 0; i < rt_length; i++)
         {
             arducamUartWrite(buff[i]);
-
         }
     }
     arducamUartWrite(0x55);

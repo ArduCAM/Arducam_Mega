@@ -8,7 +8,6 @@
  *
  */
 
-
 #ifndef __ARDUCAMSPI_H
 #define __ARDUCAMSPI_H
 

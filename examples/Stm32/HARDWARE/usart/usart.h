@@ -13,7 +13,6 @@
 #include "stm32f10x.h"
 #include "stdio.h"
 
-
 #define SET_PICTURE_RESOLUTION   0X01
 #define SET_VIDEO_RESOLUTION     0X02
 #define SET_BRIGHTNESS			 0X03
@@ -32,18 +31,27 @@
 #define TAKE_PICTURE             0X10
 #define SET_SHARPNESS            0X11
 #define DEBUG_WRITE_REGISTER     0X12
+#define STOP_STREAM              0X21
+#define GET_FRM_VER_INFO         0X30
+#define GET_SDK_VER_INFO         0X40
 #define READ_IMAGE_LENGTH        255
 
-uint8_t commandProcessing(ArducamCamera*,uint8_t*,uint8_t);
-void reportCameraInfo(ArducamCamera*);
-void cameraGetPicture(ArducamCamera*);
+volatile extern uint8_t uart_state;
+volatile extern uint8_t uart1_rx_cnt;
+volatile extern uint8_t uart1_rx_head;
+volatile extern uint8_t uart1_rx_len;
+extern uint8_t UartCommBuff[20];
+
+uint8_t commandProcessing(ArducamCamera *, uint8_t *, uint8_t);
+void reportCameraInfo(ArducamCamera *);
+void reportVerInfo(ArducamCamera *myCamera);
+void reportSdkVerInfo(ArducamCamera *myCamera);
+void cameraGetPicture(ArducamCamera *);
 
 void uartInit(uint32_t BaudRate);
 void arducamUartWrite(uint8_t data);
-void uartWriteBuffer(uint8_t* buff,uint32_t length);
+void uartWriteBuffer(uint8_t *buff, uint32_t length);
 uint32_t arducamUartAvailable(void);
 uint8_t arducamUartRead(void);
 
 #endif
-
-

@@ -10,7 +10,7 @@
 #define __SPI_H
 #include "stm32f10x.h"
 
-void spiBegin(void);			 
+void spiBegin(void);
 uint8_t spiReadWriteByte(uint8_t TxData);
 void spiCsLow(int pin);
 void spiCsHigh(int pin);

@@ -4,80 +4,71 @@
  *
  * Copyright 2021 Arducam Technology co., Ltd. All Rights Reserved.
  *
- * This work is licensed under the MIT license, see the file LICENSE for details.
+ * This work is licensed under the MIT license, see the file LICENSE for
+ * details.
  *
  */
-
 
 #ifndef __SMARTSPICAM_H
 #define __SMARTSPICAM_H
 #include "Arducam/ArducamCamera.h"
 
-
-#if defined (STM32F10X_MD)
-    #include "Arducam/Stm32Hal.h"
-#elif defined (__AVR__) || defined(__SAM3X8E__)  || defined  (ESP32) || defined  (ESP8266) || defined (ARDUINO_ARCH_NRF52840) || defined  (ARDUINO_ARCH_RP2040) || defined (NRF52833_XXAA)
-    #include "Arducam/ArduinoHal.h"
-#elif defined (__MSP430G2553__)
-    #include "Arducam/Msp430Hal.h"
-#endif
-
 /**
-* @file Arducam_Mega.h
-* @author Arducam
-* @date 2021/12/6
-* @version V1.0
-* @copyright Arducam
-*/
+ * @file Arducam_Mega.h
+ * @author Arducam
+ * @date 2021/12/6
+ * @version V1.0
+ * @copyright Arducam
+ */
 
 class Arducam_Mega
 {
-private:
-
+  private:
     /**
-    * @ref ArducamCamera
-    * @brief Camera drive interface and information
-    */
-    ArducamCamera  cameraInfo;
+     * @ref ArducamCamera
+     * @brief Camera drive interface and information
+     */
+    ArducamCamera cameraInfo;
 
-
-public:
-
-
+  public:
     Arducam_Mega(int cs);
     //**********************************************
     //!
     //! @brief Initialize the configuration of the camera module
-    //! @return Return operation status 
+    //! @return Return operation status
     //**********************************************
 
     CamStatus begin(void);
-    
+
     //**********************************************
     //!
     //! @brief Start a snapshot with specified resolution and pixel format
     //!
     //! @param mode Resolution of the camera module
-    //! @param pixel_format Output image pixel format,which supports JPEG, RGB, YUV 
+    //! @param pixel_format Output image pixel format,which supports JPEG, RGB,
+    //! YUV
     //!
-    //! @return Return operation status 
-    //!			
-    //! @note The mode parameter must be the resolution which the current camera supported
+    //! @return Return operation status
+    //!
+    //! @note The mode parameter must be the resolution which the current camera
+    //! supported
     //**********************************************
-    CamStatus takePicture(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format) ;
+    CamStatus takePicture(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format);
 
     //**********************************************
     //!
-    //! @brief Start multi capture with specified number of image. 
+    //! @brief Start multi capture with specified number of image.
     //!
     //! @param mode Resolution of the camera module
-    //! @param pixel_format Output image pixel format,which supports JPEG, RGB, YUV 
+    //! @param pixel_format Output image pixel format,which supports JPEG, RGB,
+    //! YUV
     //! @param number Number of pictures taken
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
     //!
-    //! @note The mode parameter must be the resolution which the current camera supported
+    //!
+    //! @note The mode parameter must be the resolution which the current camera
+    //! supported
     //**********************************************
     CamStatus takeMultiPictures(CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format, uint8_t number);
 
@@ -87,28 +78,30 @@ public:
     //!
     //! @param mode Resolution of the camera module
     //!
-    //! @return Return operation status 
-    //!			
-    //! @note Before calling this function, you need to register the callback function.The default image pixel format is JPEG
-//**********************************************
+    //! @return Return operation status
+    //!
+    //! @note Before calling this function, you need to register the callback
+    //! function.The default image pixel format is JPEG
+    //**********************************************
     CamStatus startPreview(CAM_VIDEO_MODE mode);
 
     //**********************************************
     //!
     //! @brief Stop preview
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus stopPreview(void);
     //**********************************************
     //!
     //! @brief Set the exposure mode
     //!
-    //! @param   val `0` Turn on automatic exposure `1` Turn off automatic exposure
+    //! @param   val `0` Turn on automatic exposure `1` Turn off automatic
+    //! exposure
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setAutoExposure(uint8_t val);
     //**********************************************
@@ -117,9 +110,10 @@ public:
     //!
     //! @param   val Value of exposure line
     //!
-    //! @return Return operation status 
-    //!			
-    //! @note Before calling this function, you need to turn off the auto exposure function
+    //! @return Return operation status
+    //!
+    //! @note Before calling this function, you need to turn off the auto
+    //! exposure function
     //**********************************************
     CamStatus setAbsoluteExposure(uint32_t val);
     //**********************************************
@@ -128,29 +122,31 @@ public:
     //!
     //! @param   val `0` turn on automatic gain `1` turn off automatic gain
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setAutoISOSensitive(uint8_t val);
     //**********************************************
     //!
     //! @brief Set the gain time Manually
     //!
-    //! @param  val Value of gain 
+    //! @param  val Value of gain
     //!
-    //! @return Return operation status 
-    //!			
-    //! @note Before calling this function, you need to turn off the auto gain function
+    //! @return Return operation status
+    //!
+    //! @note Before calling this function, you need to turn off the auto gain
+    //! function
     //**********************************************
     CamStatus setISOSensitivity(int val);
     //**********************************************
     //!
     //! @brief Set white balance mode
     //!
-    //! @param  val `0` turn on automatic white balance `1` turn off automatic white balance
+    //! @param  val `0` turn on automatic white balance `1` turn off automatic
+    //! white balance
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setAutoWhiteBalance(uint8_t val);
     //**********************************************
@@ -159,8 +155,8 @@ public:
     //!
     //! @param   mode White balance mode
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setAutoWhiteBalanceMode(CAM_WHITE_BALANCE mode);
     //**********************************************
@@ -169,8 +165,8 @@ public:
     //!
     //! @param  effect Special effects mode
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setColorEffect(CAM_COLOR_FX effect);
     //**********************************************
@@ -179,7 +175,7 @@ public:
     //!
     //! @param  val mode of autofocus
     //!
-    //! @return Return operation status 	
+    //! @return Return operation status
     //!
     //! @note Only `5MP` cameras support auto focus control
     //**********************************************
@@ -190,8 +186,8 @@ public:
     //!
     //! @param   level Saturation level
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setSaturation(CAM_STAURATION_LEVEL level);
     //**********************************************
@@ -200,8 +196,8 @@ public:
     //!
     //! @param  level EV level
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setEV(CAM_EV_LEVEL level);
     //**********************************************
@@ -210,8 +206,8 @@ public:
     //!
     //! @param  level Contrast level
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setContrast(CAM_CONTRAST_LEVEL level);
     //**********************************************
@@ -220,8 +216,8 @@ public:
     //!
     //! @param  level Brightness level
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //**********************************************
     CamStatus setBrightness(CAM_BRIGHTNESS_LEVEL level);
     //**********************************************
@@ -230,14 +226,14 @@ public:
     //!
     //! @param  level Sharpness level
     //!
-    //! @return Return operation status 
-    //!			
+    //! @return Return operation status
+    //!
     //! @note Only `3MP` cameras support sharpness control
     //**********************************************
     CamStatus setSharpness(CAM_SHARPNESS_LEVEL level);
     //**********************************************
     //!
-    //! @brief Read image data with specified length to buffer 
+    //! @brief Read image data with specified length to buffer
     //!
     //! @param  buff Buffer for storing camera data
     //! @param  length The length of the available data to be read
@@ -246,21 +242,25 @@ public:
     //!
     //! @note Transmission length should be less than `255`
     //**********************************************
-    uint8_t readBuff(uint8_t*,uint8_t);
+    uint8_t readBuff(uint8_t*, uint8_t);
     //**********************************************
     //!
     //! @brief Read a byte from FIFO
     //!
     //! @return Returns Camera data
     //!
-    //! @note Before calling this function, make sure that the data is available in the buffer
+    //! @note Before calling this function, make sure that the data is available
+    //! in the buffer
     //**********************************************
     uint8_t readByte(void);
     //**********************************************
     //!
     //! @brief Debug mode
     //!
-    //! @param  buff There are four bytes of buff Byte 1 indicates the device address, Byte 2 indicates the high octet of the register, Byte 3 indicates the low octet of the register, and Byte 4 indicates the value written to the register
+    //! @param  buff There are four bytes of buff Byte 1 indicates the device
+    //! address, Byte 2 indicates the high octet of the register, Byte 3
+    //! indicates the low octet of the register, and Byte 4 indicates the value
+    //! written to the register
     //!
     //**********************************************
     void debugWriteRegister(uint8_t*);
@@ -269,11 +269,12 @@ public:
     //! @brief Create callback function
     //!
     //! @param  function Callback function name
-    //! @param  blockSize The length of the data transmitted by the callback function at one time
+    //! @param  blockSize The length of the data transmitted by the callback
+    //! function at one time
     //!
     //! @note Transmission length should be less than `255`
     //**********************************************
-    void registerCallBack(BUFFER_CALLBACK,uint8_t);
+    void registerCallBack(BUFFER_CALLBACK, uint8_t);
 
     //**********************************************
     //!
@@ -288,7 +289,6 @@ public:
     //!
     //**********************************************
     void lowPowerOff(void);
-
 
     //**********************************************
     //!
@@ -314,9 +314,5 @@ public:
     //**********************************************
     ArducamCamera* getCameraInstance(void);
 };
-
-
-
-
 
 #endif /*__SMARTSPICAM_H*/
