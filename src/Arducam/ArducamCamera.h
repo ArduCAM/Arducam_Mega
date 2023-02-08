@@ -10,8 +10,7 @@
 
 #ifndef __ARDUCAM_H
 #define __ARDUCAM_H
-#include "Platform.h"
-
+#include <stdint.h>
 /**
  * @file Arducam.h
  * @author Arducam
@@ -31,7 +30,9 @@ extern "C" {
 /// @cond
 #define TRUE        1
 #define FALSE       0
-#define bool        char
+#ifndef Bool
+#define Bool char
+#endif
 // typedef enum { FALSE = 0, TRUE = !FALSE } bool;
 
 /// @endcond
@@ -618,7 +619,7 @@ void lowPowerOff(ArducamCamera* camera);
 //!
 //! @return Returns camera status
 //**********************************************
-bool cameraHeartBeat(ArducamCamera* camera);
+uint8_t cameraHeartBeat(ArducamCamera* camera);
 
 typedef enum { Camera_uninit = 0, Camera_init, Camera_open, Camera_close } CameraStatus;
 

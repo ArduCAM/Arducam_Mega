@@ -18,13 +18,13 @@ extern "C" {
 #endif
 
 void arducamSpiBegin(void);
-void arducamSpiCsOutputMode(int);
 uint8_t arducamSpiTransfer(uint8_t);
+void arducamSpiCsOutputMode(int);
 void arducamSpiCsHigh(int);
 void arducamSpiCsLow(int);
 void arducamDelayMs(uint16_t);
 void arducamDelayUs(uint16_t);
-
+void arducamSpiTransferBlock(uint8_t*,uint16_t);
 #ifdef __cplusplus
 }
 #endif

@@ -10,17 +10,21 @@
  */
 
 #include "ArducamSpi.h"
-#include "Arduino.h"
+#include <Arduino.h>
 #include <SPI.h>
 
 void arducamSpiBegin(void)
 {
-    SPI.begin();
+    return SPI.begin();
 }
 
 uint8_t arducamSpiTransfer(uint8_t data)
 {
     return SPI.transfer(data);
+}
+
+void arducamSpiTransferBlock(uint8_t *buff,uint16_t len){
+    return SPI.transfer(buff,len);
 }
 
 void arducamSpiCsHigh(int pin)

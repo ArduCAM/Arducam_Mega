@@ -1,15 +1,7 @@
-// Copyright 2021 Arducam Technology co., Ltd. All Rights Reserved.
-// License: MIT License (https://en.wikipedia.org/wiki/MIT_License)
-// Web: http://www.ArduCAM.com
-// This program is a demo of how to use most of the functions
-// of the library with ArduCAM Spi camera, and can run on Arduino platform.
-// This demo was made for ArduCAM Spi Camera.
-// It needs to be used in combination with PC software.
-// It can test ArduCAM Spi Camerafunctions
 #include "Arducam_Mega.h"
+#include <pico/stdlib.h>
 // #include "Platform.h"
 #include "ArducamLink.h"
-
 const int CS = 17;
 Arducam_Mega myCAM(CS);
 ArducamLink myUart;
@@ -53,44 +45,26 @@ void stop_preivew()
     readImageLength = 0;
     jpegHeadFlag    = 0;
     uint32_t len    = 9;
-
     myUart.arducamUartWrite(0xff);
     myUart.arducamUartWrite(0xBB);
     myUart.arducamUartWrite(0xff);
     myUart.arducamUartWrite(0xAA);
     myUart.arducamUartWrite(0x06);
     myUart.arducamUartWriteBuff((uint8_t*)&len, 4);
-    myUart.printf("streamoff");
+    myUart.printf(const_cast<char*>("streamoff"));
     myUart.arducamUartWrite(0xff);
     myUart.arducamUartWrite(0xBB);
 }
 
-void setup()
+int main()
 {
-    myUart.arducamUartBegin(115200);
-    Serial.println("Hello esp32!");
+    myUart.arducamUartBegin(921600);
+    myUart.printf(const_cast<char*>("Hello Raspberry Pi Pico!"));
     myCAM.begin();
-    Serial.println("Mega start!");
+    myUart.printf(const_cast<char*>("Mega start!"));
     myCAM.registerCallBack(readBuffer, 200, stop_preivew);
-}
-
-void loop()
-{
-    if (myUart.arducamUartAvailable()) {
-        temp = myUart.arducamUartRead();
-        delay(5);
-        if (temp == 0x55) {
-            while (myUart.arducamUartAvailable()) {
-                commandBuff[commandLength] = myUart.arducamUartRead();
-                if (commandBuff[commandLength] == 0xAA) {
-                    break;
-                }
-                commandLength++;
-            }
-            myUart.arducamFlush();
-            myUart.uartCommandProcessing(&myCAM, commandBuff);
-            commandLength = 0;
-        }
+    while (true) {
+        myUart.uartCommandProcessing(&myCAM);
+        myCAM.captureThread();
     }
-    myCAM.captureThread();
 }

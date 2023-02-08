@@ -7,7 +7,7 @@
  *
  */
 #include "usart.h"
-
+#include "string.h"
 uint8_t UartCommBuff[20] = {0};
 uint8_t UartCommLength   = 0;
 uint8_t ReadBuffLength   = 0;
@@ -75,9 +75,11 @@ void arducamUartWrite(uint8_t data)
 }
 void uartWriteBuffer(uint8_t* buff, uint32_t length)
 {
-    uint32_t num = 0;
+    uint32_t num;
     for (num = 0; num < length; num++) {
         USART_SendData(USART1, buff[num]);
+        while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
+        ;
     }
 }
 
@@ -197,58 +199,88 @@ void cameraGetPicture(ArducamCamera* camera)
     camera->burstFirstFlag          = 0;
     uint8_t buff[READ_IMAGE_LENGTH] = {0};
     uint8_t rt_length               = 0;
-    arducamUartWrite(0x55);
+    arducamUartWrite(0xff);
     arducamUartWrite(0xAA);
-    arducamUartWrite(camera->cameraDataFormat);
+    arducamUartWrite(0x01);
     arducamUartWrite((uint8_t)(camera->totalLength & 0xff));
     arducamUartWrite((uint8_t)((camera->totalLength >> 8) & 0xff));
     arducamUartWrite((uint8_t)((camera->totalLength >> 16) & 0xff));
     arducamUartWrite((uint8_t)((camera->totalLength >> 24) & 0xff));
+    arducamUartWrite(((camera->cameraDataFormat & 0x0f) << 4) | 0x01);
     while (camera->receivedLength) {
         rt_length = readBuff(camera, buff, READ_IMAGE_LENGTH);
         for (uint8_t i = 0; i < rt_length; i++) {
             arducamUartWrite(buff[i]);
         }
     }
-    arducamUartWrite(0x55);
+    arducamUartWrite(0xff);
     arducamUartWrite(0xBB);
 }
 
 void reportCameraInfo(ArducamCamera* camera)
 {
-    printf("ReportCameraInfo\r\n");
-    printf("Camera Type:");
-    printf("%s\r\n", camera->myCameraInfo.cameraId);
-    printf("Camera Support Resolution:");
-    printf("%d\r\n", camera->myCameraInfo.supportResolution);
-    printf("Camera Support specialeffects:");
-    printf("%d\r\n", camera->myCameraInfo.supportSpecialEffects);
-    printf("Camera Support Focus:");
-    printf("%d\r\n", camera->myCameraInfo.supportFocus);
-    printf("Camera Exposure Value Max:");
-    printf("%d\r\n", camera->myCameraInfo.exposureValueMax);
-    printf("Camera Exposure Value Min:");
-    printf("%d\r\n", camera->myCameraInfo.exposureValueMin);
-    printf("Camera Gain Value Max:");
-    printf("%d\r\n", camera->myCameraInfo.gainValueMax);
-    printf("Camera Gain Value Min:");
-    printf("%d\r\n", camera->myCameraInfo.gainValueMin);
-    printf("Camera Support Sharpness:");
-    printf("%d\r\n", camera->myCameraInfo.supportSharpness);
+    uint32_t len = 0;
+    char buff[400];
+    arducamUartWrite(0xff);
+    arducamUartWrite(0xAA);
+    arducamUartWrite(0x02);
+    sprintf(buff,
+            "ReportCameraInfo\r\nCamera Type:%s\r\nCamera Support Resolution:%d\r\nCamera Support "
+            "specialeffects:%d\r\nCamera Support Focus:%d\r\nCamera Exposure Value Max:%ld\r\nCamera Exposure Value "
+            "Min:%d\r\nCamera Gain Value Max:%d\r\nCamera Gain Value Min:%d\r\nCamera Support Sharpness:%d\r\n",
+            camera->myCameraInfo.cameraId, camera->myCameraInfo.supportResolution,
+            camera->myCameraInfo.supportSpecialEffects, camera->myCameraInfo.supportFocus,
+            camera->myCameraInfo.exposureValueMax, camera->myCameraInfo.exposureValueMin,
+            camera->myCameraInfo.gainValueMax, camera->myCameraInfo.gainValueMin,
+            camera->myCameraInfo.supportSharpness);
+    len = strlen(buff);
+    // arducamUartWrite((uint8_t)(len & 0xff));
+    // arducamUartWrite((uint8_t)((len >> 8) & 0xff));
+    // arducamUartWrite((uint8_t)((len >> 16) & 0xff));
+    // arducamUartWrite((uint8_t)((len >> 24) & 0xff));
+    uartWriteBuffer((uint8_t*)&len, 4);
+    // uartWriteBuffer((uint8_t*)buff,len);
+    printf(buff);
+    // printf("ReportCameraInfo\r\n");
+    // printf("Camera Type:%s\r\n", camera->myCameraInfo.cameraId);
+    // printf("Camera Support Resolution:%d\r\n", camera->myCameraInfo.supportResolution);
+    // printf("Camera Support specialeffects:%d\r\n", camera->myCameraInfo.supportSpecialEffects);
+    // printf("Camera Support Focus:%d\r\n", camera->myCameraInfo.supportFocus);
+    // printf("Camera Exposure Value Max:%d\r\n", camera->myCameraInfo.exposureValueMax);
+    // printf("Camera Exposure Value Min:%d\r\n", camera->myCameraInfo.exposureValueMin);
+    // printf("Camera Gain Value Max:%d\r\n", camera->myCameraInfo.gainValueMax);
+    // printf("Camera Gain Value Min:%d\r\n", camera->myCameraInfo.gainValueMin);
+    // printf("Camera Support Sharpness:%d\r\n", camera->myCameraInfo.supportSharpness);
+    arducamUartWrite(0xff);
+    arducamUartWrite(0xBB);
 }
 void reportVerInfo(ArducamCamera* myCamera)
 {
+    uint32_t len = 5;
+    arducamUartWrite(0xff);
+    arducamUartWrite(0xAA);
+    arducamUartWrite(0x03);
+    uartWriteBuffer((uint8_t*)&len, 4);
     uartWriteBuffer(myCamera->verDate, 3);
     printf("\r\n");
+    arducamUartWrite(0xff);
+    arducamUartWrite(0xBB);
 }
 
 void reportSdkVerInfo(ArducamCamera* myCamera)
 {
+    uint32_t len = 6;
+    arducamUartWrite(0xff);
+    arducamUartWrite(0xAA);
+    arducamUartWrite(0x05);
+    uartWriteBuffer((uint8_t*)&len, 4);
     arducamUartWrite((myCamera->currentSDK->sdkVersion >> 24) & 0xFF);
     arducamUartWrite((myCamera->currentSDK->sdkVersion >> 16) & 0xFF);
     arducamUartWrite((myCamera->currentSDK->sdkVersion >> 8) & 0xFF);
     arducamUartWrite((myCamera->currentSDK->sdkVersion) & 0xFF);
     printf("\r\n");
+    arducamUartWrite(0xff);
+    arducamUartWrite(0xBB);
 }
 volatile uint8_t uart_state    = 0;
 volatile uint8_t uart1_rx_cnt  = 0;

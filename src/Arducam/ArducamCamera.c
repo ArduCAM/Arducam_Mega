@@ -9,6 +9,7 @@
  */
 
 #include "ArducamCamera.h"
+#include "Platform.h"
 
 /// @cond
 
@@ -34,7 +35,7 @@
 
 #if defined(__MSP430G2553__)
 #define BUF_MAX_LENGTH 50
-else if define (PICO_BOARD)
+#elif defined (PICO_BOARD)
 #define BUF_MAX_LENGTH 320 * 240 * 2
 #else
 #define BUF_MAX_LENGTH 255 // 320 * 240 * 2
@@ -583,7 +584,7 @@ void cameraWaitI2cIdle(ArducamCamera* camera)
     }
 }
 
-bool cameraHeartBeat(ArducamCamera* camera)
+uint8_t cameraHeartBeat(ArducamCamera* camera)
 {
     return (readReg(camera, CAM_REG_SENSOR_STATE) & 0X03) == CAM_REG_SENSOR_STATE_IDLE;
 }

@@ -35,6 +35,10 @@ CamStatus Arducam_Mega::startPreview(CAM_VIDEO_MODE mode)
 {
     return ::startPreview(&cameraInfo, mode);
 }
+void Arducam_Mega::captureThread(void)
+{
+    return ::captureThread(&cameraInfo);
+}
 
 CamStatus Arducam_Mega::stopPreview(void)
 {
@@ -117,9 +121,9 @@ void Arducam_Mega::debugWriteRegister(uint8_t* buff)
 {
     ::debugWriteRegister(&cameraInfo, buff);
 }
-void Arducam_Mega::registerCallBack(BUFFER_CALLBACK function, uint8_t blockSize)
+void Arducam_Mega::registerCallBack(BUFFER_CALLBACK function, uint8_t blockSize, STOP_HANDLE handle)
 {
-    ::registerCallback(&cameraInfo, function, blockSize, nullptr);
+    ::registerCallback(&cameraInfo, function, blockSize, handle);
 }
 
 void Arducam_Mega::lowPowerOn(void)

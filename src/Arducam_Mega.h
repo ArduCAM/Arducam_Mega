@@ -86,6 +86,11 @@ class Arducam_Mega
     CamStatus startPreview(CAM_VIDEO_MODE mode);
 
     //**********************************************
+    //! @brief The camera's stream processing thread
+    //**********************************************
+    void captureThread(void);
+
+    //**********************************************
     //!
     //! @brief Stop preview
     //!
@@ -274,7 +279,7 @@ class Arducam_Mega
     //!
     //! @note Transmission length should be less than `255`
     //**********************************************
-    void registerCallBack(BUFFER_CALLBACK, uint8_t);
+    void registerCallBack(BUFFER_CALLBACK, uint8_t, STOP_HANDLE);
 
     //**********************************************
     //!

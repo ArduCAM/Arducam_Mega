@@ -53,12 +53,7 @@ public:
     uint32_t arducamUartAvailable(void);
     uint8_t arducamUartRead(void);
     void arducamFlush(void);
+    void printf(char *buff);
 };
-
-
-
-
-
-
 
 #endif /*__ARDUCAMLINK_H*/
