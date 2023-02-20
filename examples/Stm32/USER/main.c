@@ -66,8 +66,11 @@ int main(void)
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
     delayInit();
     uartInit(921600);
+    printf("Hello stm32");
     myCAM = createArducamCamera(CS);
     begin(&myCAM);
+    printf("mega start");
+
     registerCallback(&myCAM, ReadBuffer, 200, stop_handle);
     while (1) {
 
@@ -79,8 +82,6 @@ int main(void)
             commandProcessing(&myCAM, &UartCommBuff[uart1_rx_head + 1], uart1_rx_len);
             uart1_rx_len = 0;
             uart1_rx_cnt = 0;
-
-            //}
         }
         captureThread(&myCAM);
     }

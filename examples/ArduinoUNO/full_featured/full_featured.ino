@@ -6,9 +6,8 @@
 // This demo was made for ArduCAM Spi Camera.
 // It needs to be used in combination with PC software.
 // It can test ArduCAM Spi Camerafunctions
-#include "Arducam_Mega.h"
-// #include "Platform.h"
 #include "ArducamLink.h"
+#include "Arducam_Mega.h"
 
 const int CS = 7;
 Arducam_Mega myCAM(CS);
@@ -68,9 +67,9 @@ void stop_preivew()
 void setup()
 {
     myUart.arducamUartBegin(115200);
-    Serial.println("Hello Arduino UNO!");
+    myUart.send_data_pack(7, "Hello Arduino UNO!");
     myCAM.begin();
-    Serial.println("Mega start!");
+    myUart.send_data_pack(8, "Mega start!");
     myCAM.registerCallBack(readBuffer, 200, stop_preivew);
 }
 

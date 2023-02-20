@@ -32,6 +32,8 @@ class Arducam_Mega
 
   public:
     Arducam_Mega(int cs);
+
+    CamStatus reset(void);
     //**********************************************
     //!
     //! @brief Initialize the configuration of the camera module
@@ -236,6 +238,19 @@ class Arducam_Mega
     //! @note Only `3MP` cameras support sharpness control
     //**********************************************
     CamStatus setSharpness(CAM_SHARPNESS_LEVEL level);
+    //**********************************************
+    //!
+    //! @brief Set jpeg image quality
+    //!
+    //! @param  camera ArducamCamera instance
+    //! @param  qualtiy Image Quality
+    //!
+    //! @return Return operation status
+    //!
+    //!
+    //! @note Only `3MP` cameras support sharpness control
+    //**********************************************
+    CamStatus setImageQuality(IMAGE_QUALITY qualtiy);
     //**********************************************
     //!
     //! @brief Read image data with specified length to buffer

@@ -35,7 +35,7 @@
 
 #if defined(__MSP430G2553__)
 #define BUF_MAX_LENGTH 50
-#elif defined (PICO_BOARD)
+#elif defined(PICO_BOARD)
 #define BUF_MAX_LENGTH 320 * 240 * 2
 #else
 #define BUF_MAX_LENGTH 255 // 320 * 240 * 2
@@ -55,17 +55,21 @@
 #define CAM_REG_COLOR_EFFECT_CONTROL               0X27
 #define CAM_REG_SHARPNESS_CONTROL                  0X28
 #define CAM_REG_AUTO_FOCUS_CONTROL                 0X29
-#define CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL 0X2A
-#define CAM_REG_MANUAL_GAIN_BIT_9_8                0X2B
-#define CAM_REG_MANUAL_GAIN_BIT_7_0                0X2C
-#define CAM_REG_MANUAL_EXPOSURE_BIT_19_16          0X2D
-#define CAM_REG_MANUAL_EXPOSURE_BIT_15_8           0X2E
-#define CAM_REG_MANUAL_EXPOSURE_BIT_7_0            0X2F
+#define CAM_REG_IMAGE_QUALITY                      0x2A
+#define CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL 0X30
+#define CAM_REG_MANUAL_GAIN_BIT_9_8                0X31
+#define CAM_REG_MANUAL_GAIN_BIT_7_0                0X32
+#define CAM_REG_MANUAL_EXPOSURE_BIT_19_16          0X33
+#define CAM_REG_MANUAL_EXPOSURE_BIT_15_8           0X34
+#define CAM_REG_MANUAL_EXPOSURE_BIT_7_0            0X35
+#define CAM_REG_BURST_FIFO_READ_OPERATION          0X3C
+#define CAM_REG_SINGLE_FIFO_READ_OPERATION         0X3D
 #define CAM_REG_SENSOR_ID                          0x40
 #define CAM_REG_YEAR_ID                            0x41
 #define CAM_REG_MONTH_ID                           0x42
 #define CAM_REG_DAY_ID                             0x43
 #define CAM_REG_SENSOR_STATE                       0x44
+#define CAM_REG_FPGA_VERSION_NUMBER                0x49
 #define CAM_REG_DEBUG_DEVICE_ADDRESS               0X0A
 #define CAM_REG_DEBUG_REGISTER_HIGH                0X0B
 #define CAM_REG_DEBUG_REGISTER_LOW                 0X0C
@@ -115,8 +119,11 @@
 #define SPECIAL_SOLARIZE                           (1 << 7)
 #define SPECIAL_YELLOWISH                          (1 << 8)
 
-    struct SdkInfo currentSDK = {
-        .sdkVersion = SDK_VERSION,
+union SdkInfo currentSDK = {
+    .sdkInfo.year    = 23,
+    .sdkInfo.month   = 2,
+    .sdkInfo.day     = 20,
+    .sdkInfo.version = 0x20,
 };
 
 struct cameraDefaultState {
@@ -147,11 +154,11 @@ struct CameraInfo OV5640_CameraInfo = {
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
                          RESOLUTION_2592X1944,
     .supportSpecialEffects = SPECIAL_BLUEISH | SPECIAL_REDISH | SPECIAL_BW | SPECIAL_SEPIA | SPECIAL_NEGATIVE |
-                             SPECIAL_GREENISH | SPECIAL_OVEREXPOSURE | SPECIAL_SOLARIZE,
+                             SPECIAL_GREENISH /*| SPECIAL_OVEREXPOSURE | SPECIAL_SOLARIZE*/,
     .exposureValueMax = 30000,
-    .exposureValueMin = 1000,
+    .exposureValueMin = 1,
     .gainValueMax     = 1023,
-    .gainValueMin     = 10,
+    .gainValueMin     = 1,
     .supportFocus     = TRUE,
     .supportSharpness = FALSE,
     .deviceAddress    = 0x78,
@@ -164,9 +171,9 @@ struct CameraInfo OV3640_CameraInfo = {
                          RESOLUTION_2048X1536,
     .supportSpecialEffects = SPECIAL_BLUEISH | SPECIAL_REDISH | SPECIAL_BW | SPECIAL_SEPIA | SPECIAL_NEGATIVE |
                              SPECIAL_GREENISH | SPECIAL_YELLOWISH,
-    .exposureValueMax = 1400,
-    .exposureValueMin = 100,
-    .gainValueMax     = 31,
+    .exposureValueMax = 30000,
+    .exposureValueMin = 1,
+    .gainValueMax     = 1023,
     .gainValueMin     = 1,
     .supportFocus     = FALSE,
     .supportSharpness = TRUE,
@@ -190,6 +197,12 @@ struct cameraDefaultState cameraDefaultInfo[CAMERA_TYPE_NUMBER];
 uint8_t ov3640GainValue[] = {0x00, 0x10, 0x18, 0x30, 0x34, 0x38, 0x3b, 0x3f, 0x72, 0x74, 0x76,
                              0x78, 0x7a, 0x7c, 0x7e, 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6,
                              0xf7, 0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff};
+enum {
+    sensor_5mp_1 = 0x81,
+    sensor_3mp_1 = 0x82,
+    sensor_5mp_2 = 0x83,
+    sensor_3mp_2 = 0x84,
+};
 
 void cameraInit(ArducamCamera* camera)
 {
@@ -198,21 +211,36 @@ void cameraInit(ArducamCamera* camera)
     arducamSpiCsPinLow(camera->csPin);
 }
 
+uint8_t cameraGetSensorIndex(ArducamCamera* camera)
+{
+    camera->cameraId = readReg(camera, CAM_REG_SENSOR_ID);
+    switch (camera->cameraId) {
+    case sensor_5mp_1:
+    case sensor_5mp_2:
+        camera->cameraId = 0x00;
+        break;
+    case sensor_3mp_1:
+    case sensor_3mp_2:
+        camera->cameraId = 0x01;
+        break;
+    }
+}
+
 CamStatus cameraBegin(ArducamCamera* camera)
 {
     // reset cpld and camera
     writeReg(camera, CAM_REG_SENSOR_RESET, CAM_SENSOR_RESET_ENABLE);
     waitI2cIdle(camera); // Wait I2c Idle
-    camera->cameraId = readReg(camera, CAM_REG_SENSOR_ID);
+    cameraGetSensorIndex(camera);
     waitI2cIdle(camera);
-    camera->verDate[0] = readReg(camera, CAM_REG_YEAR_ID) & 0x3F; // year
+    camera->verDateAndNumber[0] = readReg(camera, CAM_REG_YEAR_ID) & 0x3F; // year
     waitI2cIdle(camera);
-    camera->verDate[1] = readReg(camera, CAM_REG_MONTH_ID) & 0x0F; // month
+    camera->verDateAndNumber[1] = readReg(camera, CAM_REG_MONTH_ID) & 0x0F; // month
     waitI2cIdle(camera);
-    camera->verDate[2] = readReg(camera, CAM_REG_DAY_ID) & 0x1F; // day
+    camera->verDateAndNumber[2] = readReg(camera, CAM_REG_DAY_ID) & 0x1F; // day
     waitI2cIdle(camera);
-    camera->cameraId &= 0X0F;
-    camera->cameraId -= 1;
+    camera->verDateAndNumber[3] = readReg(camera, CAM_REG_FPGA_VERSION_NUMBER) & 0xFF; // day
+    waitI2cIdle(camera);
     camera->myCameraInfo       = CameraType[camera->cameraId];
     camera->currentPixelFormat = cameraDefaultInfo[camera->cameraId].cameraDefaultFormat;
     camera->currentPictureMode = cameraDefaultInfo[camera->cameraId].cameraDefaultResolution;
@@ -337,8 +365,17 @@ CamStatus cameraStopPreview(ArducamCamera* camera)
     return CAM_ERR_SUCCESS;
 }
 
-CamStatus cameraRun(ArducamCamera* camera)
+CamStatus cameraSetImageQuality(ArducamCamera* camera, IMAGE_QUALITY qualtiy)
 {
+    writeReg(camera, CAM_REG_IMAGE_QUALITY, qualtiy);
+    waitI2cIdle(camera); // Wait I2c Idle
+    return CAM_ERR_SUCCESS;
+}
+
+CamStatus cameraReset(ArducamCamera* camera)
+{
+    writeReg(camera, CAM_REG_SENSOR_RESET, CAM_SENSOR_RESET_ENABLE);
+    waitI2cIdle(camera); // Wait I2c Idle
     return CAM_ERR_SUCCESS;
 }
 
@@ -609,6 +646,11 @@ void cameraLowPowerOff(ArducamCamera* camera)
     writeReg(camera, CAM_REG_POWER_CONTROL, 0X05);
 }
 
+CamStatus resetCamera(ArducamCamera* camera)
+{
+    return camera->arducamCameraOp->reset(camera);
+}
+
 CamStatus begin(ArducamCamera* camera)
 {
     return camera->arducamCameraOp->begin(camera);
@@ -796,8 +838,13 @@ void flushFifo(ArducamCamera* camera)
 {
     camera->arducamCameraOp->flushFifo(camera);
 }
+CamStatus setImageQuality(ArducamCamera* camera, IMAGE_QUALITY qualtiy)
+{
+    return camera->arducamCameraOp->setImageQuality(camera, qualtiy);
+}
 
 const struct CameraOperations ArducamcameraOperations = {
+    .reset                   = cameraReset,
     .begin                   = cameraBegin,
     .takePicture             = cameraTakePicture,
     .takeMultiPictures       = cameratakeMultiPictures,
@@ -838,6 +885,7 @@ const struct CameraOperations ArducamcameraOperations = {
     .waitI2cIdle             = cameraWaitI2cIdle,
     .lowPowerOn              = cameraLowPowerOn,
     .lowPowerOff             = cameraLowPowerOff,
+    .setImageQuality         = cameraSetImageQuality,
 };
 
 ArducamCamera createArducamCamera(int CS)

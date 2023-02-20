@@ -261,7 +261,7 @@ void reportVerInfo(ArducamCamera* myCamera)
     arducamUartWrite(0xAA);
     arducamUartWrite(0x03);
     uartWriteBuffer((uint8_t*)&len, 4);
-    uartWriteBuffer(myCamera->verDate, 3);
+    uartWriteBuffer(myCamera->verDateAndNumber, 4);
     printf("\r\n");
     arducamUartWrite(0xff);
     arducamUartWrite(0xBB);

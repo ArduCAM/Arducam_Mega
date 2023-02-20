@@ -22,12 +22,12 @@ void ArducamLink::reportVerInfo(Arducam_Mega* myCamera)
 {
     ArducamCamera* cameraInstance = myCamera->getCameraInstance();
 
-    uint32_t len = 5;
+    uint32_t len = 6;
     Serial.write(0xff);
     Serial.write(0xAA);
     Serial.write(0x03);
     Serial.write((uint8_t*)&len, 4);
-    Serial.write(cameraInstance->verDate, 3);
+    Serial.write(cameraInstance->verDateAndNumber, 4);
     Serial.println();
     Serial.write(0xff);
     Serial.write(0xBB);
@@ -42,10 +42,8 @@ void ArducamLink::reportSdkVerInfo(Arducam_Mega* myCamera)
     Serial.write(0xAA);
     Serial.write(0x05);
     Serial.write((uint8_t*)&len, 4);
-    Serial.write((cameraInstance->currentSDK->sdkVersion >> 24) & 0xFF);
-    Serial.write((cameraInstance->currentSDK->sdkVersion >> 16) & 0xFF);
-    Serial.write((cameraInstance->currentSDK->sdkVersion >> 8) & 0xFF);
-    Serial.write((cameraInstance->currentSDK->sdkVersion) & 0xFF);
+    Serial.write((uint8_t*)&cameraInstance->currentSDK->sdkVersion, 4);
+
     Serial.println();
     Serial.write(0xff);
     Serial.write(0xBB);
@@ -113,7 +111,6 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
     uint8_t cameraResolution = cameraInstance->currentPictureMode;
     uint8_t cameraFarmat     = cameraInstance->currentPixelFormat;
     switch (commandBuff[0]) {
-
     case SET_PICTURE_RESOLUTION: // Set Camera Resolution
         cameraResolution = commandBuff[1] & 0x0f;
         cameraFarmat     = (commandBuff[1] & 0x70) >> 4;
@@ -150,10 +147,8 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
             myCAM->setAutoFocus(0x02);
         }
         break;
-    case SET_EXPOSURE_CONTROL: // exposure control
+    case SET_EXPOSUREANDGAIN_CONTROL: // exposure and  Gain control
         myCAM->setAutoExposure(commandBuff[1] & 0x01);
-        break;
-    case SET_GAIN_CONTROL: // Gain control
         myCAM->setAutoISOSensitive(commandBuff[1] & 0x01);
         break;
     case SET_WHILEBALANCE_CONTROL: // while balance control
@@ -192,6 +187,10 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
     case GET_SDK_VER_INFO: // Get sdk version info
         reportSdkVerInfo(myCAM);
         break;
+    case RESET_CAMERA:
+        myCAM->reset();
+    case SET_IMAGE_QUALITY:
+        myCAM->setImageQuality(commandBuff[1]);
     default:
         break;
     }
@@ -209,7 +208,7 @@ void ArducamLink::arducamUartWrite(uint8_t data)
     delayMicroseconds(12);
 }
 
-void ArducamLink::printf(char *buff)
+void ArducamLink::printf(char* buff)
 {
     Serial.print(buff);
     delayMicroseconds(12);
@@ -230,4 +229,15 @@ void ArducamLink::arducamFlush(void)
     while (arducamUartAvailable()) {
         arducamUartRead();
     }
+}
+
+void ArducamLink::send_data_pack(char cmd_type, char* msg)
+{
+    char headAndtail[] = {0xff, 0xaa, 0x07, 0xff, 0xbb};
+    headAndtail[2]     = cmd_type;
+    uint32_t len       = strlen(msg) + 2;
+    Serial.write(&headAndtail[0], 3);
+    Serial.write((uint8_t*)&len, 4);
+    Serial.println(msg);
+    Serial.write(&headAndtail[3], 2);
 }

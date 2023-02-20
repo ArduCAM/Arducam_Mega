@@ -24,12 +24,8 @@ extern "C" {
 #endif
 
 /// @cond
-#define SDK_VERSION 0X00010000
-/// @endcond
-
-/// @cond
-#define TRUE        1
-#define FALSE       0
+#define TRUE  1
+#define FALSE 0
 #ifndef Bool
 #define Bool char
 #endif
@@ -41,8 +37,16 @@ extern "C" {
  * @struct SdkInfo
  * @brief Basic information of the sdk
  */
-struct SdkInfo {
+struct SdkData {
+    uint8_t year;
+    uint8_t month;
+    uint8_t day;
+    uint8_t version;
+};
+
+union SdkInfo {
     unsigned long sdkVersion; /**<Sdk version */
+    struct SdkData sdkInfo;
 };
 
 /**
@@ -224,6 +228,12 @@ typedef enum {
     CAM_COLOR_FX_SOLARIZE,      /**< Solarize   */
 } CAM_COLOR_FX;
 
+typedef enum {
+    HIGH_QUALITY = 0,
+    DEFAULT_QUALITY = 1,
+    LOW_QUALITY = 2,
+} IMAGE_QUALITY;
+
 typedef uint8_t (*BUFFER_CALLBACK)(uint8_t* buffer, uint8_t lenght); /**<Callback function prototype  */
 typedef void (*STOP_HANDLE)(void);                                   /**<Callback function prototype  */
 
@@ -248,12 +258,13 @@ typedef struct {
     const struct CameraOperations* arducamCameraOp; /**< Camera function interface */
     BUFFER_CALLBACK callBackFunction;               /**< Camera callback function */
     STOP_HANDLE handle;
-    uint8_t verDate[3];         /**< Camera firmware version*/
-    struct SdkInfo* currentSDK; /**< Current SDK version*/
+    uint8_t verDateAndNumber[4]; /**< Camera firmware version*/
+    union SdkInfo* currentSDK;   /**< Current SDK version*/
 } ArducamCamera;
 
 /// @cond
 struct CameraOperations {
+    CamStatus (*reset)(ArducamCamera*);
     CamStatus (*begin)(ArducamCamera*);
     CamStatus (*takePicture)(ArducamCamera*, CAM_IMAGE_MODE, CAM_IMAGE_PIX_FMT);
     CamStatus (*takeMultiPictures)(ArducamCamera*, CAM_IMAGE_MODE, CAM_IMAGE_PIX_FMT, uint8_t);
@@ -273,6 +284,7 @@ struct CameraOperations {
     CamStatus (*setContrast)(ArducamCamera*, CAM_CONTRAST_LEVEL);
     CamStatus (*setBrightness)(ArducamCamera*, CAM_BRIGHTNESS_LEVEL);
     CamStatus (*setSharpness)(ArducamCamera*, CAM_SHARPNESS_LEVEL);
+    CamStatus (*setImageQuality)(ArducamCamera* camera, IMAGE_QUALITY qualtiy);
     uint32_t (*imageAvailable)(ArducamCamera*);
     void (*csHigh)(ArducamCamera*);
     void (*csLow)(ArducamCamera*);
@@ -308,6 +320,14 @@ struct CameraOperations {
 //!
 //**********************************************
 ArducamCamera createArducamCamera(int cs);
+
+//**********************************************
+//!
+//! @brief reset cpld and camera
+//! @param camera ArducamCamera instance
+//! @return Return operation status
+//**********************************************
+CamStatus resetCamera(ArducamCamera* camera);
 
 //**********************************************
 //!
@@ -539,6 +559,20 @@ CamStatus setBrightness(ArducamCamera* camera, CAM_BRIGHTNESS_LEVEL level);
 //! @note Only `3MP` cameras support sharpness control
 //**********************************************
 CamStatus setSharpness(ArducamCamera* camera, CAM_SHARPNESS_LEVEL level);
+
+//**********************************************
+//!
+//! @brief Set jpeg image quality
+//!
+//! @param  camera ArducamCamera instance
+//! @param  qualtiy Image Quality
+//!
+//! @return Return operation status
+//!
+//!
+//! @note Only `3MP` cameras support sharpness control
+//**********************************************
+CamStatus setImageQuality(ArducamCamera* camera, IMAGE_QUALITY qualtiy);
 
 //**********************************************
 //!

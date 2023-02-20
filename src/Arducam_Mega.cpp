@@ -15,7 +15,10 @@ Arducam_Mega::Arducam_Mega(int CS)
 {
     cameraInfo = createArducamCamera(CS);
 }
-
+CamStatus Arducam_Mega::reset(void)
+{
+    ::resetCamera(&cameraInfo);
+}
 CamStatus Arducam_Mega::begin(void)
 {
     return ::begin(&cameraInfo);
@@ -107,7 +110,10 @@ CamStatus Arducam_Mega::setSharpness(CAM_SHARPNESS_LEVEL level)
 {
     return ::setSharpness(&cameraInfo, level);
 }
-
+CamStatus Arducam_Mega::setImageQuality(IMAGE_QUALITY quality)
+{
+    return ::setImageQuality(&cameraInfo,quality);
+}
 uint8_t Arducam_Mega::readBuff(uint8_t* buff, uint8_t length)
 {
     return ::readBuff(&cameraInfo, buff, length);
@@ -150,3 +156,4 @@ ArducamCamera* Arducam_Mega::getCameraInstance(void)
 {
     return &cameraInfo;
 }
+
