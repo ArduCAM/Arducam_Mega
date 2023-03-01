@@ -66,10 +66,10 @@ int main(void)
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
     delayInit();
     uartInit(921600);
-    printf("Hello stm32");
+    send_data_pack(7,"Hello stm32");
     myCAM = createArducamCamera(CS);
     begin(&myCAM);
-    printf("mega start");
+    send_data_pack(8,"mega start");
 
     registerCallback(&myCAM, ReadBuffer, 200, stop_handle);
     while (1) {

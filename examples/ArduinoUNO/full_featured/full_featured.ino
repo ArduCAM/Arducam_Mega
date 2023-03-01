@@ -12,16 +12,16 @@
 const int CS = 7;
 Arducam_Mega myCAM(CS);
 ArducamLink myUart;
-uint8_t temp             = 0xff;
-uint8_t sendFlag         = TRUE;
-uint8_t commandBuff[20]  = {0};
-uint8_t commandLength    = 0;
+uint8_t temp = 0xff;
+uint8_t sendFlag = TRUE;
+uint8_t commandBuff[20] = {0};
+uint8_t commandLength = 0;
 uint32_t readImageLength = 0;
-uint8_t jpegHeadFlag     = 0;
+uint8_t jpegHeadFlag = 0;
 uint8_t readBuffer(uint8_t* imagebuf, uint8_t length)
 {
     if (imagebuf[0] == 0xff && imagebuf[1] == 0xd8) {
-        jpegHeadFlag    = 1;
+        jpegHeadFlag = 1;
         readImageLength = 0;
         myUart.arducamUartWrite(0xff);
         myUart.arducamUartWrite(0xAA);
@@ -50,8 +50,8 @@ uint8_t readBuffer(uint8_t* imagebuf, uint8_t length)
 void stop_preivew()
 {
     readImageLength = 0;
-    jpegHeadFlag    = 0;
-    uint32_t len    = 9;
+    jpegHeadFlag = 0;
+    uint32_t len = 9;
 
     myUart.arducamUartWrite(0xff);
     myUart.arducamUartWrite(0xBB);
@@ -67,7 +67,7 @@ void stop_preivew()
 void setup()
 {
     myUart.arducamUartBegin(115200);
-    myUart.send_data_pack(7, "Hello Arduino UNO!");
+    myUart.send_data_pack(7, "Hello Arduino Mega!");
     myCAM.begin();
     myUart.send_data_pack(8, "Mega start!");
     myCAM.registerCallBack(readBuffer, 200, stop_preivew);

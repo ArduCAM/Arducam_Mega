@@ -34,11 +34,9 @@
 #define SINGLE_FIFO_READ    0x3D // Single FIFO read operation
 
 #if defined(__MSP430G2553__)
-#define BUF_MAX_LENGTH 50
-#elif defined(PICO_BOARD)
-#define BUF_MAX_LENGTH 320 * 240 * 2
+#define PREVIEW_BUF_LEN 50
 #else
-#define BUF_MAX_LENGTH 255 // 320 * 240 * 2
+#define PREVIEW_BUF_LEN 255
 #endif
 
 #define CAPRURE_MAX_NUM                            0xff
@@ -86,9 +84,6 @@
 #define SET_GAIN                                   0X00
 
 #define CAMERA_TYPE_NUMBER                         2
-
-#define CAMERA_OV5640                              0
-#define CAMERA_OV3640                              1
 
 #define FORMAT_JPEG                                0X01
 #define FORMAT_RGB                                 0X02
@@ -148,7 +143,7 @@ uint32_t imageAvailable(ArducamCamera* camera);
 void flushFifo(ArducamCamera* camera);
 void startCapture(ArducamCamera* camera);
 
-struct CameraInfo OV5640_CameraInfo = {
+struct CameraInfo CameraInfo_5MP = {
     .cameraId          = "5MP",
     .supportResolution = RESOLUTION_320x320 | RESOLUTION_128x128 | RESOLUTION_96x96 | RESOLUTION_320X240 |
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
@@ -164,7 +159,7 @@ struct CameraInfo OV5640_CameraInfo = {
     .deviceAddress    = 0x78,
 };
 
-struct CameraInfo OV3640_CameraInfo = {
+struct CameraInfo CameraInfo_3MP = {
     .cameraId          = "3MP",
     .supportResolution = RESOLUTION_320x320 | RESOLUTION_128x128 | RESOLUTION_96x96 | RESOLUTION_320X240 |
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
@@ -180,29 +175,23 @@ struct CameraInfo OV3640_CameraInfo = {
     .deviceAddress    = 0x78,
 };
 
-struct CameraInfo CameraType[CAMERA_TYPE_NUMBER];
+struct CameraInfo *CameraType[CAMERA_TYPE_NUMBER];
 
-struct cameraDefaultState ov5640DefaultState = {
+struct cameraDefaultState DefaultState_5mp = {
     .cameraDefaultFormat     = CAM_IMAGE_PIX_FMT_JPG,
     .cameraDefaultResolution = CAM_IMAGE_MODE_WQXGA2,
 };
 
-struct cameraDefaultState ov3640efaultState = {
+struct cameraDefaultState DefaultState_3mp = {
     .cameraDefaultFormat     = CAM_IMAGE_PIX_FMT_JPG,
     .cameraDefaultResolution = CAM_IMAGE_MODE_QXGA,
 };
 
-struct cameraDefaultState cameraDefaultInfo[CAMERA_TYPE_NUMBER];
+struct cameraDefaultState *cameraDefaultInfo[CAMERA_TYPE_NUMBER];
 
 uint8_t ov3640GainValue[] = {0x00, 0x10, 0x18, 0x30, 0x34, 0x38, 0x3b, 0x3f, 0x72, 0x74, 0x76,
                              0x78, 0x7a, 0x7c, 0x7e, 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6,
                              0xf7, 0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff};
-enum {
-    sensor_5mp_1 = 0x81,
-    sensor_3mp_1 = 0x82,
-    sensor_5mp_2 = 0x83,
-    sensor_3mp_2 = 0x84,
-};
 
 void cameraInit(ArducamCamera* camera)
 {
@@ -211,19 +200,26 @@ void cameraInit(ArducamCamera* camera)
     arducamSpiCsPinLow(camera->csPin);
 }
 
-uint8_t cameraGetSensorIndex(ArducamCamera* camera)
+void cameraGetSensorConfig(ArducamCamera* camera)
 {
+    uint8_t cameraIdx = 0;
     camera->cameraId = readReg(camera, CAM_REG_SENSOR_ID);
+    waitI2cIdle(camera);
     switch (camera->cameraId) {
-    case sensor_5mp_1:
-    case sensor_5mp_2:
-        camera->cameraId = 0x00;
+    case SENSOR_5MP_2:
+        CameraInfo_5MP.cameraId = "5MP_2";
+    case SENSOR_5MP_1:
+        cameraIdx = 0x00;
         break;
-    case sensor_3mp_1:
-    case sensor_3mp_2:
-        camera->cameraId = 0x01;
+    case SENSOR_3MP_1:
+    case SENSOR_3MP_2:
+        cameraIdx = 0x01;
         break;
     }
+
+    camera->myCameraInfo       = *CameraType[cameraIdx];
+    camera->currentPixelFormat = cameraDefaultInfo[cameraIdx]->cameraDefaultFormat;
+    camera->currentPictureMode = cameraDefaultInfo[cameraIdx]->cameraDefaultResolution;
 }
 
 CamStatus cameraBegin(ArducamCamera* camera)
@@ -231,8 +227,7 @@ CamStatus cameraBegin(ArducamCamera* camera)
     // reset cpld and camera
     writeReg(camera, CAM_REG_SENSOR_RESET, CAM_SENSOR_RESET_ENABLE);
     waitI2cIdle(camera); // Wait I2c Idle
-    cameraGetSensorIndex(camera);
-    waitI2cIdle(camera);
+    cameraGetSensorConfig(camera);
     camera->verDateAndNumber[0] = readReg(camera, CAM_REG_YEAR_ID) & 0x3F; // year
     waitI2cIdle(camera);
     camera->verDateAndNumber[1] = readReg(camera, CAM_REG_MONTH_ID) & 0x0F; // month
@@ -241,10 +236,8 @@ CamStatus cameraBegin(ArducamCamera* camera)
     waitI2cIdle(camera);
     camera->verDateAndNumber[3] = readReg(camera, CAM_REG_FPGA_VERSION_NUMBER) & 0xFF; // day
     waitI2cIdle(camera);
-    camera->myCameraInfo       = CameraType[camera->cameraId];
-    camera->currentPixelFormat = cameraDefaultInfo[camera->cameraId].cameraDefaultFormat;
-    camera->currentPictureMode = cameraDefaultInfo[camera->cameraId].cameraDefaultResolution;
-    writeReg(camera, CAM_REG_DEBUG_DEVICE_ADDRESS, CameraType[camera->cameraId].deviceAddress);
+  
+    writeReg(camera, CAM_REG_DEBUG_DEVICE_ADDRESS, camera->myCameraInfo.deviceAddress);
     waitI2cIdle(camera);
     return CAM_ERR_SUCCESS;
 }
@@ -321,6 +314,7 @@ void cameraRegisterCallback(ArducamCamera* camera, BUFFER_CALLBACK function, uin
 
 CamStatus cameraStartPreview(ArducamCamera* camera, CAM_VIDEO_MODE mode)
 {
+
     camera->cameraDataFormat = CAM_IMAGE_PIX_FMT_JPG;
     camera->previewMode      = TRUE;
     if (!camera->callBackFunction) {
@@ -335,7 +329,7 @@ CamStatus cameraStartPreview(ArducamCamera* camera, CAM_VIDEO_MODE mode)
 
     return CAM_ERR_SUCCESS;
 }
-static uint8_t callBackBuff[BUF_MAX_LENGTH];
+static uint8_t callBackBuff[PREVIEW_BUF_LEN];
 
 void cameraCaptureThread(ArducamCamera* camera)
 {
@@ -414,7 +408,7 @@ CamStatus cameraSetAutoISOSensitive(ArducamCamera* camera, uint8_t val)
 
 CamStatus cameraSetISOSensitivity(ArducamCamera* camera, int iso_sense)
 {
-    if (camera->cameraId == CAMERA_OV3640) {
+    if (camera->cameraId == SENSOR_3MP_1) {
         iso_sense = ov3640GainValue[iso_sense - 1];
     }
     writeReg(camera, CAM_REG_MANUAL_GAIN_BIT_9_8,
@@ -543,12 +537,10 @@ uint8_t cameraReadByte(ArducamCamera* camera)
 uint32_t cameraReadBuff(ArducamCamera* camera, uint8_t* buff, uint32_t length)
 
 {
-    if ((length > BUF_MAX_LENGTH) || (length == 0)) {
+    if (imageAvailable(camera) == 0 || (length == 0)) {
         return 0;
     }
-    if (imageAvailable(camera) == 0) {
-        return 0;
-    }
+
     if (camera->receivedLength < length) {
         length = camera->receivedLength;
     }
@@ -646,7 +638,7 @@ void cameraLowPowerOff(ArducamCamera* camera)
     writeReg(camera, CAM_REG_POWER_CONTROL, 0X05);
 }
 
-CamStatus resetCamera(ArducamCamera* camera)
+CamStatus reset(ArducamCamera* camera)
 {
     return camera->arducamCameraOp->reset(camera);
 }
@@ -891,10 +883,10 @@ const struct CameraOperations ArducamcameraOperations = {
 ArducamCamera createArducamCamera(int CS)
 {
     ArducamCamera camera;
-    CameraType[0]           = OV5640_CameraInfo;
-    CameraType[1]           = OV3640_CameraInfo;
-    cameraDefaultInfo[0]    = ov5640DefaultState;
-    cameraDefaultInfo[1]    = ov3640efaultState;
+    CameraType[0]           = &CameraInfo_5MP;
+    CameraType[1]           = &CameraInfo_3MP;
+    cameraDefaultInfo[0]    = &DefaultState_5mp;
+    cameraDefaultInfo[1]    = &DefaultState_3mp;
     camera.cameraId         = FALSE;
     camera.cameraDataFormat = FORMAT_JPEG;
     camera.burstFirstFlag   = FALSE;

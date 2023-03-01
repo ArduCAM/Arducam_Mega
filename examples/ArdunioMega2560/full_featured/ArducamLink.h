@@ -11,49 +11,65 @@
 #include "Arducam_Mega.h"
 #include "stdint.h"
 
+#define RESET_CAMERA                0XFF
+#define SET_PICTURE_RESOLUTION      0X01
+#define SET_VIDEO_RESOLUTION        0X02
+#define SET_BRIGHTNESS              0X03
+#define SET_CONTRAST                0X04
+#define SET_SATURATION              0X05
+#define SET_EV                      0X06
+#define SET_WHITEBALANCE            0X07
+#define SET_SPECIAL_EFFECTS         0X08
+#define SET_FOCUS_CONTROL           0X09
+#define SET_EXPOSUREANDGAIN_CONTROL 0X0A
+// #define SET_GAIN_CONTROL         0X0B
+#define SET_WHILEBALANCE_CONTROL    0X0C
+#define SET_MANUAL_GAIN             0X0D
+#define SET_MANUAL_EXPOSURE         0X0E
+#define GET_CAMERA_INFO             0X0F
+#define TAKE_PICTURE                0X10
+#define SET_SHARPNESS               0X11
+#define DEBUG_WRITE_REGISTER        0X12
+#define STOP_STREAM                 0X21
+#define GET_FRM_VER_INFO            0X30
+#define GET_SDK_VER_INFO            0X40
+#define SET_IMAGE_QUALITY           0X50
 
-#define SET_PICTURE_RESOLUTION   0X01
-#define SET_VIDEO_RESOLUTION     0X02
-#define SET_BRIGHTNESS			 0X03
-#define SET_CONTRAST             0X04
-#define SET_SATURATION           0X05
-#define SET_EV					 0X06
-#define SET_WHITEBALANCE		 0X07
-#define SET_SPECIAL_EFFECTS      0X08
-#define SET_FOCUS_CONTROL        0X09
-#define SET_EXPOSURE_CONTROL     0X0A
-#define SET_GAIN_CONTROL         0X0B
-#define SET_WHILEBALANCE_CONTROL 0X0C
-#define SET_MANUAL_GAIN          0X0D
-#define SET_MANUAL_EXPOSURE      0X0E
-#define GET_CAMERA_INFO          0X0F
-#define TAKE_PICTURE             0X10
-#define SET_SHARPNESS            0X11
-#define DEBUG_WRITE_REGISTER     0X12
-#define STOP_STREAM              0X21
-#define GET_FRM_VER_INFO         0X30
-#define GET_SDK_VER_INFO         0X40
-#define READ_IMAGE_LENGTH        255
+#define READ_IMAGE_LENGTH           255
 
+#if defined(PICO_BOARD) ||  defined(STM32F10X_MD)
+#define USE_SERIAL_IRQ
+#endif
 class ArducamLink
 {
-private:
-    /* data */
-public:
+#ifdef USE_SERIAL_IRQ
+  private:
+    static uint8_t uart_state;
+    static uint8_t uart1_rx_cnt;
+    static uint8_t uart1_rx_head;
+    static uint8_t uart1_rx_len;
+    static uint8_t UartCommBuff[20];
+  private:
+    static void uart_rx_handler();
+#endif
+  public:
     ArducamLink();
     ~ArducamLink();
     void arducamUartBegin(uint32_t);
-    uint8_t uartCommandProcessing(Arducam_Mega*,uint8_t*);
+    uint8_t uartCommandProcessing(Arducam_Mega*, uint8_t*);
     void reportCameraInfo(Arducam_Mega*);
     void reportVerInfo(Arducam_Mega* myCamera);
     void reportSdkVerInfo(Arducam_Mega* myCamera);
     void cameraGetPicture(Arducam_Mega*);
+    void arducamFlush(void);
+    void send_data_pack(char cmd_type, char* msg);
+
+  public:
+    void printf(char* buff);
     void arducamUartWrite(uint8_t);
-    void arducamUartWriteBuff(uint8_t*,uint8_t);
+    void arducamUartWriteBuff(uint8_t*, uint8_t);
     uint32_t arducamUartAvailable(void);
     uint8_t arducamUartRead(void);
-    void arducamFlush(void);
-    void printf(char *buff);
 };
 
 #endif /*__ARDUCAMLINK_H*/

@@ -9,8 +9,8 @@
 #include "usart.h"
 #include "string.h"
 uint8_t UartCommBuff[20] = {0};
-uint8_t UartCommLength   = 0;
-uint8_t ReadBuffLength   = 0;
+uint8_t UartCommLength = 0;
+uint8_t ReadBuffLength = 0;
 
 #if 1
 #pragma import(__use_no_semihosting)
@@ -40,27 +40,27 @@ void uartInit(uint32_t BaudRate)
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOA | RCC_APB2Periph_USART1, ENABLE);
 
-    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_9;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_10;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-    NVIC_InitStructure.NVIC_IRQChannel                   = USART1_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 0;
-    NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    USART_InitStructure.USART_BaudRate            = BaudRate;
-    USART_InitStructure.USART_WordLength          = USART_WordLength_8b;
-    USART_InitStructure.USART_StopBits            = USART_StopBits_1;
-    USART_InitStructure.USART_Parity              = USART_Parity_No;
+    USART_InitStructure.USART_BaudRate = BaudRate;
+    USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+    USART_InitStructure.USART_StopBits = USART_StopBits_1;
+    USART_InitStructure.USART_Parity = USART_Parity_No;
     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-    USART_InitStructure.USART_Mode                = USART_Mode_Rx | USART_Mode_Tx;
+    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 
     USART_Init(USART1, &USART_InitStructure);
     USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
@@ -79,14 +79,14 @@ void uartWriteBuffer(uint8_t* buff, uint32_t length)
     for (num = 0; num < length; num++) {
         USART_SendData(USART1, buff[num]);
         while (USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET)
-        ;
+            ;
     }
 }
 
 uint8_t arducamUartRead(void)
 {
     uint8_t rt = 0;
-    rt         = UartCommBuff[ReadBuffLength];
+    rt = UartCommBuff[ReadBuffLength];
     ReadBuffLength++;
     if (ReadBuffLength == UartCommLength) {
         ReadBuffLength = 0;
@@ -102,23 +102,23 @@ uint32_t arducamUartAvailable(void)
 uint8_t commandProcessing(ArducamCamera* camera, uint8_t* buff, uint8_t length)
 {
     CamStatus state;
-    uint16_t GainValue       = 0;
-    uint32_t ExposureValue   = 0;
-    uint32_t ExposureLen1    = 0;
-    uint32_t ExposureLen2    = 0;
-    uint32_t ExposureLen3    = 0;
+    uint16_t GainValue = 0;
+    uint32_t ExposureValue = 0;
+    uint32_t ExposureLen1 = 0;
+    uint32_t ExposureLen2 = 0;
+    uint32_t ExposureLen3 = 0;
     uint8_t CameraResolution = camera->currentPictureMode;
-    uint8_t CameraFarmat     = camera->currentPixelFormat;
+    uint8_t CameraFarmat = camera->currentPixelFormat;
     switch (buff[0]) {
     case SET_PICTURE_RESOLUTION: // Set Camera Resolution
         CameraResolution = buff[1] & 0x0f;
-        CameraFarmat     = (buff[1] & 0x70) >> 4;
+        CameraFarmat = (buff[1] & 0x70) >> 4;
         takePicture(camera, (CAM_IMAGE_MODE)CameraResolution, (CAM_IMAGE_PIX_FMT)CameraFarmat);
         break;
     case SET_VIDEO_RESOLUTION: // Set Video Resolution
         camera->previewMode = TRUE;
-        CameraResolution    = buff[1] & 0x0f;
-        state               = startPreview(camera, (CAM_VIDEO_MODE)CameraResolution);
+        CameraResolution = buff[1] & 0x0f;
+        state = startPreview(camera, (CAM_VIDEO_MODE)CameraResolution);
         if (state == CAM_ERR_NO_CALLBACK) {
             printf("callback function is not registered");
         }
@@ -147,12 +147,9 @@ uint8_t commandProcessing(ArducamCamera* camera, uint8_t* buff, uint8_t length)
             setAutoFocus(camera, 0x02);
         }
         break;
-    case SET_EXPOSURE_CONTROL: // exposure control
+    case SET_EXPOSUREANDGAIN_CONTROL: // exposure and  Gain control
         setAutoExposure(camera, buff[1] & 0x01);
-        break;
-    case SET_GAIN_CONTROL: // Gain control
         setAutoISOSensitive(camera, buff[1] & 0x01);
-        break;
     case SET_WHILEBALANCE_CONTROL: // while balance control
         setAutoWhiteBalance(camera, buff[1] & 0x01);
         break;
@@ -164,9 +161,9 @@ uint8_t commandProcessing(ArducamCamera* camera, uint8_t* buff, uint8_t length)
         setISOSensitivity(camera, GainValue);
         break;
     case SET_MANUAL_EXPOSURE: // manual exposure control
-        ExposureLen1  = buff[1];
-        ExposureLen2  = buff[2];
-        ExposureLen3  = buff[3];
+        ExposureLen1 = buff[1];
+        ExposureLen2 = buff[2];
+        ExposureLen3 = buff[3];
         ExposureValue = (ExposureLen1 << 16) | (ExposureLen2 << 8) | ExposureLen3;
         setAbsoluteExposure(camera, ExposureValue);
         break;
@@ -189,6 +186,12 @@ uint8_t commandProcessing(ArducamCamera* camera, uint8_t* buff, uint8_t length)
     case GET_SDK_VER_INFO: // Get sdk version info
         reportSdkVerInfo(camera);
         break;
+    case RESET_CAMERA:
+        reset(camera);
+    case SET_IMAGE_QUALITY:
+        setImageQuality(camera,(IMAGE_QUALITY)buff[1]);
+    default:
+        break;
     }
 
     return buff[0];
@@ -196,34 +199,28 @@ uint8_t commandProcessing(ArducamCamera* camera, uint8_t* buff, uint8_t length)
 
 void cameraGetPicture(ArducamCamera* camera)
 {
-    camera->burstFirstFlag          = 0;
+    camera->burstFirstFlag = 0;
     uint8_t buff[READ_IMAGE_LENGTH] = {0};
-    uint8_t rt_length               = 0;
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xAA);
-    arducamUartWrite(0x01);
-    arducamUartWrite((uint8_t)(camera->totalLength & 0xff));
-    arducamUartWrite((uint8_t)((camera->totalLength >> 8) & 0xff));
-    arducamUartWrite((uint8_t)((camera->totalLength >> 16) & 0xff));
-    arducamUartWrite((uint8_t)((camera->totalLength >> 24) & 0xff));
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x01, 0xff, 0xbb};
+    uint8_t rt_length = 0;
+
+    uartWriteBuffer(&headAndtail[0], 3);
+    uartWriteBuffer((uint8_t*)(&camera->totalLength), 4);
+
     arducamUartWrite(((camera->cameraDataFormat & 0x0f) << 4) | 0x01);
     while (camera->receivedLength) {
         rt_length = readBuff(camera, buff, READ_IMAGE_LENGTH);
-        for (uint8_t i = 0; i < rt_length; i++) {
-            arducamUartWrite(buff[i]);
-        }
+        uartWriteBuffer(buff, rt_length);
     }
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
+    uartWriteBuffer(&headAndtail[3], 2);
 }
 
 void reportCameraInfo(ArducamCamera* camera)
 {
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x02, 0xff, 0xbb};
     uint32_t len = 0;
     char buff[400];
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xAA);
-    arducamUartWrite(0x02);
+    uartWriteBuffer(&headAndtail[0], 3);
     sprintf(buff,
             "ReportCameraInfo\r\nCamera Type:%s\r\nCamera Support Resolution:%d\r\nCamera Support "
             "specialeffects:%d\r\nCamera Support Focus:%d\r\nCamera Exposure Value Max:%ld\r\nCamera Exposure Value "
@@ -234,58 +231,50 @@ void reportCameraInfo(ArducamCamera* camera)
             camera->myCameraInfo.gainValueMax, camera->myCameraInfo.gainValueMin,
             camera->myCameraInfo.supportSharpness);
     len = strlen(buff);
-    // arducamUartWrite((uint8_t)(len & 0xff));
-    // arducamUartWrite((uint8_t)((len >> 8) & 0xff));
-    // arducamUartWrite((uint8_t)((len >> 16) & 0xff));
-    // arducamUartWrite((uint8_t)((len >> 24) & 0xff));
     uartWriteBuffer((uint8_t*)&len, 4);
-    // uartWriteBuffer((uint8_t*)buff,len);
     printf(buff);
-    // printf("ReportCameraInfo\r\n");
-    // printf("Camera Type:%s\r\n", camera->myCameraInfo.cameraId);
-    // printf("Camera Support Resolution:%d\r\n", camera->myCameraInfo.supportResolution);
-    // printf("Camera Support specialeffects:%d\r\n", camera->myCameraInfo.supportSpecialEffects);
-    // printf("Camera Support Focus:%d\r\n", camera->myCameraInfo.supportFocus);
-    // printf("Camera Exposure Value Max:%d\r\n", camera->myCameraInfo.exposureValueMax);
-    // printf("Camera Exposure Value Min:%d\r\n", camera->myCameraInfo.exposureValueMin);
-    // printf("Camera Gain Value Max:%d\r\n", camera->myCameraInfo.gainValueMax);
-    // printf("Camera Gain Value Min:%d\r\n", camera->myCameraInfo.gainValueMin);
-    // printf("Camera Support Sharpness:%d\r\n", camera->myCameraInfo.supportSharpness);
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
+    uartWriteBuffer(&headAndtail[3], 2);
 }
 void reportVerInfo(ArducamCamera* myCamera)
 {
-    uint32_t len = 5;
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xAA);
-    arducamUartWrite(0x03);
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x03, 0xff, 0xbb};
+    uint32_t len = 6;
+    uartWriteBuffer(&headAndtail[0], 3);
+
     uartWriteBuffer((uint8_t*)&len, 4);
     uartWriteBuffer(myCamera->verDateAndNumber, 4);
     printf("\r\n");
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
+    uartWriteBuffer(&headAndtail[3], 2);
 }
 
 void reportSdkVerInfo(ArducamCamera* myCamera)
 {
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x05, 0xff, 0xbb};
+
     uint32_t len = 6;
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xAA);
-    arducamUartWrite(0x05);
+    uartWriteBuffer(&headAndtail[0], 3);
     uartWriteBuffer((uint8_t*)&len, 4);
-    arducamUartWrite((myCamera->currentSDK->sdkVersion >> 24) & 0xFF);
-    arducamUartWrite((myCamera->currentSDK->sdkVersion >> 16) & 0xFF);
-    arducamUartWrite((myCamera->currentSDK->sdkVersion >> 8) & 0xFF);
-    arducamUartWrite((myCamera->currentSDK->sdkVersion) & 0xFF);
+    uartWriteBuffer((uint8_t*)(&myCamera->currentSDK->sdkVersion), 4);
     printf("\r\n");
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
+    uartWriteBuffer(&headAndtail[3], 2);
 }
-volatile uint8_t uart_state    = 0;
-volatile uint8_t uart1_rx_cnt  = 0;
+
+void send_data_pack(char cmd_type, char* msg)
+{
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x07, 0xff, 0xbb};
+    headAndtail[2] = cmd_type;
+    uint32_t len = strlen(msg) + 2;
+    uartWriteBuffer(&headAndtail[0], 3);
+    uartWriteBuffer((uint8_t*)&len, 4);
+    printf(msg);
+    printf("\r\n");
+    uartWriteBuffer(&headAndtail[3], 2);
+}
+
+volatile uint8_t uart_state = 0;
+volatile uint8_t uart1_rx_cnt = 0;
 volatile uint8_t uart1_rx_head = 0;
-volatile uint8_t uart1_rx_len  = 0;
+volatile uint8_t uart1_rx_len = 0;
 
 void USART1_IRQHandler(void)
 {
@@ -298,7 +287,7 @@ void USART1_IRQHandler(void)
             uart1_rx_head = uart1_rx_cnt - 1;
         if ((UartCommBuff[uart1_rx_head] == 0x55) && (UartCommBuff[uart1_rx_cnt - 1] == 0xAA)) {
             uart1_rx_len = uart1_rx_cnt - 1 - uart1_rx_head;
-            uart_state   = 1;
+            uart_state = 1;
         }
     }
 }

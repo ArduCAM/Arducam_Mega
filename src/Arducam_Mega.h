@@ -246,9 +246,6 @@ class Arducam_Mega
     //! @param  qualtiy Image Quality
     //!
     //! @return Return operation status
-    //!
-    //!
-    //! @note Only `3MP` cameras support sharpness control
     //**********************************************
     CamStatus setImageQuality(IMAGE_QUALITY qualtiy);
     //**********************************************

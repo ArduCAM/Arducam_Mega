@@ -229,10 +229,17 @@ typedef enum {
 } CAM_COLOR_FX;
 
 typedef enum {
-    HIGH_QUALITY = 0,
+    HIGH_QUALITY    = 0,
     DEFAULT_QUALITY = 1,
-    LOW_QUALITY = 2,
+    LOW_QUALITY     = 2,
 } IMAGE_QUALITY;
+
+enum {
+    SENSOR_5MP_1 = 0x81,
+    SENSOR_3MP_1 = 0x82,
+    SENSOR_5MP_2 = 0x83, /* 2592x1936 */
+    SENSOR_3MP_2 = 0x84,
+};
 
 typedef uint8_t (*BUFFER_CALLBACK)(uint8_t* buffer, uint8_t lenght); /**<Callback function prototype  */
 typedef void (*STOP_HANDLE)(void);                                   /**<Callback function prototype  */
@@ -327,7 +334,7 @@ ArducamCamera createArducamCamera(int cs);
 //! @param camera ArducamCamera instance
 //! @return Return operation status
 //**********************************************
-CamStatus resetCamera(ArducamCamera* camera);
+CamStatus reset(ArducamCamera* camera);
 
 //**********************************************
 //!

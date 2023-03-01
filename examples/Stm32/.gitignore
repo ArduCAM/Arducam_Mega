@@ -1,0 +1,5 @@
+*.hex
+# .gitignore
+*.uvguix.*
+*.uvoptx
+# *.uvprojx
