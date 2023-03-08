@@ -65,6 +65,7 @@ uint8_t sd_spi_write(const uint8_t value) {
 void sd_spi_deselect_pulse() {
     sd_spi_deselect();
     // tCSH Pulse duration, CS high 200 ns
+    sleep_us(200);
     sd_spi_select();
 }
 

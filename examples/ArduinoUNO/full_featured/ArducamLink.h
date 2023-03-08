@@ -37,9 +37,6 @@
 
 #define READ_IMAGE_LENGTH           255
 
-#if defined(PICO_BOARD) ||  defined(STM32F10X_MD)
-#define USE_SERIAL_IRQ
-#endif
 class ArducamLink
 {
 #ifdef USE_SERIAL_IRQ
@@ -51,12 +48,16 @@ class ArducamLink
     static uint8_t UartCommBuff[20];
   private:
     static void uart_rx_handler();
+  public:
+    uint8_t uartCommandProcessing(Arducam_Mega*);
+#else
+  public:
+    uint8_t uartCommandProcessing(Arducam_Mega*, uint8_t*);
 #endif
   public:
     ArducamLink();
     ~ArducamLink();
     void arducamUartBegin(uint32_t);
-    uint8_t uartCommandProcessing(Arducam_Mega*, uint8_t*);
     void reportCameraInfo(Arducam_Mega*);
     void reportVerInfo(Arducam_Mega* myCamera);
     void reportSdkVerInfo(Arducam_Mega* myCamera);

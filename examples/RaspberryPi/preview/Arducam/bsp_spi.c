@@ -22,7 +22,7 @@
 
 
 int fb;
-static unsigned int  speed = 4000000;
+static unsigned int  speed = 12000000;
 // Pointers that will be memory mapped when pioInit() is called
 volatile unsigned int *gpio; //pointer to base of gpio
 volatile unsigned int *spi;  //pointer to base of spi registers

@@ -1,4 +1,4 @@
-# aux_source_directory(. DIR_CAM_SRCS)
+project(Arducam)
 set( DIR_CAM_SRCS
     ../../../../src/Arducam/picoHal.h
     cam_spi_master.h

@@ -38,14 +38,13 @@ void core1_entry()
                 CAM.status = Camera_open;
                 if (CAM.cam.cameraId == SENSOR_5MP_1) {
                     array_label[4] = "2592X1944";
-                    camera_resoultion[3] = CAM_IMAGE_MODE_WQXGA2;
-                }
-                else if (CAM.cam.cameraId == SENSOR_5MP_2) {
+                    camera_resoultion[2] = CAM_IMAGE_MODE_WQXGA2;
+                } else if (CAM.cam.cameraId == SENSOR_5MP_2) {
                     array_label[4] = "2592X1936";
-                    camera_resoultion[3] = CAM_IMAGE_MODE_WQXGA2;
+                    camera_resoultion[2] = CAM_IMAGE_MODE_WQXGA2;
                 } else {
                     array_label[4] = "2048X1536";
-                    camera_resoultion[3] = CAM_IMAGE_MODE_QXGA;
+                    camera_resoultion[2] = CAM_IMAGE_MODE_QXGA;
                 }
                 reflash = true;
                 break;
@@ -113,15 +112,19 @@ int main()
             if ((f_open(&fp, filename, FA_CREATE_ALWAYS | FA_WRITE)) != FR_OK) {
                 _save_state = save_picture_error;
             } else {
+                buffer_ready = false;
                 _save_state = save_picture_runnig;
             }
-            buffer_ready = false;
             break;
         case save_picture_runnig:
             if (buffer_ready == true) {
                 // printf("picture saving...%d",read_buffer_lenght);
-                sleep_ms(1);
-                f_write(&fp, frame_buff, read_buffer_lenght, &btw);
+                int write_len = 0;
+                do {
+                    sleep_us(200);
+                    f_write(&fp, frame_buff + write_len, read_buffer_lenght - write_len, &btw);
+                    write_len += btw;
+                } while (write_len != read_buffer_lenght);
                 buffer_ready = false;
                 sleep_ms(1);
             }

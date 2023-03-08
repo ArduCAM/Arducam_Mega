@@ -22,6 +22,8 @@
 #include "Same54Hal.h"
 #elif defined(PICO_BOARD)
 #include "picoHal.h"
+#elif defined(__PLATFORM_RASPBERRY)
+#include "raspberryHal.h"
 #endif
 
 #endif /*__PLATFORM_H*/

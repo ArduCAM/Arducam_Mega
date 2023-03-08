@@ -17,8 +17,9 @@ Arducam_Mega::Arducam_Mega(int CS)
 }
 CamStatus Arducam_Mega::reset(void)
 {
-    ::resetCamera(&cameraInfo);
+    return ::reset(&cameraInfo);
 }
+
 CamStatus Arducam_Mega::begin(void)
 {
     return ::begin(&cameraInfo);

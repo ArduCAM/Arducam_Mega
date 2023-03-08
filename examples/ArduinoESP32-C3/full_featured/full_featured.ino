@@ -68,7 +68,7 @@ void stop_preivew()
 void setup()
 {
     myUart.arducamUartBegin(115200);
-    Serial.println("Hello esp32-c3!");
+    myUart.println("Hello esp32-c3!");
     myCAM.begin();
     Serial.println("Mega start!");
     myCAM.registerCallBack(readBuffer, 200, stop_preivew);

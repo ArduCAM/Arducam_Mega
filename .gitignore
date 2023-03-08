@@ -26,4 +26,6 @@ JLinkLog.txt
 *.m51
 .vscode/
 *.hex
+
 build/
+arducam_mega_docs/

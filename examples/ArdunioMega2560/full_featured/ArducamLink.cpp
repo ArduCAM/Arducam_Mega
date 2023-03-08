@@ -10,6 +10,8 @@
 #include "ArducamUart.h"
 
 #ifdef USE_SERIAL_IRQ
+#include <cstdio>
+#include <cstring>
 uint8_t ArducamLink::uart_state = 0;
 uint8_t ArducamLink::uart1_rx_cnt = 0;
 uint8_t ArducamLink::uart1_rx_head = 0;
@@ -82,9 +84,9 @@ void ArducamLink::cameraGetPicture(Arducam_Mega* myCamera)
     uint8_t buff[READ_IMAGE_LENGTH] = {0};
 
     uint8_t rtLength = 0;
+    uint32_t len = myCamera->getTotalLength();
     arducamUartWriteBuff(&headAndtail[0], 3);
-    arducamUartWrite((uint8_t*)(&myCamera->getTotalLength()), 4);
-
+    arducamUartWriteBuff((uint8_t*)(&len), 4);
     arducamUartWrite(((cameraInstance->cameraDataFormat & 0x0f) << 4) | 0x01);
     while (myCamera->getReceivedLength()) {
         rtLength = readBuff(cameraInstance, buff, READ_IMAGE_LENGTH);
@@ -104,16 +106,19 @@ void ArducamLink::send_data_pack(char cmd_type, char* msg)
     printf("\r\n");
     arducamUartWriteBuff(&headAndtail[3], 2);
 }
-
-uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* commandBuff)
-{
 #ifdef USE_SERIAL_IRQ
+
+uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM)
+{
     if (uart_state != 1)
         return 0;
     uart_state = 0;
     uart1_rx_len = 0;
     uart1_rx_cnt = 0;
     uint8_t* commandBuff = &UartCommBuff[uart1_rx_head + 1];
+#else
+uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* commandBuff)
+{
 #endif
     ArducamCamera* cameraInstance = myCAM->getCameraInstance();
     CamStatus state;
@@ -205,7 +210,7 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
     case RESET_CAMERA:
         myCAM->reset();
     case SET_IMAGE_QUALITY:
-        myCAM->setImageQuality(commandBuff[1]);
+        myCAM->setImageQuality((IMAGE_QUALITY)commandBuff[1]);
     default:
         break;
     }
@@ -215,19 +220,19 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
 void ArducamLink::arducamUartWriteBuff(uint8_t* buff, uint8_t length)
 {
     SerialWriteBuff(buff, length);
-    delayMicroseconds(12);
+    delayUs(12);
 }
 
 void ArducamLink::arducamUartWrite(uint8_t data)
 {
     SerialWrite(data);
-    delayMicroseconds(12);
+    delayUs(12);
 }
 
 void ArducamLink::printf(char* buff)
 {
     SerialPrintf(buff);
-    delayMicroseconds(12);
+    delayUs(12);
 }
 
 uint32_t ArducamLink::arducamUartAvailable(void)
@@ -237,7 +242,7 @@ uint32_t ArducamLink::arducamUartAvailable(void)
 
 uint8_t ArducamLink::arducamUartRead(void)
 {
-    return Serial.read();
+    return SerialRead();
 }
 
 void ArducamLink::arducamFlush(void)

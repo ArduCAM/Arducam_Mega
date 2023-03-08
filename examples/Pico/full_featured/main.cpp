@@ -1,16 +1,19 @@
 #include "Arducam_Mega.h"
 #include <pico/stdlib.h>
-// #include "Platform.h"
 #include "ArducamLink.h"
+#include <cstdio>
+
 const int CS = 17;
 Arducam_Mega myCAM(CS);
-ArducamLink myUart;
 uint8_t temp             = 0xff;
 uint8_t sendFlag         = TRUE;
 uint8_t commandBuff[20]  = {0};
 uint8_t commandLength    = 0;
 uint32_t readImageLength = 0;
 uint8_t jpegHeadFlag     = 0;
+
+ArducamLink myUart;
+
 uint8_t readBuffer(uint8_t* imagebuf, uint8_t length)
 {
     if (imagebuf[0] == 0xff && imagebuf[1] == 0xd8) {
@@ -58,13 +61,28 @@ void stop_preivew()
 
 int main()
 {
-    myUart.arducamUartBegin(921600);
-    myUart.printf(const_cast<char*>("Hello Raspberry Pi Pico!"));
+    stdio_init_all();
+    myUart.send_data_pack(7,const_cast<char*>("Hello Raspberry Pi Pico!"));
     myCAM.begin();
-    myUart.printf(const_cast<char*>("Mega start!"));
+    myUart.send_data_pack(8,const_cast<char*>("Mega start!"));
     myCAM.registerCallBack(readBuffer, 200, stop_preivew);
     while (true) {
-        myUart.uartCommandProcessing(&myCAM);
+        if (myUart.arducamUartAvailable()) {
+        temp = myUart.arducamUartRead();
+        // sleep_(5);
+        if (temp == 0x55) {
+            while (myUart.arducamUartAvailable()) {
+                commandBuff[commandLength] = myUart.arducamUartRead();
+                if (commandBuff[commandLength] == 0xAA) {
+                    break;
+                }
+                commandLength++;
+            }
+            myUart.arducamFlush();
+            myUart.uartCommandProcessing(&myCAM, commandBuff);
+            commandLength = 0;
+        }
+    }
         myCAM.captureThread();
     }
 }

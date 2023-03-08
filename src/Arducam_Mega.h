@@ -20,7 +20,9 @@
  * @version V1.0
  * @copyright Arducam
  */
-
+/**
+ * @brief Arducam Mega Class
+*/
 class Arducam_Mega
 {
   private:
@@ -31,9 +33,21 @@ class Arducam_Mega
     ArducamCamera cameraInfo;
 
   public:
-    Arducam_Mega(int cs);
+    //**********************************************
+    //!
+    //! @brief Constructor of camera class
+    //!
+    //! @param cs enable pin
+    //!
+    //**********************************************
+    Arducam_Mega(int cs); 
 
-    CamStatus reset(void);
+    //**********************************************
+    //!
+    //! @brief reset camera
+    //!
+    //**********************************************
+    CamStatus reset(void); 
     //**********************************************
     //!
     //! @brief Initialize the configuration of the camera module
@@ -242,7 +256,6 @@ class Arducam_Mega
     //!
     //! @brief Set jpeg image quality
     //!
-    //! @param  camera ArducamCamera instance
     //! @param  qualtiy Image Quality
     //!
     //! @return Return operation status
@@ -288,6 +301,7 @@ class Arducam_Mega
     //! @param  function Callback function name
     //! @param  blockSize The length of the data transmitted by the callback
     //! function at one time
+    //! @param  handle stop function Callback function name
     //!
     //! @note Transmission length should be less than `255`
     //**********************************************

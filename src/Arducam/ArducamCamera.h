@@ -12,7 +12,7 @@
 #define __ARDUCAM_H
 #include <stdint.h>
 /**
- * @file Arducam.h
+ * @file ArducamCamera.h
  * @author Arducam
  * @date 2021/12/6
  * @version V1.0
@@ -629,6 +629,7 @@ void debugWriteRegister(ArducamCamera* camera, uint8_t* buff);
 //! @param  function Callback function name
 //! @param  blockSize The length of the data transmitted by the callback
 //! function at one time
+//! @param  handle stop function Callback function name
 //!
 //! @note Transmission length should be less than `255`
 //**********************************************
