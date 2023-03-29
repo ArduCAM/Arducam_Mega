@@ -13,7 +13,6 @@ char buff_string[80];
 void send_at_cmd(const char cmd[])
 {
     printf("AT+%s\r\n", cmd);
-
 }
 
 enum { AT_READY = 0, AT_INIT, AT_RUN, AT_ERR } esp_state = AT_INIT;
@@ -145,7 +144,7 @@ void uart_rx_handler()
         break;
     }
 }
-
+volatile bool wifi_buffer_ready = false;
 char* at_cmd[] = {"RESTORE",                                          // 0
                   "CWMODE=2",                                         // 1
                   "CIPMUX=1",                                         // 3
@@ -157,11 +156,14 @@ char* at_cmd[] = {"RESTORE",                                          // 0
 
 void server_get_picture(ArducamCamera* camera)
 {
-    while (buffer_ready != false)
+    int rs = 0;
+    while (wifi_buffer_ready != false)
         tight_loop_contents();
     takePicture(camera, CAM_IMAGE_MODE_QVGA, CAM_IMAGE_PIX_FMT_JPG);
-    int rs = readBuff(camera, frame_buff, camera->totalLength);
-    buffer_ready = true;
+    do {
+        rs = readBuff(camera, frame_buff, camera->totalLength);
+    } while (rs <= 0);
+    wifi_buffer_ready = true;
 }
 void wifi_server_start()
 {
@@ -188,8 +190,8 @@ void wifi_server_process()
                 len = strlen(htmls[send_index]);
             } else {
                 if (CAM.status == Camera_open) {
-                    buffer_ready = false;
-                    while (buffer_ready != true)
+                    wifi_buffer_ready = false;
+                    while (wifi_buffer_ready != true)
                         tight_loop_contents();
                     len = CAM.cam.totalLength + strlen(htmls[send_index]);
                 } else {
@@ -212,10 +214,10 @@ void wifi_server_process()
                 break;
             case 1:
                 printf(htmls[send_index]);
-                if (buffer_ready == true) {
+                if (wifi_buffer_ready == true) {
                     // int rs = readBuff(&CAM.cam, frame_buff, CAM.cam.totalLength);
                     uart_write_blocking(uart0, frame_buff, CAM.cam.totalLength);
-                    buffer_ready = false;
+                    wifi_buffer_ready = false;
                 }
                 break;
             }

@@ -10,3 +10,11 @@ include_directories(sdcard)
 add_library(fatfs ${DIR_FATFS_SRCS} ${DIR_SDCARD_SRCS})
 # hardware_rtc
 target_link_libraries(fatfs PUBLIC hardware_spi pico_stdlib)
+
+
+add_executable(testFatfs test/test.c)
+pico_enable_stdio_usb(testFatfs 1)
+pico_enable_stdio_uart(testFatfs 0)
+
+target_link_libraries(testFatfs fatfs)
+pico_add_extra_outputs(testFatfs)

@@ -44,7 +44,7 @@ void pico4ml_camera_spi_init(uint32_t spi_baudrate)
 
 void pico4ml_lcd_init(int irq_flag)
 {
-    // lcd_cs_init(LCD_CS_PIN);
+    // lcd_cs_init(LCD_CS_PI    N);
     // lcd_dc_init(LCD_DC_PIN);
     // LCD_Init(SCAN_DIR_DFT);
     if (irq_flag != true && irq_flag != false)

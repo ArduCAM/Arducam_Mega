@@ -86,7 +86,7 @@ int main()
 {
     char filename[20];
     int click_btn_idx = -1;
-    uint8_t wifiserver_state = false;
+    uint8_t wifiserver_state = false, find_jpg_head = false;
     pico4ml_init(false);
     pico4ml_camera_spi_init(SPI1_BAUDRATE);
     uint32_t wait_cnt = 0;
@@ -98,7 +98,7 @@ int main()
     clear_screen(WHITE);
     draw_ui();
     SD_Init();
-
+    int image_save_cnt = 0;
     while (true) {
         if (reflash == true) {
             reflash = false;
@@ -106,34 +106,36 @@ int main()
         }
         switch (_save_state) {
         case save_picture_start:
-            sprintf(filename, "%llu.JPG", get_absolute_time());
+            sprintf(filename, "img%04d.jpg", image_save_cnt++);
             draw_rect(win_loc, GRAY);
             /* Create the file */
             if ((f_open(&fp, filename, FA_CREATE_ALWAYS | FA_WRITE)) != FR_OK) {
                 _save_state = save_picture_error;
             } else {
-                buffer_ready = false;
+                save_buffer_ready = false;
+                find_jpg_head = true;
                 _save_state = save_picture_runnig;
             }
             break;
         case save_picture_runnig:
-            if (buffer_ready == true) {
-                // printf("picture saving...%d",read_buffer_lenght);
+            if (save_buffer_ready == true) {
                 int write_len = 0;
-                do {
-                    sleep_us(200);
-                    f_write(&fp, frame_buff + write_len, read_buffer_lenght - write_len, &btw);
-                    write_len += btw;
-                } while (write_len != read_buffer_lenght);
-                buffer_ready = false;
-                sleep_ms(1);
+
+                if ((read_buffer_lenght - write_len) > 0) {
+                    do {
+                        f_write(&fp, frame_buff + write_len, read_buffer_lenght - write_len, &btw);
+                        write_len += btw;
+                    } while (write_len != read_buffer_lenght);
+                }
+                save_buffer_ready = false;
+                sleep_us(200);
             }
             break;
         case save_picture_complete:
             f_close(&fp);
             sleep_ms(10);
             _save_state = save_picture_idle;
-            buffer_ready = false;
+            preview_buffer_ready = false;
             diplay_label(click_btn_idx, GRAY);
             draw_rect(win_loc, GREEN);
             break;
@@ -157,24 +159,23 @@ int main()
                     break;
                 default:
                     _save_state = save_picture_start;
-                    while (buffer_ready != true)
-                        tight_loop_contents();
-                    buffer_ready = false;
+                    // while (save_buffer_ready != true)
+                    //     tight_loop_contents();
+                    save_buffer_ready = false;
                     picture_resolution = camera_resoultion[click_btn_idx - 2];
-
                     diplay_label(click_btn_idx, GREEN);
                     break;
                 }
             }
 
-            if (buffer_ready == true) {
-                display_image_(preview_loc, frame_buff, false);
-                buffer_ready = false;
+            if (preview_buffer_ready == true) {
+                display_image(preview_loc, frame_buff);
+                preview_buffer_ready = false;
             }
             break;
         case save_picture_error:
             _save_state = save_picture_idle;
-            buffer_ready = false;
+            preview_buffer_ready = false;
             diplay_label(click_btn_idx, GRAY);
             draw_rect(win_loc, RED);
             break;
@@ -191,8 +192,10 @@ int main()
             if (wait_cnt > 300000) {
                 switch (select_touch(&array_btn[0], 2)) {
                 case 0:
-                    draw_rect(array_btn[0], BLACK);
+                    preview_buffer_ready = false;
                     _save_state = save_picture_idle;
+                    wifi_buffer_ready = false;
+                    draw_rect(array_btn[0], BLACK);
                     wait_cnt = 0;
                     break;
                 case 1:

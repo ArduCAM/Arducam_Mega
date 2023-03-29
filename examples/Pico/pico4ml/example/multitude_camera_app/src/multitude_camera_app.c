@@ -91,7 +91,7 @@ void display_loop(void)
     draw_multitude_camera();
     while (true) {
         if (buffer_ready == true) {
-            display_image_(list_cam_loc[camera_idx], frame_buff, false);
+            display_image(list_cam_loc[camera_idx], frame_buff);
             buffer_ready = false;
         }
         // test_spi(0xaa);

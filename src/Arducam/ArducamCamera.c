@@ -16,10 +16,13 @@
 #define ARDUCHIP_FRAMES     0x01
 #define ARDUCHIP_TEST1      0x00 // TEST register
 #define ARDUCHIP_FIFO       0x04 // FIFO and I2C control
-#define FIFO_CLEAR_MASK     0x01
+#define ARDUCHIP_FIFO_2     0x07 // FIFO and I2C control
+#define FIFO_CLEAR_ID_MASK  0x01
 #define FIFO_START_MASK     0x02
+
 #define FIFO_RDPTR_RST_MASK 0x10
 #define FIFO_WRPTR_RST_MASK 0x20
+#define FIFO_CLEAR_MASK     0x80
 
 #define ARDUCHIP_TRIG       0x44 // Trigger source
 #define VSYNC_MASK          0x01
@@ -115,9 +118,9 @@
 #define SPECIAL_YELLOWISH                          (1 << 8)
 
 union SdkInfo currentSDK = {
-    .sdkInfo.year    = 23,
-    .sdkInfo.month   = 2,
-    .sdkInfo.day     = 20,
+    .sdkInfo.year = 23,
+    .sdkInfo.month = 2,
+    .sdkInfo.day = 20,
     .sdkInfo.version = 0x20,
 };
 
@@ -144,7 +147,7 @@ void flushFifo(ArducamCamera* camera);
 void startCapture(ArducamCamera* camera);
 
 struct CameraInfo CameraInfo_5MP = {
-    .cameraId          = "5MP",
+    .cameraId = "5MP",
     .supportResolution = RESOLUTION_320x320 | RESOLUTION_128x128 | RESOLUTION_96x96 | RESOLUTION_320X240 |
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
                          RESOLUTION_2592X1944,
@@ -152,15 +155,15 @@ struct CameraInfo CameraInfo_5MP = {
                              SPECIAL_GREENISH /*| SPECIAL_OVEREXPOSURE | SPECIAL_SOLARIZE*/,
     .exposureValueMax = 30000,
     .exposureValueMin = 1,
-    .gainValueMax     = 1023,
-    .gainValueMin     = 1,
-    .supportFocus     = TRUE,
+    .gainValueMax = 1023,
+    .gainValueMin = 1,
+    .supportFocus = TRUE,
     .supportSharpness = FALSE,
-    .deviceAddress    = 0x78,
+    .deviceAddress = 0x78,
 };
 
 struct CameraInfo CameraInfo_3MP = {
-    .cameraId          = "3MP",
+    .cameraId = "3MP",
     .supportResolution = RESOLUTION_320x320 | RESOLUTION_128x128 | RESOLUTION_96x96 | RESOLUTION_320X240 |
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
                          RESOLUTION_2048X1536,
@@ -168,26 +171,26 @@ struct CameraInfo CameraInfo_3MP = {
                              SPECIAL_GREENISH | SPECIAL_YELLOWISH,
     .exposureValueMax = 30000,
     .exposureValueMin = 1,
-    .gainValueMax     = 1023,
-    .gainValueMin     = 1,
-    .supportFocus     = FALSE,
+    .gainValueMax = 1023,
+    .gainValueMin = 1,
+    .supportFocus = FALSE,
     .supportSharpness = TRUE,
-    .deviceAddress    = 0x78,
+    .deviceAddress = 0x78,
 };
 
-struct CameraInfo *CameraType[CAMERA_TYPE_NUMBER];
+struct CameraInfo* CameraType[CAMERA_TYPE_NUMBER];
 
 struct cameraDefaultState DefaultState_5mp = {
-    .cameraDefaultFormat     = CAM_IMAGE_PIX_FMT_JPG,
+    .cameraDefaultFormat = CAM_IMAGE_PIX_FMT_JPG,
     .cameraDefaultResolution = CAM_IMAGE_MODE_WQXGA2,
 };
 
 struct cameraDefaultState DefaultState_3mp = {
-    .cameraDefaultFormat     = CAM_IMAGE_PIX_FMT_JPG,
+    .cameraDefaultFormat = CAM_IMAGE_PIX_FMT_JPG,
     .cameraDefaultResolution = CAM_IMAGE_MODE_QXGA,
 };
 
-struct cameraDefaultState *cameraDefaultInfo[CAMERA_TYPE_NUMBER];
+struct cameraDefaultState* cameraDefaultInfo[CAMERA_TYPE_NUMBER];
 
 uint8_t ov3640GainValue[] = {0x00, 0x10, 0x18, 0x30, 0x34, 0x38, 0x3b, 0x3f, 0x72, 0x74, 0x76,
                              0x78, 0x7a, 0x7c, 0x7e, 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6,
@@ -217,7 +220,7 @@ void cameraGetSensorConfig(ArducamCamera* camera)
         break;
     }
 
-    camera->myCameraInfo       = *CameraType[cameraIdx];
+    camera->myCameraInfo = *CameraType[cameraIdx];
     camera->currentPixelFormat = cameraDefaultInfo[cameraIdx]->cameraDefaultFormat;
     camera->currentPictureMode = cameraDefaultInfo[cameraIdx]->cameraDefaultResolution;
 }
@@ -236,7 +239,7 @@ CamStatus cameraBegin(ArducamCamera* camera)
     waitI2cIdle(camera);
     camera->verDateAndNumber[3] = readReg(camera, CAM_REG_FPGA_VERSION_NUMBER) & 0xFF; // day
     waitI2cIdle(camera);
-  
+
     writeReg(camera, CAM_REG_DEBUG_DEVICE_ADDRESS, camera->myCameraInfo.deviceAddress);
     waitI2cIdle(camera);
     return CAM_ERR_SUCCESS;
@@ -244,13 +247,13 @@ CamStatus cameraBegin(ArducamCamera* camera)
 
 void cameraSetCapture(ArducamCamera* camera)
 {
-    flushFifo(camera);
+    // flushFifo(camera);
     clearFifoFlag(camera);
     startCapture(camera);
     while (getBit(camera, ARDUCHIP_TRIG, CAP_DONE_MASK) == 0)
         ;
     camera->receivedLength = readFifoLength(camera);
-    camera->totalLength    = camera->receivedLength;
+    camera->totalLength = camera->receivedLength;
     camera->burstFirstFlag = 0;
 }
 
@@ -270,7 +273,7 @@ CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAG
 {
     if ((camera->currentPixelFormat != pixel_format) || (camera->currentPictureMode != mode)) {
         camera->currentPixelFormat = pixel_format;
-        camera->cameraDataFormat   = pixel_format;
+        camera->cameraDataFormat = pixel_format;
         camera->currentPictureMode = mode;
         writeReg(camera, CAM_REG_FORMAT, pixel_format); // set the data format
         waitI2cIdle(camera);                            // Wait I2c Idle
@@ -287,7 +290,7 @@ CamStatus cameratakeMultiPictures(ArducamCamera* camera, CAM_IMAGE_MODE mode, CA
 {
     if ((camera->currentPixelFormat != pixel_format) || (camera->currentPictureMode != mode)) {
         camera->currentPixelFormat = pixel_format;
-        camera->cameraDataFormat   = pixel_format;
+        camera->cameraDataFormat = pixel_format;
         camera->currentPictureMode = mode;
         writeReg(camera, CAM_REG_FORMAT, pixel_format); // set the data format
         waitI2cIdle(camera);                            // Wait I2c Idle
@@ -308,15 +311,15 @@ CamStatus cameratakeMultiPictures(ArducamCamera* camera, CAM_IMAGE_MODE mode, CA
 void cameraRegisterCallback(ArducamCamera* camera, BUFFER_CALLBACK function, uint8_t size, STOP_HANDLE handle)
 {
     camera->callBackFunction = function;
-    camera->blockSize        = size;
-    camera->handle           = handle;
+    camera->blockSize = size;
+    camera->handle = handle;
 }
 
 CamStatus cameraStartPreview(ArducamCamera* camera, CAM_VIDEO_MODE mode)
 {
 
     camera->cameraDataFormat = CAM_IMAGE_PIX_FMT_JPG;
-    camera->previewMode      = TRUE;
+    camera->previewMode = TRUE;
     if (!camera->callBackFunction) {
         return CAM_ERR_NO_CALLBACK;
     }
@@ -351,9 +354,9 @@ CamStatus cameraStopPreview(ArducamCamera* camera)
 
     camera->currentPixelFormat = CAM_IMAGE_PIX_FMT_JPG;
     camera->currentPictureMode = CAM_IMAGE_MODE_QVGA;
-    camera->previewMode        = FALSE;
-    camera->receivedLength     = 0;
-    camera->totalLength        = 0;
+    camera->previewMode = FALSE;
+    camera->receivedLength = 0;
+    camera->totalLength = 0;
     writeReg(camera, CAM_REG_FORMAT, CAM_IMAGE_PIX_FMT_JPG); // set  jpeg format
     waitI2cIdle(camera);                                     // Wait I2c Idle
     return CAM_ERR_SUCCESS;
@@ -486,7 +489,7 @@ CamStatus cameraSetBrightness(ArducamCamera* camera, CAM_BRIGHTNESS_LEVEL level)
 }
 void cameraFlushFifo(ArducamCamera* camera)
 {
-    writeReg(camera, ARDUCHIP_FIFO, FIFO_CLEAR_MASK);
+    writeReg(camera, ARDUCHIP_FIFO_2, FIFO_CLEAR_MASK);
 }
 
 void cameraStartCapture(ArducamCamera* camera)
@@ -496,15 +499,15 @@ void cameraStartCapture(ArducamCamera* camera)
 
 void cameraClearFifoFlag(ArducamCamera* camera)
 {
-    writeReg(camera, ARDUCHIP_FIFO, FIFO_CLEAR_MASK);
+    writeReg(camera, ARDUCHIP_FIFO, FIFO_CLEAR_ID_MASK);
 }
 
 uint32_t cameraReadFifoLength(ArducamCamera* camera)
 {
     uint32_t len1, len2, len3, length = 0;
-    len1   = readReg(camera, FIFO_SIZE1);
-    len2   = readReg(camera, FIFO_SIZE2);
-    len3   = readReg(camera, FIFO_SIZE3);
+    len1 = readReg(camera, FIFO_SIZE1);
+    len2 = readReg(camera, FIFO_SIZE2);
+    len3 = readReg(camera, FIFO_SIZE3);
     length = ((len3 << 16) | (len2 << 8) | len1) & 0xffffff;
     return length;
 }
@@ -621,8 +624,8 @@ uint8_t cameraHeartBeat(ArducamCamera* camera)
 void cameraDebugWriteRegister(ArducamCamera* camera, uint8_t* buff)
 {
     uint8_t register_high = buff[0];
-    uint8_t register_low  = buff[1];
-    uint8_t value         = buff[2];
+    uint8_t register_low = buff[1];
+    uint8_t value = buff[2];
     writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, register_high);
     writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW, register_low);
     writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, value);
@@ -836,64 +839,64 @@ CamStatus setImageQuality(ArducamCamera* camera, IMAGE_QUALITY qualtiy)
 }
 
 const struct CameraOperations ArducamcameraOperations = {
-    .reset                   = cameraReset,
-    .begin                   = cameraBegin,
-    .takePicture             = cameraTakePicture,
-    .takeMultiPictures       = cameratakeMultiPictures,
-    .startPreview            = cameraStartPreview,
-    .captureThread           = cameraCaptureThread,
-    .stopPreview             = cameraStopPreview,
-    .setAutoExposure         = cameraSetAutoExposure,
-    .setAbsoluteExposure     = cameraSetAbsoluteExposure,
-    .setAutoISOSensitive     = cameraSetAutoISOSensitive,
-    .setISOSensitivity       = cameraSetISOSensitivity,
-    .setAutoWhiteBalance     = cameraSetAutoWhiteBalance,
+    .reset = cameraReset,
+    .begin = cameraBegin,
+    .takePicture = cameraTakePicture,
+    .takeMultiPictures = cameratakeMultiPictures,
+    .startPreview = cameraStartPreview,
+    .captureThread = cameraCaptureThread,
+    .stopPreview = cameraStopPreview,
+    .setAutoExposure = cameraSetAutoExposure,
+    .setAbsoluteExposure = cameraSetAbsoluteExposure,
+    .setAutoISOSensitive = cameraSetAutoISOSensitive,
+    .setISOSensitivity = cameraSetISOSensitivity,
+    .setAutoWhiteBalance = cameraSetAutoWhiteBalance,
     .setAutoWhiteBalanceMode = cameraSetAutoWhiteBalanceMode,
-    .setColorEffect          = cameraSetColorEffect,
-    .setAutoFocus            = cameraSetAutoFocus,
-    .setSaturation           = cameraSetSaturation,
-    .setEV                   = cameraSetEV,
-    .setContrast             = cameraSetContrast,
-    .setBrightness           = cameraSetBrightness,
-    .setSharpness            = cameraSetSharpness,
-    .registerCallback        = cameraRegisterCallback,
-    .imageAvailable          = cameraImageAvailable,
-    .csHigh                  = cameraCsHigh,
-    .csLow                   = cameraCsLow,
-    .readBuff                = cameraReadBuff,
-    .readByte                = cameraReadByte,
-    .debugWriteRegister      = cameraDebugWriteRegister,
-    .writeReg                = cameraWriteReg,
-    .readReg                 = cameraReadReg,
-    .busRead                 = cameraBusRead,
-    .busWrite                = cameraBusWrite,
-    .flushFifo               = cameraFlushFifo,
-    .startCapture            = cameraStartCapture,
-    .clearFifoFlag           = cameraClearFifoFlag,
-    .readFifoLength          = cameraReadFifoLength,
-    .getBit                  = cameraGetBit,
-    .setFifoBurst            = cameraSetFifoBurst,
-    .setCapture              = cameraSetCapture,
-    .waitI2cIdle             = cameraWaitI2cIdle,
-    .lowPowerOn              = cameraLowPowerOn,
-    .lowPowerOff             = cameraLowPowerOff,
-    .setImageQuality         = cameraSetImageQuality,
+    .setColorEffect = cameraSetColorEffect,
+    .setAutoFocus = cameraSetAutoFocus,
+    .setSaturation = cameraSetSaturation,
+    .setEV = cameraSetEV,
+    .setContrast = cameraSetContrast,
+    .setBrightness = cameraSetBrightness,
+    .setSharpness = cameraSetSharpness,
+    .registerCallback = cameraRegisterCallback,
+    .imageAvailable = cameraImageAvailable,
+    .csHigh = cameraCsHigh,
+    .csLow = cameraCsLow,
+    .readBuff = cameraReadBuff,
+    .readByte = cameraReadByte,
+    .debugWriteRegister = cameraDebugWriteRegister,
+    .writeReg = cameraWriteReg,
+    .readReg = cameraReadReg,
+    .busRead = cameraBusRead,
+    .busWrite = cameraBusWrite,
+    .flushFifo = cameraFlushFifo,
+    .startCapture = cameraStartCapture,
+    .clearFifoFlag = cameraClearFifoFlag,
+    .readFifoLength = cameraReadFifoLength,
+    .getBit = cameraGetBit,
+    .setFifoBurst = cameraSetFifoBurst,
+    .setCapture = cameraSetCapture,
+    .waitI2cIdle = cameraWaitI2cIdle,
+    .lowPowerOn = cameraLowPowerOn,
+    .lowPowerOff = cameraLowPowerOff,
+    .setImageQuality = cameraSetImageQuality,
 };
 
 ArducamCamera createArducamCamera(int CS)
 {
     ArducamCamera camera;
-    CameraType[0]           = &CameraInfo_5MP;
-    CameraType[1]           = &CameraInfo_3MP;
-    cameraDefaultInfo[0]    = &DefaultState_5mp;
-    cameraDefaultInfo[1]    = &DefaultState_3mp;
-    camera.cameraId         = FALSE;
+    CameraType[0] = &CameraInfo_5MP;
+    CameraType[1] = &CameraInfo_3MP;
+    cameraDefaultInfo[0] = &DefaultState_5mp;
+    cameraDefaultInfo[1] = &DefaultState_3mp;
+    camera.cameraId = FALSE;
     camera.cameraDataFormat = FORMAT_JPEG;
-    camera.burstFirstFlag   = FALSE;
-    camera.previewMode      = FALSE;
-    camera.csPin            = CS;
-    camera.arducamCameraOp  = &ArducamcameraOperations;
-    camera.currentSDK       = &currentSDK;
+    camera.burstFirstFlag = FALSE;
+    camera.previewMode = FALSE;
+    camera.csPin = CS;
+    camera.arducamCameraOp = &ArducamcameraOperations;
+    camera.currentSDK = &currentSDK;
     cameraInit(&camera);
     return camera;
 }
