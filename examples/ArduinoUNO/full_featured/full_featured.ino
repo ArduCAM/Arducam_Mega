@@ -66,7 +66,7 @@ void stop_preivew()
 
 void setup()
 {
-    myUart.arducamUartBegin(115200);
+    myUart.arducamUartBegin(921600);
     myUart.send_data_pack(7, "Hello Arduino Mega!");
     myCAM.begin();
     myUart.send_data_pack(8, "Mega start!");

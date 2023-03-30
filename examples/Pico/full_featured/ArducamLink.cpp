@@ -27,7 +27,7 @@ void ArducamLink::reportVerInfo(Arducam_Mega* myCamera)
     arducamUartWriteBuff(&headAndtail[0], 3);
     arducamUartWriteBuff((uint8_t*)&len, 4);
     arducamUartWriteBuff(cameraInstance->verDateAndNumber, 4);
-    printf(const_cast<char*>("\r\n"));
+    printf("\r\n");
     arducamUartWriteBuff(&headAndtail[3], 2);
 }
 
@@ -40,7 +40,7 @@ void ArducamLink::reportSdkVerInfo(Arducam_Mega* myCamera)
     arducamUartWriteBuff(&headAndtail[0], 3);
     arducamUartWriteBuff((uint8_t*)&len, 4);
     arducamUartWriteBuff((uint8_t*)&cameraInstance->currentSDK->sdkVersion, 4);
-    printf(const_cast<char*>("\r\n"));
+    printf("\r\n");
     arducamUartWriteBuff(&headAndtail[3], 2);
 }
 
@@ -77,7 +77,7 @@ void ArducamLink::cameraGetPicture(Arducam_Mega* myCamera)
     uint32_t len = myCamera->getTotalLength();
     arducamUartWriteBuff(&headAndtail[0], 3);
     arducamUartWriteBuff((uint8_t*)(&len), 4);
-    arducamUartWrite(((cameraInstance->cameraDataFormat & 0x0f) << 4) | 0x01);
+    arducamUartWrite(((cameraInstance->currentPictureMode & 0x0f) << 4) | 0x01);
     while (myCamera->getReceivedLength()) {
         rtLength = readBuff(cameraInstance, buff, READ_IMAGE_LENGTH);
         arducamUartWriteBuff(buff, rtLength);
@@ -93,9 +93,10 @@ void ArducamLink::send_data_pack(char cmd_type, char* msg)
     arducamUartWriteBuff(&headAndtail[0], 3);
     arducamUartWriteBuff((uint8_t*)&len, 4);
     printf(msg);
-    printf(const_cast<char*>("\r\n"));
+    printf("\r\n");
     arducamUartWriteBuff(&headAndtail[3], 2);
 }
+
 uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* commandBuff)
 {
     ArducamCamera* cameraInstance = myCAM->getCameraInstance();
@@ -118,7 +119,7 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
         cameraResolution = commandBuff[1] & 0x0f;
         state = myCAM->startPreview((CAM_VIDEO_MODE)cameraResolution);
         if (state == CAM_ERR_NO_CALLBACK) {
-            printf(const_cast<char*>("callback function is not registered\n"));
+            printf("callback function is not registered\n");
         }
         break;
     case SET_BRIGHTNESS: // Set brightness
@@ -195,16 +196,18 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
     return CAM_ERR_SUCCESS;
 }
 
-void ArducamLink::arducamUartWriteBuff(uint8_t* buff, uint8_t length)
-{
-    SerialWriteBuff(buff, length);
-    delayUs(12);
-}
-
 void ArducamLink::arducamUartWrite(uint8_t data)
 {
     SerialWrite(data);
     delayUs(12);
+}
+
+void ArducamLink::arducamUartWriteBuff(uint8_t* buff, uint16_t length)
+{
+    // SerialWriteBuff(buff, length);
+    // delayUs(12);
+    for(uint8_t i = 0 ;i < length;i++)
+      arducamUartWrite(buff[i]);
 }
 
 void ArducamLink::printf(char* buff)
@@ -218,7 +221,7 @@ uint32_t ArducamLink::arducamUartAvailable(void)
     return SerialAvailable();
 }
 
-uint32_t ArducamLink::arducamUartRead(void)
+uint8_t ArducamLink::arducamUartRead(void)
 {
     return SerialRead();
 }

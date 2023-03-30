@@ -66,10 +66,11 @@ void ArducamLink::reportCameraInfo(Arducam_Mega* myCamera)
 	Serial.println(cameraInstance->myCameraInfo.supportSharpness);
 }
 
+uint8_t buff[READ_IMAGE_LENGTH] = {0};
+
 void ArducamLink::cameraGetPicture(Arducam_Mega* myCamera)
 {
 	ArducamCamera* cameraInstance = myCamera->getCameraInstance();
-	uint8_t buff[READ_IMAGE_LENGTH] = {0};
 	uint8_t rtLength = 0;
 	arducamUartWrite(0x55);
 	arducamUartWrite(0xAA);

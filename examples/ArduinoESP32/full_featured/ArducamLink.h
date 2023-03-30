@@ -39,21 +39,9 @@
 
 class ArducamLink
 {
-#ifdef USE_SERIAL_IRQ
-  private:
-    static uint8_t uart_state;
-    static uint8_t uart1_rx_cnt;
-    static uint8_t uart1_rx_head;
-    static uint8_t uart1_rx_len;
-    static uint8_t UartCommBuff[20];
-  private:
-    static void uart_rx_handler();
-  public:
-    uint8_t uartCommandProcessing(Arducam_Mega*);
-#else
   public:
     uint8_t uartCommandProcessing(Arducam_Mega*, uint8_t*);
-#endif
+
   public:
     ArducamLink();
     ~ArducamLink();
@@ -68,7 +56,7 @@ class ArducamLink
   public:
     void printf(char* buff);
     void arducamUartWrite(uint8_t);
-    void arducamUartWriteBuff(uint8_t*, uint8_t);
+    void arducamUartWriteBuff(uint8_t*, uint16_t);
     uint32_t arducamUartAvailable(void);
     uint8_t arducamUartRead(void);
 };
