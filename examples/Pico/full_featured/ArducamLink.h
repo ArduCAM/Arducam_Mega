@@ -41,6 +41,7 @@ class ArducamLink
 {
   public:
     uint8_t uartCommandProcessing(Arducam_Mega*, uint8_t*);
+
   public:
     ArducamLink();
     ~ArducamLink();
@@ -55,9 +56,9 @@ class ArducamLink
   public:
     void printf(char* buff);
     void arducamUartWrite(uint8_t);
-    void arducamUartWriteBuff(uint8_t*, uint8_t);
+    void arducamUartWriteBuff(uint8_t*, uint16_t);
     uint32_t arducamUartAvailable(void);
-    uint32_t arducamUartRead(void);
+    uint8_t arducamUartRead(void);
 };
 
 #endif /*__ARDUCAMLINK_H*/

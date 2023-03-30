@@ -103,6 +103,7 @@ typedef enum {
     CAM_IMAGE_MODE_13      = 0x0e, /**<Reserve*/
     CAM_IMAGE_MODE_14      = 0x0f, /**<Reserve*/
     CAM_IMAGE_MODE_15      = 0x10, /**<Reserve*/
+    CAM_IMAGE_MODE_NONE,
     /// @endcond
 } CAM_IMAGE_MODE;
 
@@ -255,7 +256,7 @@ typedef struct {
     uint32_t receivedLength;                        /**< The remaining length of the picture */
     uint8_t blockSize;                              /**< The length of the callback function transmission */
     uint8_t cameraId;                               /**< Model of camera module */
-    uint8_t cameraDataFormat;                       /**< The currently set image pixel format */
+    // uint8_t cameraDataFormat;                       /**< The currently set image pixel format */
     uint8_t burstFirstFlag;                         /**< Flag bit for reading data for the first time in
                                                        burst mode */
     uint8_t previewMode;                            /**< Stream mode flag */

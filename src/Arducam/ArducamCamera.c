@@ -88,9 +88,10 @@
 
 #define CAMERA_TYPE_NUMBER                         2
 
-#define FORMAT_JPEG                                0X01
-#define FORMAT_RGB                                 0X02
-#define FORMAT_YUV                                 0X03
+// #define FORMAT_NONE                                0X00
+// #define FORMAT_JPEG                                0X01
+// #define FORMAT_RGB                                 0X02
+// #define FORMAT_YUV                                 0X03
 
 #define RESOLUTION_160X120                         (1 << 0)
 #define RESOLUTION_320X240                         (1 << 1)
@@ -180,17 +181,17 @@ struct CameraInfo CameraInfo_3MP = {
 
 struct CameraInfo* CameraType[CAMERA_TYPE_NUMBER];
 
-struct cameraDefaultState DefaultState_5mp = {
-    .cameraDefaultFormat = CAM_IMAGE_PIX_FMT_JPG,
-    .cameraDefaultResolution = CAM_IMAGE_MODE_WQXGA2,
-};
+// struct cameraDefaultState DefaultState_5mp = {
+//     .cameraDefaultFormat = CAM_IMAGE_PIX_FMT_JPG,
+//     .cameraDefaultResolution = CAM_IMAGE_MODE_WQXGA2,
+// };
 
-struct cameraDefaultState DefaultState_3mp = {
-    .cameraDefaultFormat = CAM_IMAGE_PIX_FMT_JPG,
-    .cameraDefaultResolution = CAM_IMAGE_MODE_QXGA,
-};
+// struct cameraDefaultState DefaultState_3mp = {
+//     .cameraDefaultFormat = CAM_IMAGE_PIX_FMT_JPG,
+//     .cameraDefaultResolution = CAM_IMAGE_MODE_QXGA,
+// };
 
-struct cameraDefaultState* cameraDefaultInfo[CAMERA_TYPE_NUMBER];
+// struct cameraDefaultState* cameraDefaultInfo[CAMERA_TYPE_NUMBER];
 
 uint8_t ov3640GainValue[] = {0x00, 0x10, 0x18, 0x30, 0x34, 0x38, 0x3b, 0x3f, 0x72, 0x74, 0x76,
                              0x78, 0x7a, 0x7c, 0x7e, 0xf0, 0xf1, 0xf2, 0xf3, 0xf4, 0xf5, 0xf6,
@@ -221,8 +222,8 @@ void cameraGetSensorConfig(ArducamCamera* camera)
     }
 
     camera->myCameraInfo = *CameraType[cameraIdx];
-    camera->currentPixelFormat = cameraDefaultInfo[cameraIdx]->cameraDefaultFormat;
-    camera->currentPictureMode = cameraDefaultInfo[cameraIdx]->cameraDefaultResolution;
+    // camera->currentPixelFormat = cameraDefaultInfo[cameraIdx]->cameraDefaultFormat;
+    // camera->currentPictureMode = cameraDefaultInfo[cameraIdx]->cameraDefaultResolution;
 }
 
 CamStatus cameraBegin(ArducamCamera* camera)
@@ -271,16 +272,19 @@ CamStatus cameraSetAutoFocus(ArducamCamera* camera, uint8_t val)
 
 CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format)
 {
-    if ((camera->currentPixelFormat != pixel_format) || (camera->currentPictureMode != mode)) {
-        camera->currentPixelFormat = pixel_format;
-        camera->cameraDataFormat = pixel_format;
+    if (camera->currentPixelFormat != pixel_format) {
         camera->currentPictureMode = mode;
         writeReg(camera, CAM_REG_FORMAT, pixel_format); // set the data format
         waitI2cIdle(camera);                            // Wait I2c Idle
-        // set resolution
+    }
+
+    if (camera->currentPictureMode != mode) {
+        camera->currentPixelFormat = pixel_format;
+        // camera->cameraDataFormat = pixel_format;
         writeReg(camera, CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | mode);
         waitI2cIdle(camera); // Wait I2c Idle
     }
+    
     setCapture(camera);
     return CAM_ERR_SUCCESS;
 }
@@ -288,13 +292,15 @@ CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAG
 CamStatus cameratakeMultiPictures(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format,
                                   uint8_t num)
 {
-    if ((camera->currentPixelFormat != pixel_format) || (camera->currentPictureMode != mode)) {
-        camera->currentPixelFormat = pixel_format;
-        camera->cameraDataFormat = pixel_format;
+    if (camera->currentPixelFormat != pixel_format) {
         camera->currentPictureMode = mode;
         writeReg(camera, CAM_REG_FORMAT, pixel_format); // set the data format
         waitI2cIdle(camera);                            // Wait I2c Idle
-        // set resolution
+    }
+
+    if (camera->currentPictureMode != mode) {
+        camera->currentPixelFormat = pixel_format;
+        // camera->cameraDataFormat = pixel_format;
         writeReg(camera, CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | mode);
         waitI2cIdle(camera); // Wait I2c Idle
     }
@@ -318,7 +324,7 @@ void cameraRegisterCallback(ArducamCamera* camera, BUFFER_CALLBACK function, uin
 CamStatus cameraStartPreview(ArducamCamera* camera, CAM_VIDEO_MODE mode)
 {
 
-    camera->cameraDataFormat = CAM_IMAGE_PIX_FMT_JPG;
+    // camera->cameraDataFormat = CAM_IMAGE_PIX_FMT_JPG;
     camera->previewMode = TRUE;
     if (!camera->callBackFunction) {
         return CAM_ERR_NO_CALLBACK;
@@ -888,10 +894,11 @@ ArducamCamera createArducamCamera(int CS)
     ArducamCamera camera;
     CameraType[0] = &CameraInfo_5MP;
     CameraType[1] = &CameraInfo_3MP;
-    cameraDefaultInfo[0] = &DefaultState_5mp;
-    cameraDefaultInfo[1] = &DefaultState_3mp;
+    // cameraDefaultInfo[0] = &DefaultState_5mp;
+    // cameraDefaultInfo[1] = &DefaultState_3mp;
     camera.cameraId = FALSE;
-    camera.cameraDataFormat = FORMAT_JPEG;
+    camera.currentPixelFormat = CAM_IMAGE_PIX_FMT_NONE;
+    camera.currentPictureMode = CAM_IMAGE_MODE_NONE;
     camera.burstFirstFlag = FALSE;
     camera.previewMode = FALSE;
     camera.csPin = CS;
