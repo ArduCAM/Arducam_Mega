@@ -6,9 +6,9 @@ UINT btw;
 FIL fp;
 
 static enum save_picture_state _save_state = save_picture_idle;
-CAM_IMAGE_MODE picture_resolution = CAM_IMAGE_MODE_FHD;
-char* array_label[] = {"WIFI", "<---", "1600X1200", "1920X1080", "2048X1536"};
-CAM_IMAGE_MODE camera_resoultion[] = {CAM_IMAGE_MODE_UXGA, CAM_IMAGE_MODE_FHD, CAM_IMAGE_MODE_QXGA};
+CAM_IMAGE_MODE picture_resolution          = CAM_IMAGE_MODE_FHD;
+char* array_label[]                        = {"WIFI", "<---", "1600X1200", "1920X1080", "2048X1536"};
+CAM_IMAGE_MODE camera_resoultion[]         = {CAM_IMAGE_MODE_UXGA, CAM_IMAGE_MODE_FHD, CAM_IMAGE_MODE_QXGA};
 
 void SD_Init(void)
 {
@@ -22,10 +22,10 @@ void SD_Init(void)
 }
 
 struct ClassCamera CAM = {0, 0};
-volatile bool reflash = false;
+volatile bool reflash  = false;
 void core1_entry()
 {
-    CAM.cam = createArducamCamera(13);
+    CAM.cam    = createArducamCamera(13);
     CAM.status = Camera_init;
 
     while (true) {
@@ -37,13 +37,13 @@ void core1_entry()
                 begin(&CAM.cam);
                 CAM.status = Camera_open;
                 if (CAM.cam.cameraId == SENSOR_5MP_1) {
-                    array_label[4] = "2592X1944";
+                    array_label[4]       = "2592X1944";
                     camera_resoultion[2] = CAM_IMAGE_MODE_WQXGA2;
                 } else if (CAM.cam.cameraId == SENSOR_5MP_2) {
-                    array_label[4] = "2592X1936";
+                    array_label[4]       = "2592X1936";
                     camera_resoultion[2] = CAM_IMAGE_MODE_WQXGA2;
                 } else {
-                    array_label[4] = "2048X1536";
+                    array_label[4]       = "2048X1536";
                     camera_resoultion[2] = CAM_IMAGE_MODE_QXGA;
                 }
                 reflash = true;
@@ -85,10 +85,10 @@ void draw_ui()
 int main()
 {
     char filename[20];
-    int click_btn_idx = -1;
+    int click_btn_idx        = -1;
     uint8_t wifiserver_state = false, find_jpg_head = false;
     pico4ml_init(false);
-    pico4ml_camera_spi_init(SPI1_BAUDRATE);
+    pico4ml_camera_spi_init(8 * 1000 * 1000);
     uint32_t wait_cnt = 0;
     irq_set_exclusive_handler(UART_IRQ, uart_rx_handler);
     irq_set_enabled(UART_IRQ, true);
@@ -113,8 +113,8 @@ int main()
                 _save_state = save_picture_error;
             } else {
                 save_buffer_ready = false;
-                find_jpg_head = true;
-                _save_state = save_picture_runnig;
+                find_jpg_head     = true;
+                _save_state       = save_picture_runnig;
             }
             break;
         case save_picture_runnig:
@@ -134,7 +134,7 @@ int main()
         case save_picture_complete:
             f_close(&fp);
             sleep_ms(10);
-            _save_state = save_picture_idle;
+            _save_state          = save_picture_idle;
             preview_buffer_ready = false;
             diplay_label(click_btn_idx, GRAY);
             draw_rect(win_loc, GREEN);
@@ -161,7 +161,7 @@ int main()
                     _save_state = save_picture_start;
                     // while (save_buffer_ready != true)
                     //     tight_loop_contents();
-                    save_buffer_ready = false;
+                    save_buffer_ready  = false;
                     picture_resolution = camera_resoultion[click_btn_idx - 2];
                     diplay_label(click_btn_idx, GREEN);
                     break;
@@ -174,7 +174,7 @@ int main()
             }
             break;
         case save_picture_error:
-            _save_state = save_picture_idle;
+            _save_state          = save_picture_idle;
             preview_buffer_ready = false;
             diplay_label(click_btn_idx, GRAY);
             draw_rect(win_loc, RED);
@@ -193,8 +193,8 @@ int main()
                 switch (select_touch(&array_btn[0], 2)) {
                 case 0:
                     preview_buffer_ready = false;
-                    _save_state = save_picture_idle;
-                    wifi_buffer_ready = false;
+                    _save_state          = save_picture_idle;
+                    wifi_buffer_ready    = false;
                     draw_rect(array_btn[0], BLACK);
                     wait_cnt = 0;
                     break;

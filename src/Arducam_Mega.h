@@ -16,8 +16,8 @@
 /**
  * @file Arducam_Mega.h
  * @author Arducam
- * @date 2021/12/6
- * @version V1.0
+ * @date 2023/3/3
+ * @version V2.0.1
  * @copyright Arducam
  */
 /**

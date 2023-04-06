@@ -14,8 +14,8 @@
 /**
  * @file ArducamCamera.h
  * @author Arducam
- * @date 2021/12/6
- * @version V1.0
+ * @date 2023/3/6
+ * @version V2.0.1
  * @copyright Arducam
  */
 
@@ -96,9 +96,9 @@ typedef enum {
     CAM_IMAGE_MODE_QXGA   = 0x08,  /**<2048x1536*/
     CAM_IMAGE_MODE_WQXGA2 = 0x09,  /**<2592x1944*/
     CAM_IMAGE_MODE_96X96  = 0x0a,  /**<96x96*/
-                                   /// @cond
     CAM_IMAGE_MODE_128X128 = 0x0b, /**<128x128*/
     CAM_IMAGE_MODE_320X320 = 0x0c, /**<320x320*/
+    /// @cond
     CAM_IMAGE_MODE_12      = 0x0d, /**<Reserve*/
     CAM_IMAGE_MODE_13      = 0x0e, /**<Reserve*/
     CAM_IMAGE_MODE_14      = 0x0f, /**<Reserve*/

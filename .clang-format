@@ -6,7 +6,7 @@ Language:	Cpp
 DerivePointerAlignment: false
 PointerAlignment: Left
 
-# AlignConsecutiveAssignments:	true
+AlignConsecutiveAssignments:	true
 # AlignConsecutiveDeclarations:	true
 AllowShortBlocksOnASingleLine:	false
 AllowShortFunctionsOnASingleLine:	Empty
