@@ -206,8 +206,8 @@ void ArducamLink::arducamUartWriteBuff(uint8_t* buff, uint16_t length)
 {
     // SerialWriteBuff(buff, length);
     // delayUs(12);
-    for(uint16_t i = 0 ;i < length;i++)
-      arducamUartWrite(buff[i]);
+    for (uint16_t i = 0; i < length; i++)
+        arducamUartWrite(buff[i]);
 }
 
 void ArducamLink::printf(char* buff)
@@ -215,7 +215,7 @@ void ArducamLink::printf(char* buff)
     uint16_t len = strlen(buff);
     // SerialPrintf(buff);
     // delayUs(12);
-    arducamUartWriteBuff(buff,len);
+    arducamUartWriteBuff((uint8_t*)buff, len);
 }
 
 uint32_t ArducamLink::arducamUartAvailable(void)
