@@ -10,7 +10,7 @@
 #define PIN_NUM_MISO 19
 #define PIN_NUM_MOSI 23
 #define PIN_NUM_CLK  18
-#define CAMERA_SPI_CLK_FREQ         (1*1000*1000)   
+#define CAMERA_SPI_CLK_FREQ         (12*1000*1000)   
 
 
 void spiBegin(void);

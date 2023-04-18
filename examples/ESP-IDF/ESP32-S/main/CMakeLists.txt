@@ -1,10 +1,9 @@
-set(srcs "smartCamera.c"
-    "Arducam.c"
-    "delay.c"
-    "uart.c"
-    "spi.c"
-    )
+set(srcs        app_main.c)
 
+set(inc_dirs    ../../../../src/Arducam
+                ../components/uart
+                .)
 
-idf_component_register(SRCS ${srcs}
-                    INCLUDE_DIRS ".")
+# set(requires    libcamera)
+
+idf_component_register(SRCS ${srcs} INCLUDE_DIRS ${inc_dirs} REQUIRES libcamera uart) 

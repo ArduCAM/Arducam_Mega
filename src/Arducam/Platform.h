@@ -24,6 +24,7 @@
 #include "picoHal.h"
 #elif defined(__PLATFORM_RASPBERRY)
 #include "raspberryHal.h"
+#elif defined(ESP_PLATFORM)
+#include "esp32Hal.h"
 #endif
-
 #endif /*__PLATFORM_H*/
