@@ -120,9 +120,9 @@
 
 union SdkInfo currentSDK = {
     .sdkInfo.year    = 23,
-    .sdkInfo.month   = 2,
-    .sdkInfo.day     = 20,
-    .sdkInfo.version = 0x21,
+    .sdkInfo.month   = 4,
+    .sdkInfo.day     = 19,
+    .sdkInfo.version = 0x23,
 };
 
 struct cameraDefaultState {
