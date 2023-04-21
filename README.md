@@ -17,6 +17,7 @@ Arducam released Mega SDK for mega camera. The specific test is as follows:
 | Pico          | pico                    | 2.0.3            | [pico sdk](https://github.com/raspberrypi/pico-sdk)                                                                    | Tested      |
 | Stm32f103c8t6 | MDK5                    | 2.0.3            | /                                                                                                                   | Tested      |
 | Rpi           | Bullseye                | 2.0.2/2.0.3      | /                                                                                                                   | Tested      |
+| EK-RA6M4      | Renesas e² studio 23.1.0| 2.0.3            | RA6M4-EK Board Support Files   v4.3.0                                                                               | Tested      |
 
 ## Specific Disclaimer
 
