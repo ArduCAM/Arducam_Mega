@@ -5,13 +5,13 @@
 Refer to the link to build your environment
 
 [Quick start](https://www.renesas.com/us/en/document/qsg/ek-ra6m4-quick-start-guide?r=1333976)
-
+---
 ### Hardware Requirements
 
 - EK-RA6M4 board
 - Micro USB device cable
 - USB to serial port module
-
+---
 ### Software Requirements
 
 - Windows ® 10 operating system
@@ -25,8 +25,9 @@ Refer to the link to build your environment
 > The FSP, J-Link USB drivers, and e 2 studio are bundled in a downloadable platform installer available on the
 > FSP webpage at renesas.com/ra/fsp. New users are recommended to use the Quick Install option provided
 > in the installation wizard, to minimize the amount of manual configuration needed
-
+---
 ### Hardware Connection
+---
 
 #### 1. **Pmod 1 Connector**
 
@@ -75,6 +76,8 @@ Refer to the link to build your environment
     </tr>
 </table>
 
+---
+
 #### 2. **Serial Connector**
 
 | EK-RA6M4 | USB to Serial |
@@ -83,16 +86,10 @@ Refer to the link to build your environment
 |   P411   |      RX      |
 |   GND   |      GND      |
 
-### Compile  and debug Arducam mega project
-
-- Compile Arducam mega project
-  ![Compile](static\build_project.png)
-- Debug Arducam mega project
-  ![debug](static\debug.png)
-
 ---
 
 ### Arducam mega full features preview
 
- <!-- ![demo](static\renesas_mega_demo.gif){:height="100px" width="400px"} -->
+<!-- ![demo](static\renesas_mega_demo.gif){:height="100px" width="400px"} -->
+
 <img src="static\renesas_mega_demo.gif" width="900xp" height="500xp">
