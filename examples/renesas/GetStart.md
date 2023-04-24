@@ -1,6 +1,10 @@
 # EK-RA6M4
 
-## Arducam Mega Get Start
+## Development environment build
+
+Refer to the link to build your environment
+
+[Quick start](https://www.renesas.com/us/en/document/qsg/ek-ra6m4-quick-start-guide?r=1333976)
 
 ### Hardware Requirements
 
@@ -12,14 +16,15 @@
 
 - Windows ® 10 operating system
 - USB Serial Drivers (included in Windows 10)
-- [Arducam Mega GUI]()
-- [e2 studio IDE]()
+- [Arducam Mega GUI](https://github.com/ArduCAM/Arducam_Mega/releases)
+- [e2 studio IDE](https://github.com/renesas/fsp/releases/download/v4.3.0/setup_fsp_v4_3_0_e2s_v2023-01.exe)
 - SEGGER J-Link ® USB drivers
 - FSP
 - Quick Start Arducam Mega example project
+
 > The FSP, J-Link USB drivers, and e 2 studio are bundled in a downloadable platform installer available on the
-FSP webpage at renesas.com/ra/fsp. New users are recommended to use the Quick Install option provided
-in the installation wizard, to minimize the amount of manual configuration needed
+> FSP webpage at renesas.com/ra/fsp. New users are recommended to use the Quick Install option provided
+> in the installation wizard, to minimize the amount of manual configuration needed
 
 ### Hardware Connection
 
@@ -72,39 +77,22 @@ in the installation wizard, to minimize the amount of manual configuration neede
 
 #### 2. **Serial Connector**
 
-EK-RA6M4 | USB to Serial
-:-------:|:-------------:
-P410     | TX
-P411     | RX
-GND      | GND
+| EK-RA6M4 | USB to Serial |
+| :------: | :-----------: |
+|   P410   |      TX      |
+|   P411   |      RX      |
+|   GND   |      GND      |
 
-### Flash and Start example
+### Compile  and debug Arducam mega project
 
-1. Launch e2 studio.
-1. Browse to the Workspace where the project file is to be imported. Enter the name in the Workspace dialog box to create a new workspace.  
-![Creating a New Workspace](static\Snipaste_2023-04-23_15-24-20.png)  
-Figure 1. Creating a New Workspace  
-1. Click **Launch**.  
-![Launching the Workspace](static\Snipaste_2023-04-23_15-24-21.png)  
-Figure 2. Launching the Workspace
-1. Click **Import** from the **File** drop-down menu.  
-![Importing the Project](static\Snipaste_2023-04-23_15-24-41.png)  
-Figure 3. Importing the Project  
-1. In the **Import** dialog box, select **General**, and then select **Existing Projects into Workspace**.  
-![Importing Existing Projects into the Workspace](static\Snipaste_2023-04-23_15-24-54.png)  
-Figure 4. Importing Existing Projects into the Workspace
-1. Click **Next**.  
-![Clicking Next to Import Existing Projects into the Workspace](static\Snipaste_2023-04-23_15-25-03.png)  
-Figure 5. Clicking Next to Import Existing Projects into the Workspace
-1. Click Select root directory and click Browse to go to the location of the Quick Start example project
-folder.  
-![](static\Snipaste_2023-04-23_15-25-14.png)
-Figure 6. Selecting the Root Directory
-1. Select the Quick Start example project and click Finish.  
-![Finishing Importing the Quick Start Example Project](static\Snipaste_2023-04-23_15-26-27.png)  
-Figure 7. Finishing Importing the Quick Start Example Project
-1. Build the project by clicking the build icon  
-![Building the Project](static\Snipaste_2023-04-23_15-27-05.png)  
-Figure 8. Building the Project
-1. Downloading and Running the Mega Camera Example Project  
-![](static\Snipaste_2023-04-23_15-27-17.png)  
+- Compile Arducam mega project
+  ![Compile](static\build_project.png)
+- Debug Arducam mega project
+  ![debug](static\debug.png)
+
+---
+
+### Arducam mega full features preview
+
+ <!-- ![demo](static\renesas_mega_demo.gif){:height="100px" width="400px"} -->
+<img src="static\renesas_mega_demo.gif" width="900xp" height="500xp">
