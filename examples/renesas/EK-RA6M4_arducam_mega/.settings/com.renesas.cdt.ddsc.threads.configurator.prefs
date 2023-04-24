@@ -1,4 +1,5 @@
 collapse/module.driver.basic_on_usb.1736166362=true
 collapse/module.driver.pcdc_on_usb.134829500=false
 collapse/module.driver.spi_on_spi.821919257=true
+collapse/module.driver.uart_on_sci_uart.1033906135=false
 eclipse.preferences.version=1

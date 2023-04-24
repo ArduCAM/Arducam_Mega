@@ -17,4 +17,11 @@ fsp_err_t spi_master_init(void);
 uint8_t spi_transfer(uint8_t tx_data);
 void spi_transfer_block(uint8_t *rx_data,uint32_t len);
 
+fsp_err_t uart_init(void);
+fsp_err_t print_to_uart(char *p_data);
+fsp_err_t uart0_write(uint8_t *p_data, uint32_t len);
+
+extern uint8_t g_uart0_buf[READ_BUF_SIZE];
+extern volatile bool recv_flag;
+
 #endif

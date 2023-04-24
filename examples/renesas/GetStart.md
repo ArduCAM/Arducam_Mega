@@ -74,8 +74,8 @@ in the installation wizard, to minimize the amount of manual configuration neede
 
 EK-RA6M4 | USB to Serial
 :-------:|:-------------:
-P101     | TX
-P100     | RX
+P410     | TX
+P411     | RX
 GND      | GND
 
 ### Flash and Start example

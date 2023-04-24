@@ -9,7 +9,7 @@ void stop_preivew();
 FSP_CPP_FOOTER
 
 ArducamCamera myCAM;
-const int cs = BSP_IO_PORT_02_PIN_05;
+const int cs = BSP_IO_PORT_03_PIN_01;
 
 uint8_t temp             = 0xff;
 uint8_t commandBuff[20]  = {0};
@@ -79,27 +79,33 @@ void hal_entry(void)
 
     while(1)
     {
-        if(usb_cdc_stask(&cmdbuf) == true)
+//        if(usb_cdc_stask(&cmdbuf) == true)
+//        {
+//            cmdidx = 0;
+//            findstart = false;
+//            for(uint8_t i = 0; i < READ_BUF_SIZE;i++)
+//            {
+//                if(findstart == false ) {
+//                    if(cmdbuf[i] == 0x55)
+//                        findstart = true;
+//                } else {
+//                    if(cmdbuf[i] == 0xaa)
+//                    {
+//                        uartCommandProcessing(&myCAM, cmdline);
+//                        break;
+//                    }
+//                    cmdline[cmdidx++] = cmdbuf[i];
+//                }
+//            }
+//
+//        }
+        if(recv_flag == true)
         {
-            cmdidx = 0;
-            findstart = false;
-            for(uint8_t i = 0; i < READ_BUF_SIZE;i++)
-            {
-                if(findstart == false ) {
-                    if(cmdbuf[i] == 0x55)
-                        findstart = true;
-                } else {
-                    if(cmdbuf[i] == 0xaa)
-                    {
-                        uartCommandProcessing(&myCAM, cmdline);
-                        break;
-                    }
-                    cmdline[cmdidx++] = cmdbuf[i];
-                }
-            }
-
+            uartCommandProcessing(&myCAM, &g_uart0_buf[1]);
+            recv_flag = false;
         }
         captureThread(&myCAM);
+//        arducamUartPrintf("hello");
     }
 #if BSP_TZ_SECURE_BUILD
     /* Enter non-secure code */

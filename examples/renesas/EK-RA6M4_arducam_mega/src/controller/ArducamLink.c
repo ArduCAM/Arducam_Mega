@@ -71,6 +71,7 @@ void cameraGetPicture(ArducamCamera* myCamera)
     arducamUartWriteBuff(&headAndtail[0], 3);
     arducamUartWriteBuff((uint8_t*)(&len), 4);
     arducamUartWrite(((myCamera->currentPictureMode & 0x0f) << 4) | 0x01);
+
     while (myCamera->receivedLength) {
         rtLength = readBuff(myCamera, buff, READ_IMAGE_LENGTH);
         arducamUartWriteBuff(buff, rtLength);
@@ -207,9 +208,12 @@ void arducamUartWriteBuff(uint8_t* buff, uint16_t length)
 //            length -= 64;
 //            offset += 64;
 //        }
+//            delayUs(12);
 //    }
     SerialWriteBuff(buff,length);
     delayUs(12);
+//    for(uint32_t i = 0;i < length;i++)
+//        arducamUartWrite(buff[i]);
 }
 
  void arducamUartPrintf(char* buff)

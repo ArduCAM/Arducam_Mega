@@ -62,6 +62,8 @@
       <configSetting altId="debug0.tdi.p110" configurationId="debug0.tdi" isUsedByDriver="true"/>
       <configSetting altId="debug0.tdo.p109" configurationId="debug0.tdo" isUsedByDriver="true"/>
       <configSetting altId="debug0.tms.p108" configurationId="debug0.tms" isUsedByDriver="true"/>
+      <configSetting altId="sci0.rxd.p410" configurationId="sci0.rxd" isUsedByDriver="true"/>
+      <configSetting altId="sci0.txd.p411" configurationId="sci0.txd" isUsedByDriver="true"/>
       <configSetting altId="spi0.miso.p202" configurationId="spi0.miso" isUsedByDriver="true"/>
       <configSetting altId="spi0.mosi.p203" configurationId="spi0.mosi" isUsedByDriver="true"/>
       <configSetting altId="spi0.rspck.p204" configurationId="spi0.rspck" isUsedByDriver="true"/>

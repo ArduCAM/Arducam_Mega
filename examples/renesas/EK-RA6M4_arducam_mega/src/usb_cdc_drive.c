@@ -121,17 +121,17 @@ bool usb_cdc_stask(uint8_t **cmdline)
     switch (usb_event)
     {
     case USB_STATUS_CONFIGURED:
-    {
-        err = R_USB_Read(&g_basic0_ctrl, g_buf, READ_BUF_SIZE, USB_CLASS_PCDC);
-        /* Handle error */
-        if (FSP_SUCCESS != err)
-        {
-            /* Turn ON RED LED to indicate fatal error */
-            // TURN_RED_ON
-            APP_ERR_TRAP(err);
-        }
-        break;
-    }
+//    {
+//        err = R_USB_Read(&g_basic0_ctrl, g_buf, READ_BUF_SIZE, USB_CLASS_PCDC);
+//        /* Handle error */
+//        if (FSP_SUCCESS != err)
+//        {
+//            /* Turn ON RED LED to indicate fatal error */
+//            // TURN_RED_ON
+//            APP_ERR_TRAP(err);
+//        }
+//        break;
+//    }
     case USB_STATUS_READ_COMPLETE:
     {
         if (b_usb_attach)
