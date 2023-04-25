@@ -5,7 +5,8 @@
 Refer to the link to deploy your environment
 
 [Quick start](https://www.renesas.com/us/en/document/qsg/ek-ra6m4-quick-start-guide?r=1333976)
------------
+
+---
 
 ### Hardware Requirements
 
@@ -96,7 +97,5 @@ Refer to the link to deploy your environment
 ---
 
 ### Arducam mega full features preview
-
-<!-- ![demo](static\renesas_mega_demo.gif){:height="100px" width="400px"} -->
 
 <img src="static\renesas_mega_demo.gif" width="900xp" height="500xp">
