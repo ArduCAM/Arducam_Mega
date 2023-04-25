@@ -12,6 +12,12 @@ Refer to the link to build your environment
 - Micro USB device cable
 - USB to serial port module
 ---
+### Hardware Connection
+
+<img src="static\hardware_connect.jpg" width="900xp" height="500xp">
+
+---
+
 ### Software Requirements
 
 - Windows ® 10 operating system
