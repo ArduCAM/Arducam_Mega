@@ -36,10 +36,6 @@ Refer to the link to deploy your environment
 
 ---
 
-### Hardware Connection
-
----
-
 #### 1. **Pmod 1 Connector**
 
 <table>
