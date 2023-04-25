@@ -26,8 +26,6 @@ Refer to the link to build your environment
 - [e2 studio IDE](https://github.com/renesas/fsp/releases/download/v4.3.0/setup_fsp_v4_3_0_e2s_v2023-01.exe)
 - SEGGER J-Link ® USB drivers
 - FSP
-- Quick Start Arducam Mega example project
-
 > The FSP, J-Link USB drivers, and e 2 studio are bundled in a downloadable platform installer available on the
 > FSP webpage at renesas.com/ra/fsp. New users are recommended to use the Quick Install option provided
 > in the installation wizard, to minimize the amount of manual configuration needed
