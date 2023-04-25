@@ -1,17 +1,20 @@
 # EK-RA6M4
 
-## Development environment build
+## Deploy development environment
 
-Refer to the link to build your environment
+Refer to the link to deploy your environment
 
 [Quick start](https://www.renesas.com/us/en/document/qsg/ek-ra6m4-quick-start-guide?r=1333976)
----
+-----------
+
 ### Hardware Requirements
 
 - EK-RA6M4 board
 - Micro USB device cable
 - USB to serial port module
+
 ---
+
 ### Hardware Connection
 
 <img src="static\hardware_connect.jpg" width="900xp" height="500xp">
@@ -26,11 +29,15 @@ Refer to the link to build your environment
 - [e2 studio IDE](https://github.com/renesas/fsp/releases/download/v4.3.0/setup_fsp_v4_3_0_e2s_v2023-01.exe)
 - SEGGER J-Link ® USB drivers
 - FSP
+
 > The FSP, J-Link USB drivers, and e 2 studio are bundled in a downloadable platform installer available on the
 > FSP webpage at renesas.com/ra/fsp. New users are recommended to use the Quick Install option provided
 > in the installation wizard, to minimize the amount of manual configuration needed
+
 ---
+
 ### Hardware Connection
+
 ---
 
 #### 1. **Pmod 1 Connector**
