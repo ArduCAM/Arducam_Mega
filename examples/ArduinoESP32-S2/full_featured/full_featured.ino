@@ -66,7 +66,7 @@ void stop_preivew()
 void setup()
 {
     myUart.arducamUartBegin(115200);
-    myUart.send_data_pack(7, "Hello Arduino UNO!");
+    myUart.send_data_pack(7, "Hello Arduino ESP32-S2!");
     myCAM.begin();
     myUart.send_data_pack(8, "Mega start!");
     myCAM.registerCallBack(readBuffer, 200, stop_preivew);
