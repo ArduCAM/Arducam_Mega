@@ -15,3 +15,6 @@ cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoNano33Ble
 
 rm .\examples\ArduinoESP32-S2\full_featured\ArducamLink.* 
 cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoESP32-S2\full_featured
+
+rm .\examples\ArduinoPico\full_featured\ArducamLink.* 
+cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoPico\full_featured
