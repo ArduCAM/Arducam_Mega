@@ -9,7 +9,7 @@
 #include "ArducamLink.h"
 #include "Arducam_Mega.h"
 #include "SPI.h"
-const int CS = 7;
+const int CS = 17;
 Arducam_Mega myCAM(CS);
 ArducamLink myUart;
 uint8_t temp             = 0xff;
