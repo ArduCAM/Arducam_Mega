@@ -34,19 +34,23 @@ extern "C" {
 /// @endcond
 
 /**
- * @struct SdkInfo
- * @brief Basic information of the sdk
+ * @struct SdkDate
+ * @brief SDK version update time
  */
-struct SdkData {
+struct SdkDate {
     uint8_t year;
     uint8_t month;
     uint8_t day;
     uint8_t version;
 };
 
+/**
+ * @struct SdkInfo
+ * @brief Basic information of the sdk
+ */
 union SdkInfo {
     unsigned long sdkVersion; /**<Sdk version */
-    struct SdkData sdkInfo;
+    struct SdkDate sdkInfo;
 };
 
 /**

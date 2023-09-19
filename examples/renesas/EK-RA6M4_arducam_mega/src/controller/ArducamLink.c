@@ -8,8 +8,10 @@
  */
 #include "ArducamLink.h"
 #include "ArducamUart.h"
+#include <stdio.h>
 
-#include "string.h"
+static uint8_t _buff[512] = {0};
+
 void arducamUartBegin(__attribute__((unused)) uint32_t baudRate)
 {
     SerialBegin(baudRate);
@@ -17,36 +19,32 @@ void arducamUartBegin(__attribute__((unused)) uint32_t baudRate)
 
 void reportVerInfo(ArducamCamera* myCamera)
 {
-    uint8_t headAndtail[] = {0xff, 0xaa, 0x03, 0xff, 0xbb};
-
     uint32_t len = 6;
-    arducamUartWriteBuff(&headAndtail[0], 3);
+    arducamUartWriteBuff(MESSAGE_HEADER, 2);
+    arducamUartWrite(MESSAGE_VERSION);
     arducamUartWriteBuff((uint8_t*)&len, 4);
     arducamUartWriteBuff(myCamera->verDateAndNumber, 4);
     SerialPrintf("\r\n");
-    arducamUartWriteBuff(&headAndtail[3], 2);
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
 }
 
 void reportSdkVerInfo(ArducamCamera* myCamera)
 {
-    uint8_t headAndtail[] = {0xff, 0xaa, 0x05, 0xff, 0xbb};
-
     uint32_t len = 6;
-    arducamUartWriteBuff(&headAndtail[0], 3);
+    arducamUartWriteBuff(MESSAGE_HEADER, 2);
+    arducamUartWrite(MESSAGE_SDK_INFO);
     arducamUartWriteBuff((uint8_t*)&len, 4);
     arducamUartWriteBuff((uint8_t*)&myCamera->currentSDK->sdkVersion, 4);
     SerialPrintf("\r\n");
-    arducamUartWriteBuff(&headAndtail[3], 2);
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
 }
 
 void reportCameraInfo(ArducamCamera* myCamera)
 {
-    uint8_t headAndtail[] = {0xff, 0xaa, 0x02, 0xff, 0xbb};
-
     uint32_t len = 0;
-    char buff[400];
-    arducamUartWriteBuff(&headAndtail[0], 3);
-    sprintf(buff,
+    arducamUartWriteBuff(MESSAGE_HEADER, 2);
+    arducamUartWrite(MESSAGE_CAMERA_INFO);
+    sprintf((char*)_buff,
             "ReportCameraInfo\r\nCamera Type:%s\r\nCamera Support Resolution:%d\r\nCamera Support "
             "specialeffects:%d\r\nCamera Support Focus:%d\r\nCamera Exposure Value Max:%ld\r\nCamera Exposure Value "
             "Min:%d\r\nCamera Gain Value Max:%d\r\nCamera Gain Value Min:%d\r\nCamera Support Sharpness:%d\r\n",
@@ -55,40 +53,37 @@ void reportCameraInfo(ArducamCamera* myCamera)
             myCamera->myCameraInfo.exposureValueMax, myCamera->myCameraInfo.exposureValueMin,
             myCamera->myCameraInfo.gainValueMax, myCamera->myCameraInfo.gainValueMin,
             myCamera->myCameraInfo.supportSharpness);
-    len = strlen(buff);
+    len = strlen((char*)_buff);
     arducamUartWriteBuff((uint8_t*)&len, 4);
-    SerialPrintf(buff);
-    arducamUartWriteBuff(&headAndtail[3], 2);
+    SerialPrintf((char*)_buff);
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
 }
 
 void cameraGetPicture(ArducamCamera* myCamera)
 {
-    uint8_t headAndtail[]           = {0xff, 0xaa, 0x01, 0xff, 0xbb};
-    uint8_t buff[READ_IMAGE_LENGTH] = {0};
-
-    uint8_t rtLength = 0;
-    uint32_t len     = myCamera->totalLength;
-    arducamUartWriteBuff(&headAndtail[0], 3);
+    uint32_t rtLength = 0;
+    uint32_t len = myCamera->totalLength;
+    arducamUartWriteBuff(MESSAGE_HEADER, 2);
+    arducamUartWrite(MESSAGE_IMAGE);
     arducamUartWriteBuff((uint8_t*)(&len), 4);
-    arducamUartWrite(((myCamera->currentPictureMode & 0x0f) << 4) | 0x01);
+    arducamUartWrite((uint8_t)(((myCamera->currentPictureMode & 0x0f) << 4) | 0x01));
 
     while (myCamera->receivedLength) {
-        rtLength = readBuff(myCamera, buff, READ_IMAGE_LENGTH);
-        arducamUartWriteBuff(buff, rtLength);
+        rtLength = readBuff(myCamera, _buff, READ_IMAGE_LENGTH);
+        arducamUartWriteBuff(_buff, rtLength);
     }
-    arducamUartWriteBuff(&headAndtail[3], 2);
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
 }
 
-void send_data_pack(char cmd_type, char* msg)
+void send_data_pack(char* msg)
 {
-    uint8_t headAndtail[] = {0xff, 0xaa, 0x07, 0xff, 0xbb};
-    headAndtail[2]        = cmd_type;
-    uint32_t len          = strlen(msg) + 2;
-    arducamUartWriteBuff(&headAndtail[0], 3);
+    uint32_t len = strlen(msg) + 2;
+    arducamUartWriteBuff(MESSAGE_HEADER, 2);
+    arducamUartWrite(MESSAGE_OTHER);
     arducamUartWriteBuff((uint8_t*)&len, 4);
     SerialPrintf(msg);
     SerialPrintf("\r\n");
-    arducamUartWriteBuff(&headAndtail[3], 2);
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
 }
 
 uint8_t uartCommandProcessing(ArducamCamera* myCAM, uint8_t* commandBuff)
@@ -150,7 +145,7 @@ uint8_t uartCommandProcessing(ArducamCamera* myCAM, uint8_t* commandBuff)
         setSharpness(myCAM, (CAM_SHARPNESS_LEVEL)commandBuff[1]);
         break;
     case SET_MANUAL_GAIN: // manual gain control
-        gainValue = (commandBuff[1] << 8) | commandBuff[2];
+        gainValue = (uint16_t)((commandBuff[1] << 8) | commandBuff[2]);
         setISOSensitivity(myCAM, gainValue);
         break;
     case SET_MANUAL_EXPOSURE: // manual exposure control
@@ -192,32 +187,32 @@ uint8_t uartCommandProcessing(ArducamCamera* myCAM, uint8_t* commandBuff)
 void arducamUartWrite(uint8_t data)
 {
     SerialWrite(data);
-    delayUs(12);
+    // delayUs(12);
 }
 
-void arducamUartWriteBuff(uint8_t* buff, uint16_t length)
+void arducamUartWriteBuff(uint8_t* buff, uint32_t length)
 {
-//    uint16_t offset = 0;
-//    while(length !=0){
-//        if(length < 64)
-//        {
-//            SerialWriteBuff(&buff[offset], length);
-//            length = 0;
-//        }else{
-//            SerialWriteBuff(&buff[offset], 64);
-//            length -= 64;
-//            offset += 64;
-//        }
-//            delayUs(12);
-//    }
-    SerialWriteBuff(buff,length);
-    delayUs(12);
-//    for(uint32_t i = 0;i < length;i++)
-//        arducamUartWrite(buff[i]);
+    //    uint16_t offset = 0;
+    //    while(length !=0){
+    //        if(length < 64)
+    //        {
+    //            SerialWriteBuff(&buff[offset], length);
+    //            length = 0;
+    //        }else{
+    //            SerialWriteBuff(&buff[offset], 64);
+    //            length -= 64;
+    //            offset += 64;
+    //        }
+    //            delayUs(12);
+    //    }
+    SerialWriteBuff(buff, length);
+    // delayUs(12);
+    //    for(uint32_t i = 0;i < length;i++)
+    //        arducamUartWrite(buff[i]);
 }
 
- void arducamUartPrintf(char* buff)
- {
-      SerialPrintf(buff);
-      delayUs(12);
- }
+void arducamUartPrintf(char* buff)
+{
+    SerialPrintf(buff);
+    // delayUs(12);
+}

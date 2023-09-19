@@ -18,9 +18,9 @@ fsp_err_t uart_init(void){
 fsp_err_t print_to_uart(char *p_data)
 {
     fsp_err_t err = FSP_SUCCESS;
-    uint32_t len = ((uint32_t)strlen(p_data));
+    uint32_t len = (uint32_t)strlen(p_data);
     g_uart_transfer_complete = false;
-    err = R_SCI_UART_Write(&g_uart0_ctrl, p_data, len);
+    err = R_SCI_UART_Write(&g_uart0_ctrl, (uint8_t *)p_data, len);
 
     while (false == g_uart_transfer_complete)
     {

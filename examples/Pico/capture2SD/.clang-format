@@ -1,0 +1,19 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+UseTab: Never
+
+Language:	Cpp
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+AlignConsecutiveAssignments:	true
+# AlignConsecutiveDeclarations:	true
+AllowShortBlocksOnASingleLine:	false
+AllowShortFunctionsOnASingleLine:	Empty
+BreakBeforeBraces:	Linux
+ColumnLimit:	120
+
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true

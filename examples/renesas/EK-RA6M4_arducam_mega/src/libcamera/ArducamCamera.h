@@ -37,7 +37,7 @@ extern "C" {
  * @struct SdkInfo
  * @brief Basic information of the sdk
  */
-struct SdkData {
+struct SdkDate {
     uint8_t year;
     uint8_t month;
     uint8_t day;
@@ -46,7 +46,7 @@ struct SdkData {
 
 union SdkInfo {
     unsigned long sdkVersion; /**<Sdk version */
-    struct SdkData sdkInfo;
+    struct SdkDate sdkInfo;
 };
 
 /**
@@ -242,7 +242,7 @@ enum {
     SENSOR_3MP_2 = 0x84,
 };
 
-typedef uint8_t (*BUFFER_CALLBACK)(uint8_t* buffer, uint8_t lenght); /**<Callback function prototype  */
+typedef uint8_t (*BUFFER_CALLBACK)(uint8_t* buffer, uint32_t lenght); /**<Callback function prototype  */
 typedef void (*STOP_HANDLE)(void);                                   /**<Callback function prototype  */
 
 /**
@@ -301,8 +301,8 @@ struct CameraOperations {
     void (*debugWriteRegister)(ArducamCamera*, uint8_t*);
     void (*writeReg)(ArducamCamera*, uint8_t, uint8_t);
     uint8_t (*readReg)(ArducamCamera*, uint8_t);
-    uint8_t (*busRead)(ArducamCamera*, int);
-    uint8_t (*busWrite)(ArducamCamera*, int, int);
+    uint8_t (*busRead)(ArducamCamera*, uint8_t);
+    uint8_t (*busWrite)(ArducamCamera*, uint8_t, uint8_t);
     void (*flushFifo)(ArducamCamera*);
     void (*startCapture)(ArducamCamera*);
     void (*clearFifoFlag)(ArducamCamera*);
@@ -320,14 +320,12 @@ struct CameraOperations {
 
 //**********************************************
 //!
-//! @brief Create a camera instance
+//! @brief Initialize camera instance
 //!
 //! @param cs Chip select signal for SPI communication
 //!
-//! @return Return a ArducamCamera instance
-//!
 //**********************************************
-ArducamCamera createArducamCamera(int cs);
+void arducamCameraInit(ArducamCamera *camera,int CS);
 
 //**********************************************
 //!
@@ -390,6 +388,14 @@ CamStatus takeMultiPictures(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAG
 //**********************************************
 CamStatus startPreview(ArducamCamera* camera, CAM_VIDEO_MODE mode);
 
+//**********************************************
+//!
+//! @brief The camera's capture thread.
+//!
+//! @param camera ArducamCamera instance
+//!
+//! function.The default image pixel format is JPEG
+//**********************************************
 void captureThread(ArducamCamera* camera);
 
 //**********************************************

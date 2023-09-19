@@ -2,8 +2,12 @@
 #include "MMC_SD.h"
 #include "SD_SPI_interface.h"
 #include "diskio.h"
+#include "pico/stdlib.h"
 #include <inttypes.h>
 #include <string.h>
+
+#include "hardware/dma.h"
+
 /* Control Tokens   */
 #define SPI_DATA_RESPONSE_MASK   (0x1F)
 #define SPI_DATA_ACCEPTED        (0x05)
@@ -33,9 +37,7 @@
 
 // Only HC block size is supported. Making this a static constant reduces code
 // size.
-#define BLOCK_SIZE_HC                                                                                                  \
-    512 /*!< Block size supported for SD card is 512 bytes                                                             \
-         */
+#define BLOCK_SIZE_HC            512 /*!< Block size supported for SD card is 512 bytes*/
 static const uint32_t _block_size = BLOCK_SIZE_HC;
 
 /* R1 Response Format */
@@ -51,32 +53,30 @@ static const uint32_t _block_size = BLOCK_SIZE_HC;
 
 // Supported SD Card Commands
 typedef enum {
-    CMD_NOT_SUPPORTED         = -1,     /**< Command not supported error */
-    CMD0_GO_IDLE_STATE        = 0,      /**< Resets the SD Memory Card */
-    CMD1_SEND_OP_COND         = 1,      /**< Sends host capacity support */
-    CMD6_SWITCH_FUNC          = 6,      /**< Check and Switches card function */
-    CMD8_SEND_IF_COND         = 8,      /**< Supply voltage info */
-    CMD9_SEND_CSD             = 9,      /**< Provides Card Specific data */
-    CMD10_SEND_CID            = 10,     /**< Provides Card Identification */
-    CMD12_STOP_TRANSMISSION   = 12,     /**< Forces the card to stop transmission */
-    CMD13_SEND_STATUS         = 13,     /**< Card responds with status */
-    CMD16_SET_BLOCKLEN        = 16,     /**< Length for SC card is set */
-    CMD17_READ_SINGLE_BLOCK   = 17,     /**< Read single block of data */
-    CMD18_READ_MULTIPLE_BLOCK = 18,     /**< Card transfers data blocks to host
-         until interrupted by a STOP_TRANSMISSION command */
-    CMD24_WRITE_BLOCK          = 24,    /**< Write single block of data */
-    CMD25_WRITE_MULTIPLE_BLOCK = 25,    /**< Continuously writes blocks of data
-        until    'Stop Tran' token is sent */
+    CMD_NOT_SUPPORTED       = -1, /**< Command not supported error */
+    CMD0_GO_IDLE_STATE      = 0,  /**< Resets the SD Memory Card */
+    CMD1_SEND_OP_COND       = 1,  /**< Sends host capacity support */
+    CMD6_SWITCH_FUNC        = 6,  /**< Check and Switches card function */
+    CMD8_SEND_IF_COND       = 8,  /**< Supply voltage info */
+    CMD9_SEND_CSD           = 9,  /**< Provides Card Specific data */
+    CMD10_SEND_CID          = 10, /**< Provides Card Identification */
+    CMD12_STOP_TRANSMISSION = 12, /**< Forces the card to stop transmission */
+    CMD13_SEND_STATUS       = 13, /**< Card responds with status */
+    CMD16_SET_BLOCKLEN      = 16, /**< Length for SC card is set */
+    CMD17_READ_SINGLE_BLOCK = 17, /**< Read single block of data */
+    CMD18_READ_MULTIPLE_BLOCK =
+        18, /**< Card transfers data blocks to host until interrupted by a STOP_TRANSMISSION command */
+    CMD24_WRITE_BLOCK             = 24, /**< Write single block of data */
+    CMD25_WRITE_MULTIPLE_BLOCK    = 25, /**< Continuously writes blocks of data until 'Stop Tran' token is sent */
     CMD27_PROGRAM_CSD             = 27, /**< Programming bits of CSD */
-    CMD32_ERASE_WR_BLK_START_ADDR = 32, /**< Sets the address of the first write
-     block to be erased. */
-    CMD33_ERASE_WR_BLK_END_ADDR = 33,   /**< Sets the address of the last write
-       block of the continuous range to be erased.*/
-    CMD38_ERASE      = 38,              /**< Erases all previously selected write blocks */
-    CMD55_APP_CMD    = 55,              /**< Extend to Applications specific commands */
-    CMD56_GEN_CMD    = 56,              /**< General Purpose Command */
-    CMD58_READ_OCR   = 58,              /**< Read OCR register of card */
-    CMD59_CRC_ON_OFF = 59,              /**< Turns the CRC option on or off*/
+    CMD32_ERASE_WR_BLK_START_ADDR = 32, /**< Sets the address of the first write block to be erased. */
+    CMD33_ERASE_WR_BLK_END_ADDR =
+        33,                /**< Sets the address of the last write block of the continuous range to be erased.*/
+    CMD38_ERASE      = 38, /**< Erases all previously selected write blocks */
+    CMD55_APP_CMD    = 55, /**< Extend to Applications specific commands */
+    CMD56_GEN_CMD    = 56, /**< General Purpose Command */
+    CMD58_READ_OCR   = 58, /**< Read OCR register of card */
+    CMD59_CRC_ON_OFF = 59, /**< Turns the CRC option on or off*/
     // App Commands
     ACMD6_SET_BUS_WIDTH           = 6,
     ACMD13_SD_STATUS              = 13,
@@ -579,6 +579,7 @@ static int sd_read_bytes(uint8_t* buffer, uint32_t length)
 
     return 0;
 }
+
 static int sd_read_block(uint8_t* buffer, uint32_t length)
 {
     uint16_t crc;
@@ -653,6 +654,7 @@ int sd_read_blocks(uint8_t* buffer, uint64_t ulSectorNumber, uint32_t ulSectorCo
     sd_spi_deselect();
     return status;
 }
+bool sd_spi_write_blocking(const uint8_t* tx, size_t length);
 
 static uint8_t sd_write_block(const uint8_t* buffer, uint8_t token, uint32_t length)
 {
@@ -663,8 +665,9 @@ static uint8_t sd_write_block(const uint8_t* buffer, uint8_t token, uint32_t len
     sd_spi_write(token);
 
     // write the data
-    bool ret = sd_spi_transfer(buffer, NULL, length);
-
+    bool ret = sd_spi_write_blocking(buffer, length);
+    // bool ret = sd_spi_transfer(buffer, NULL, length);
+    
     // write the checksum CRC16
     sd_spi_write(crc >> 8);
     sd_spi_write(crc);
@@ -901,13 +904,42 @@ int sd_init()
     return m_Status;
 }
 
+static uint tx_dma;
+static uint rx_dma;
+static dma_channel_config tx_dma_cfg;
+static dma_channel_config rx_dma_cfg;
+
+bool sd_spi_write_blocking(const uint8_t* tx, size_t length)
+{
+    static uint8_t dummy = 0xA5;
+    dma_channel_configure(tx_dma, &tx_dma_cfg,
+                          &spi_get_hw(SD_SPI_PORT)->dr,  // write address
+                          tx,                              // read address
+                          length,  // element count (each element is of
+                                   // size transfer_data_size)
+                          false);  // start
+    dma_channel_configure(rx_dma, &rx_dma_cfg,
+                        &dummy,  // write address
+                        &spi_get_hw(SD_SPI_PORT)->dr,// read address
+                        length,  // element count (each element is of
+                                // size transfer_data_size)
+                        false);  // start
+    dma_start_channel_mask((1u << tx_dma) | (1u << rx_dma));
+
+    dma_channel_wait_for_finish_blocking(tx_dma);
+    dma_channel_wait_for_finish_blocking(rx_dma);
+
+    assert(!dma_channel_is_busy(tx_dma));
+    assert(!dma_channel_is_busy(rx_dma));
+
+    return true;
+}
+
+
 bool sd_init_driver()
 {
-    static bool initialized;
+    static bool initialized = false;
     if (!initialized) {
-        // if (pSD->set_drive_strength) {
-        //     gpio_set_drive_strength(SD_CS_PIN, SD_CS_PIN_drive_strength);
-        // }
         // Chip select is active-low, so we'll initialise it to a
         // driven-high state.
         gpio_put(SD_CS_PIN, 1);
@@ -915,6 +947,31 @@ bool sd_init_driver()
         gpio_init(SD_CS_PIN);
         gpio_set_dir(SD_CS_PIN, GPIO_OUT);
         gpio_put(SD_CS_PIN, 1); // In case set_dir does anything
+
+        spi_init(SD_SPI_PORT, 100000);
+        spi_set_format(SD_SPI_PORT, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
+        gpio_set_function(SD_MISO_PIN, GPIO_FUNC_SPI);
+        gpio_set_function(SD_MOSI_PIN, GPIO_FUNC_SPI);
+        gpio_set_function(SD_SCK_PIN, GPIO_FUNC_SPI);
+
+        gpio_set_drive_strength(SD_MISO_PIN, GPIO_DRIVE_STRENGTH_4MA);
+        gpio_set_drive_strength(SD_SCK_PIN, GPIO_DRIVE_STRENGTH_2MA);
+
+        gpio_pull_up(SD_MISO_PIN);
+
+        tx_dma = dma_claim_unused_channel(true);
+        tx_dma_cfg = dma_channel_get_default_config(tx_dma);
+        channel_config_set_transfer_data_size(&tx_dma_cfg, DMA_SIZE_8);
+        channel_config_set_dreq(&tx_dma_cfg, DREQ_SPI0_TX);
+        channel_config_set_write_increment(&tx_dma_cfg, false);
+        channel_config_set_read_increment(&tx_dma_cfg, true);
+
+        rx_dma = dma_claim_unused_channel(true);
+        rx_dma_cfg = dma_channel_get_default_config(rx_dma);
+        channel_config_set_transfer_data_size(&rx_dma_cfg, DMA_SIZE_8);
+        channel_config_set_dreq(&rx_dma_cfg, DREQ_SPI0_RX);
+        channel_config_set_write_increment(&rx_dma_cfg, false);
+        channel_config_set_read_increment(&rx_dma_cfg, false);
 
         initialized = true;
     }

@@ -1,20 +1,21 @@
-rm examples\ArdunioMega2560\full_featured\ArducamLink.*
-cp examples\ArduinoUNO\full_featured\ArducamLink.* examples\ArdunioMega2560\full_featured
 
-rm examples\Pico\full_featured\ArducamLink.*  
-cp examples\ArduinoUNO\full_featured\ArducamLink.* examples\Pico\full_featured
 
-rm .\examples\ArduinoESP32\full_featured\ArducamLink.* 
-cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoESP32\full_featured
+function UpdateLinkFile {
+    param(
+        [string]$folder
+    )
+    rm examples\$folder\full_featured\ArducamLink.*  
+    cp examples\ArduinoUNO\full_featured\ArducamLink.* examples\$folder\full_featured
+    # echo $folder 123
+}
 
-rm .\examples\ArduinoESP8266\full_featured\ArducamLink.* 
-cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoESP8266\full_featured
-
-rm .\examples\ArduinoNano33Ble\full_featured\ArducamLink.* 
-cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoNano33Ble\full_featured
-
-rm .\examples\ArduinoESP32-S2\full_featured\ArducamLink.* 
-cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoESP32-S2\full_featured
-
-rm .\examples\ArduinoPico\full_featured\ArducamLink.* 
-cp .\examples\ArduinoUNO\full_featured\ArducamLink.* .\examples\ArduinoPico\full_featured
+UpdateLinkFile ArduinoDUE
+UpdateLinkFile ArduinoESP32
+UpdateLinkFile ArduinoESP32-C3
+UpdateLinkFile ArduinoESP32-S2
+UpdateLinkFile ArduinoESP8266
+UpdateLinkFile ArduinoMicrobit
+UpdateLinkFile ArduinoNano33Ble
+UpdateLinkFile ArduinoPico
+UpdateLinkFile ArdunioMega2560
+UpdateLinkFile Pico

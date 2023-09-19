@@ -8,8 +8,8 @@
  */
 #ifndef __ARDUCAMLINK_H
 #define __ARDUCAMLINK_H
-#include "stdint.h"
 #include "../libcamera/ArducamCamera.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,6 +41,16 @@ extern "C" {
 
 #define READ_IMAGE_LENGTH           255
 
+#define MESSAGE_HEADER              (uint8_t []){0xff, 0xaa}
+#define MESSAGE_TAIL                (uint8_t []){0xff,0xbb}
+#define MESSAGE_IMAGE               0x01
+#define MESSAGE_CAMERA_INFO         0x02
+#define MESSAGE_VERSION             0x03
+#define MESSAGE_DEBUGS              0x04
+#define MESSAGE_SDK_INFO            0x05
+#define MESSAGE_STREAMOFF           0x06
+#define MESSAGE_OTHER               0x07
+
 uint8_t uartCommandProcessing(ArducamCamera*, uint8_t*);
 
 void arducamUartBegin(uint32_t);
@@ -49,11 +59,11 @@ void reportVerInfo(ArducamCamera* myCamera);
 void reportSdkVerInfo(ArducamCamera* myCamera);
 void cameraGetPicture(ArducamCamera*);
 void arducamFlush(void);
-void send_data_pack(char cmd_type, char* msg);
+void send_data_pack(char* msg);
 
 void arducamUartPrintf(char* buff);
 void arducamUartWrite(uint8_t);
-void arducamUartWriteBuff(uint8_t*, uint16_t);
+void arducamUartWriteBuff(uint8_t*, uint32_t);
 uint32_t arducamUartAvailable(void);
 uint8_t arducamUartRead(void);
 #ifdef __cplusplus

@@ -4,7 +4,7 @@
 #include <stdio.h>
 FSP_CPP_HEADER
 void R_BSP_WarmStart(bsp_warm_start_event_t event);
-uint8_t ReadBuffer(uint8_t* imagebuf, uint8_t length);
+uint8_t ReadBuffer(uint8_t* imagebuf, uint32_t length);
 void stop_preivew();
 FSP_CPP_FOOTER
 
@@ -18,14 +18,13 @@ uint8_t sendFlag         = true;
 uint32_t readImageLength = 0;
 uint8_t jpegHeadFlag     = 0;
 
-uint8_t ReadBuffer(uint8_t* imagebuf, uint8_t length)
+uint8_t ReadBuffer(uint8_t* imagebuf, uint32_t length)
 {
     if (imagebuf[0] == 0xff && imagebuf[1] == 0xd8) {
         jpegHeadFlag    = 1;
         readImageLength = 0;
-        arducamUartWrite(0xff);
-        arducamUartWrite(0xAA);
-        arducamUartWrite(0x01);
+        arducamUartWriteBuff(MESSAGE_HEADER, 2);
+        arducamUartWrite(MESSAGE_CAMERA_INFO);
         arducamUartWriteBuff((uint8_t *)&myCAM.totalLength, 4);
         arducamUartWrite(myCAM.currentPixelFormat);
     }
@@ -35,8 +34,7 @@ uint8_t ReadBuffer(uint8_t* imagebuf, uint8_t length)
     }
     if (readImageLength == myCAM.totalLength) {
         jpegHeadFlag = 0;
-        arducamUartWrite(0xff);
-        arducamUartWrite(0xBB);
+        arducamUartWriteBuff(MESSAGE_TAIL, 2);
     }
     return sendFlag;
 }
@@ -45,17 +43,14 @@ void stop_preivew()
 {
     readImageLength = 0;
     jpegHeadFlag    = 0;
-    uint32_t len    = 9;
+    uint32_t len    = 11;
 
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xAA);
-    arducamUartWrite(0x06);
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
+    arducamUartWriteBuff(MESSAGE_HEADER, 2);
+    arducamUartWrite(MESSAGE_STREAMOFF);
     arducamUartWriteBuff((uint8_t*)&len, 4);
-    arducamUartPrintf("streamoff");
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
+    arducamUartPrintf("streamoff\r\n");    
+    arducamUartWriteBuff(MESSAGE_TAIL, 2);
 }
 
 /*******************************************************************************************************************//**
@@ -65,15 +60,15 @@ void stop_preivew()
 void hal_entry(void)
 {
     /* TODO: add your own code here */
-    bool findstart = false;
-    uint8_t *cmdbuf = 0;
-    static uint8_t cmdline[READ_BUF_SIZE] = {0};
-    uint8_t cmdidx = 0;
+//    bool findstart = false;
+//    uint8_t *cmdbuf = 0;
+//    static uint8_t cmdline[READ_BUF_SIZE] = {0};
+//    uint8_t cmdidx = 0;
     arducamUartBegin(921600);
-    send_data_pack(7,"Hello renesas!");
-    myCAM = createArducamCamera(cs);
+    send_data_pack("Hello renesas!");
+    arducamCameraInit(&myCAM,cs);
     begin(&myCAM);
-    send_data_pack(8,"Mega start!");
+    send_data_pack("Mega start!");
 
     registerCallback(&myCAM, ReadBuffer, 200, stop_preivew);
 
@@ -107,6 +102,7 @@ void hal_entry(void)
         captureThread(&myCAM);
 //        arducamUartPrintf("hello");
     }
+
 #if BSP_TZ_SECURE_BUILD
     /* Enter non-secure code */
     R_BSP_NonSecureEnter();
