@@ -32,7 +32,7 @@ void setup() {
   if (myUart.arducamUartAvailable())
   {
     temp = myUart.arducamUartRead();
-    arducamDelayMs(5);
+    delay(5);
     if (temp == 0x55)
     {
       while (myUart.arducamUartAvailable())
@@ -46,7 +46,7 @@ void setup() {
       }    
       myUart.arducamFlush();
       myCAM.lowPowerOff();
-      arducamDelayMs(300);     //If the camera is 3MP, you need to lengthen the delay
+      delay(500);     //If the camera is 3MP, you need to lengthen the delay
       myUart.uartCommandProcessing(&myCAM,commandBuff);
       myCAM.lowPowerOn();
       commandLength = 0;

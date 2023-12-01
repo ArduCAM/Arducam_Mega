@@ -7,7 +7,7 @@
  *
  */
 #include "ArducamLink.h"
-#include <Arduino.h>
+#include "ArducamUart.h"
 
 ArducamLink::ArducamLink() {}
 
@@ -15,51 +15,43 @@ ArducamLink::~ArducamLink() {}
 
 void ArducamLink::arducamUartBegin(uint32_t baudRate)
 {
-    Serial.begin(baudRate);
+    SerialBegin(baudRate);
 }
 
 void ArducamLink::reportVerInfo(Arducam_Mega* myCamera)
 {
     ArducamCamera* cameraInstance = myCamera->getCameraInstance();
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x03, 0xff, 0xbb};
 
-    uint32_t len = 5;
-    Serial.write(0xff);
-    Serial.write(0xAA);
-    Serial.write(0x03);
-    Serial.write((uint8_t*)&len, 4);
-    Serial.write(cameraInstance->verDate, 3);
-    Serial.println();
-    Serial.write(0xff);
-    Serial.write(0xBB);
+    uint32_t len = 6;
+    arducamUartWriteBuff(&headAndtail[0], 3);
+    arducamUartWriteBuff((uint8_t*)&len, 4);
+    arducamUartWriteBuff(cameraInstance->verDateAndNumber, 4);
+    printf("\r\n");
+    arducamUartWriteBuff(&headAndtail[3], 2);
 }
 
 void ArducamLink::reportSdkVerInfo(Arducam_Mega* myCamera)
 {
     ArducamCamera* cameraInstance = myCamera->getCameraInstance();
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x05, 0xff, 0xbb};
 
     uint32_t len = 6;
-    Serial.write(0xff);
-    Serial.write(0xAA);
-    Serial.write(0x05);
-    Serial.write((uint8_t*)&len, 4);
-    Serial.write((cameraInstance->currentSDK->sdkVersion >> 24) & 0xFF);
-    Serial.write((cameraInstance->currentSDK->sdkVersion >> 16) & 0xFF);
-    Serial.write((cameraInstance->currentSDK->sdkVersion >> 8) & 0xFF);
-    Serial.write((cameraInstance->currentSDK->sdkVersion) & 0xFF);
-    Serial.println();
-    Serial.write(0xff);
-    Serial.write(0xBB);
+    arducamUartWriteBuff(&headAndtail[0], 3);
+    arducamUartWriteBuff((uint8_t*)&len, 4);
+    arducamUartWriteBuff((uint8_t*)&cameraInstance->currentSDK->sdkVersion, 4);
+    printf("\r\n");
+    arducamUartWriteBuff(&headAndtail[3], 2);
 }
 
 void ArducamLink::reportCameraInfo(Arducam_Mega* myCamera)
 {
     ArducamCamera* cameraInstance = myCamera->getCameraInstance();
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x02, 0xff, 0xbb};
 
     uint32_t len = 0;
     char buff[400];
-    Serial.write(0xff);
-    Serial.write(0xAA);
-    Serial.write(0x02);
+    arducamUartWriteBuff(&headAndtail[0], 3);
     sprintf(buff,
             "ReportCameraInfo\r\nCamera Type:%s\r\nCamera Support Resolution:%d\r\nCamera Support "
             "specialeffects:%d\r\nCamera Support Focus:%d\r\nCamera Exposure Value Max:%ld\r\nCamera Exposure Value "
@@ -70,60 +62,64 @@ void ArducamLink::reportCameraInfo(Arducam_Mega* myCamera)
             cameraInstance->myCameraInfo.gainValueMax, cameraInstance->myCameraInfo.gainValueMin,
             cameraInstance->myCameraInfo.supportSharpness);
     len = strlen(buff);
-    Serial.write((uint8_t*)&len, 4);
-    Serial.write(buff, len);
-    Serial.write(0xff);
-    Serial.write(0xBB);
+    arducamUartWriteBuff((uint8_t*)&len, 4);
+    printf(buff);
+    arducamUartWriteBuff(&headAndtail[3], 2);
 }
 
 void ArducamLink::cameraGetPicture(Arducam_Mega* myCamera)
 {
-    ArducamCamera* cameraInstance   = myCamera->getCameraInstance();
+    ArducamCamera* cameraInstance = myCamera->getCameraInstance();
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x01, 0xff, 0xbb};
     uint8_t buff[READ_IMAGE_LENGTH] = {0};
 
     uint8_t rtLength = 0;
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xAA);
-    arducamUartWrite(0x01);
-    arducamUartWrite((uint8_t)(myCamera->getTotalLength() & 0xff));
-    arducamUartWrite((uint8_t)((myCamera->getTotalLength() >> 8) & 0xff));
-    arducamUartWrite((uint8_t)((myCamera->getTotalLength() >> 16) & 0xff));
-    arducamUartWrite((uint8_t)((myCamera->getTotalLength() >> 24) & 0xff));
-    arducamUartWrite(((cameraInstance->cameraDataFormat & 0x0f) << 4) | 0x01);
+    uint32_t len = myCamera->getTotalLength();
+    arducamUartWriteBuff(&headAndtail[0], 3);
+    arducamUartWriteBuff((uint8_t*)(&len), 4);
+    arducamUartWrite(((cameraInstance->currentPictureMode & 0x0f) << 4) | 0x01);
     while (myCamera->getReceivedLength()) {
         rtLength = readBuff(cameraInstance, buff, READ_IMAGE_LENGTH);
-        for (uint8_t i = 0; i < rtLength; i++) {
-            arducamUartWrite(buff[i]);
-        }
+        arducamUartWriteBuff(buff, rtLength);
     }
-    arducamUartWrite(0xff);
-    arducamUartWrite(0xBB);
+    arducamUartWriteBuff(&headAndtail[3], 2);
+}
+
+void ArducamLink::send_data_pack(char cmd_type, char* msg)
+{
+    uint8_t headAndtail[] = {0xff, 0xaa, 0x07, 0xff, 0xbb};
+    headAndtail[2] = cmd_type;
+    uint32_t len = strlen(msg) + 2;
+    arducamUartWriteBuff(&headAndtail[0], 3);
+    arducamUartWriteBuff((uint8_t*)&len, 4);
+    printf(msg);
+    printf("\r\n");
+    arducamUartWriteBuff(&headAndtail[3], 2);
 }
 
 uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* commandBuff)
 {
     ArducamCamera* cameraInstance = myCAM->getCameraInstance();
     CamStatus state;
-    uint16_t gainValue     = 0;
+    uint16_t gainValue = 0;
     uint32_t exposureValue = 0;
-    uint32_t exposureLen1  = 0;
-    uint32_t exposureLen2  = 0;
-    uint32_t exposureLen3  = 0;
+    uint32_t exposureLen1 = 0;
+    uint32_t exposureLen2 = 0;
+    uint32_t exposureLen3 = 0;
 
     uint8_t cameraResolution = cameraInstance->currentPictureMode;
-    uint8_t cameraFarmat     = cameraInstance->currentPixelFormat;
+    uint8_t cameraFarmat = cameraInstance->currentPixelFormat;
     switch (commandBuff[0]) {
-
     case SET_PICTURE_RESOLUTION: // Set Camera Resolution
         cameraResolution = commandBuff[1] & 0x0f;
-        cameraFarmat     = (commandBuff[1] & 0x70) >> 4;
+        cameraFarmat = (commandBuff[1] & 0x70) >> 4;
         myCAM->takePicture((CAM_IMAGE_MODE)cameraResolution, (CAM_IMAGE_PIX_FMT)cameraFarmat);
         break;
     case SET_VIDEO_RESOLUTION: // Set Video Resolution
         cameraResolution = commandBuff[1] & 0x0f;
-        state            = myCAM->startPreview((CAM_VIDEO_MODE)cameraResolution);
+        state = myCAM->startPreview((CAM_VIDEO_MODE)cameraResolution);
         if (state == CAM_ERR_NO_CALLBACK) {
-            Serial.println("callback function is not registered");
+            printf("callback function is not registered\n");
         }
         break;
     case SET_BRIGHTNESS: // Set brightness
@@ -150,10 +146,8 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
             myCAM->setAutoFocus(0x02);
         }
         break;
-    case SET_EXPOSURE_CONTROL: // exposure control
+    case SET_EXPOSUREANDGAIN_CONTROL: // exposure and  Gain control
         myCAM->setAutoExposure(commandBuff[1] & 0x01);
-        break;
-    case SET_GAIN_CONTROL: // Gain control
         myCAM->setAutoISOSensitive(commandBuff[1] & 0x01);
         break;
     case SET_WHILEBALANCE_CONTROL: // while balance control
@@ -167,9 +161,9 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
         myCAM->setISOSensitivity(gainValue);
         break;
     case SET_MANUAL_EXPOSURE: // manual exposure control
-        exposureLen1  = commandBuff[1];
-        exposureLen2  = commandBuff[2];
-        exposureLen3  = commandBuff[3];
+        exposureLen1 = commandBuff[1];
+        exposureLen2 = commandBuff[2];
+        exposureLen3 = commandBuff[3];
         exposureValue = (exposureLen1 << 16) | (exposureLen2 << 8) | exposureLen3;
         myCAM->setAbsoluteExposure(exposureValue);
         break;
@@ -192,37 +186,46 @@ uint8_t ArducamLink::uartCommandProcessing(Arducam_Mega* myCAM, uint8_t* command
     case GET_SDK_VER_INFO: // Get sdk version info
         reportSdkVerInfo(myCAM);
         break;
+    case RESET_CAMERA:
+        myCAM->reset();
+    case SET_IMAGE_QUALITY:
+        myCAM->setImageQuality((IMAGE_QUALITY)commandBuff[1]);
     default:
         break;
     }
     return CAM_ERR_SUCCESS;
 }
 
-void ArducamLink::arducamUartWriteBuff(uint8_t* buff, uint8_t length)
-{
-    Serial.write(buff, length);
-}
-
 void ArducamLink::arducamUartWrite(uint8_t data)
 {
-    Serial.write(data);
-    delayMicroseconds(12);
+    SerialWrite(data);
+    delayUs(12);
 }
 
-void ArducamLink::printf(char *buff)
+void ArducamLink::arducamUartWriteBuff(uint8_t* buff, uint16_t length)
 {
-    Serial.print(buff);
-    delayMicroseconds(12);
+    // SerialWriteBuff(buff, length);
+    // delayUs(12);
+    for (uint16_t i = 0; i < length; i++)
+        arducamUartWrite(buff[i]);
+}
+
+void ArducamLink::printf(char* buff)
+{
+    uint16_t len = strlen(buff);
+    // SerialPrintf(buff);
+    // delayUs(12);
+    arducamUartWriteBuff((uint8_t*)buff, len);
 }
 
 uint32_t ArducamLink::arducamUartAvailable(void)
 {
-    return Serial.available();
+    return SerialAvailable();
 }
 
 uint8_t ArducamLink::arducamUartRead(void)
 {
-    return Serial.read();
+    return SerialRead();
 }
 
 void ArducamLink::arducamFlush(void)

@@ -291,13 +291,13 @@ CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAG
 CamStatus cameratakeMultiPictures(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format,
                                   uint8_t num)
 {
-    if (camera->currentPixelFormat != pixel_format) {
+     if (camera->currentPixelFormat != pixel_format) {
         camera->currentPixelFormat = pixel_format;
         writeReg(camera, CAM_REG_FORMAT, pixel_format); // set the data format
         waitI2cIdle(camera);                            // Wait I2c Idle
     }
 
-    if (camera->currentPictureMode != mode) {
+     if (camera->currentPictureMode != mode) {
         camera->currentPictureMode = mode;
         writeReg(camera, CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | mode);
         waitI2cIdle(camera); // Wait I2c Idle
