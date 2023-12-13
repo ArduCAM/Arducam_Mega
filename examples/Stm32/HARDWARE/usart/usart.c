@@ -207,7 +207,7 @@ void cameraGetPicture(ArducamCamera* camera)
     uartWriteBuffer(&headAndtail[0], 3);
     uartWriteBuffer((uint8_t*)(&camera->totalLength), 4);
 
-    arducamUartWrite(((camera->cameraDataFormat & 0x0f) << 4) | 0x01);
+    arducamUartWrite(((camera->currentPictureMode & 0x0f) << 4) | 0x01);
     while (camera->receivedLength) {
         rt_length = readBuff(camera, buff, READ_IMAGE_LENGTH);
         uartWriteBuffer(buff, rt_length);

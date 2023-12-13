@@ -27,7 +27,7 @@ uint8_t ReadBuffer(uint8_t* imagebuf, uint8_t length)
         arducamUartWrite(0xAA);
         arducamUartWrite(0x01);
         uartWriteBuffer((uint8_t*)&myCAM.totalLength,4);
-        arducamUartWrite(((myCAM.cameraDataFormat & 0x0f) << 4) | 0x01);
+        arducamUartWrite(((myCAM.currentPictureMode & 0x0f) << 4) | 0x01);
     }
     if (jpegHeadFlag == 1) {
         readImageLength += length;
