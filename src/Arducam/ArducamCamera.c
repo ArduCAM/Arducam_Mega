@@ -119,10 +119,10 @@
 #define SPECIAL_YELLOWISH                          (1 << 8)
 
 union SdkInfo currentSDK = {
-    .sdkInfo.year    = 23,
-    .sdkInfo.month   = 8,
-    .sdkInfo.day     = 7,
-    .sdkInfo.version = 0x26,
+    .sdkInfo.year    = 24,
+    .sdkInfo.month   = 6,
+    .sdkInfo.day     = 18,
+    .sdkInfo.version = 0x020A,  //V2.0.10  H bit[11:8] M bit[7:4] L bit[3:0] 
 };
 
 struct cameraDefaultState {
@@ -377,6 +377,8 @@ CamStatus cameraReset(ArducamCamera* camera)
 {
     writeReg(camera, CAM_REG_SENSOR_RESET, CAM_SENSOR_RESET_ENABLE);
     waitI2cIdle(camera); // Wait I2c Idle
+    camera->currentPixelFormat = -1;
+    camera->currentPictureMode = -1;
     return CAM_ERR_SUCCESS;
 }
 

@@ -41,15 +41,15 @@ struct SdkDate {
     uint8_t year;
     uint8_t month;
     uint8_t day;
-    uint8_t version;
-};
+    uint16_t version;
+} __attribute__ ((packed));  // 8bit align
 
 /**
  * @struct SdkInfo
  * @brief Basic information of the sdk
  */
 union SdkInfo {
-    unsigned long sdkVersion; /**<Sdk version */
+    uint8_t sdkVersion[5]; /**<Sdk version */
     struct SdkDate sdkInfo;
 };
 

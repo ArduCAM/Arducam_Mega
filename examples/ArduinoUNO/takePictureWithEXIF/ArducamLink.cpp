@@ -39,7 +39,7 @@ void ArducamLink::reportSdkVerInfo(Arducam_Mega* myCamera)
     uint32_t len = 6;
     arducamUartWriteBuff(&headAndtail[0], 3);
     arducamUartWriteBuff((uint8_t*)&len, 4);
-    arducamUartWriteBuff((uint8_t*)&cameraInstance->currentSDK->sdkVersion, 4);
+    arducamUartWriteBuff((uint8_t*)&cameraInstance->currentSDK->sdkVersion, 5);
     printf("\r\n");
     arducamUartWriteBuff(&headAndtail[3], 2);
 }
