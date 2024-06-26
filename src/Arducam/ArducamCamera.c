@@ -33,6 +33,8 @@
 #define FIFO_SIZE2          0x46 // Camera write FIFO size[15:8]
 #define FIFO_SIZE3          0x47 // Camera write FIFO size[18:16]
 
+#define SENSOR_DATA         0x48 // Camera write FIFO size[18:16]
+
 #define BURST_FIFO_READ     0x3C // Burst FIFO read operation
 #define SINGLE_FIFO_READ    0x3D // Single FIFO read operation
 
@@ -76,6 +78,7 @@
 #define CAM_REG_DEBUG_REGISTER_LOW                 0X0C
 #define CAM_REG_DEBUG_REGISTER_VALUE               0X0D
 
+#define CAM_I2C_READ_MODE                          (1 << 0)
 #define CAM_REG_SENSOR_STATE_IDLE                  (1 << 1)
 #define CAM_SENSOR_RESET_ENABLE                    (1 << 6)
 #define CAM_FORMAT_BASICS                          (0 << 0)
@@ -122,7 +125,7 @@ union SdkInfo currentSDK = {
     .sdkInfo.year    = 24,
     .sdkInfo.month   = 6,
     .sdkInfo.day     = 18,
-    .sdkInfo.version = 0x020A,  //V2.0.10  H bit[11:8] M bit[7:4] L bit[3:0] 
+    .sdkInfo.version = 0x020B,  //V2.0.11  H bit[11:8] M bit[7:4] L bit[3:0] 
 };
 
 struct cameraDefaultState {
@@ -269,6 +272,54 @@ CamStatus cameraSetAutoFocus(ArducamCamera* camera, uint8_t val)
     waitI2cIdle(camera);                               // Wait I2c Idle
     return CAM_ERR_SUCCESS;
 }
+
+uint8_t cameraGetAutoFocusSta(ArducamCamera* camera)
+{
+    uint16_t sta_reg = 0x3029;
+   // step 1 write sta_reg
+    uint8_t register_high =   (sta_reg>>8)&0xFF;
+    uint8_t register_low  =   (sta_reg)   &0xFF;
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, register_high); waitI2cIdle(camera);   
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW, register_low);   waitI2cIdle(camera);   
+    
+   //step 2  read real sensor register
+    writeReg(camera, CAM_REG_SENSOR_RESET, CAM_I2C_READ_MODE);
+    waitI2cIdle(camera); // Wait I2c Idle
+    arducamDelayMs(5); // wait read finish 
+   // step 3  get value
+    return readReg(camera, SENSOR_DATA);
+}
+
+
+
+CamStatus cameraSetManualFocus(ArducamCamera* camera, uint16_t val)
+{
+    uint16_t vcm_reg_H = 0x3603;
+    uint16_t vcm_reg_L = 0x3602;
+    uint8_t register_high,register_low;
+    //step 1 convert val to vcm code 
+    uint8_t  code_9_4 =  (val >> 4) & 0x3F;
+    uint8_t  code_3_0 =  (val<<4)&0xF0;
+
+    // step 2 wirte high register
+    register_high =   (vcm_reg_H>>8)&0xFF;
+    register_low  =   (vcm_reg_H)   &0xFF;
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, register_high); waitI2cIdle(camera);   
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW, register_low);   waitI2cIdle(camera);   
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, code_9_4);     waitI2cIdle(camera); 
+    
+    // step 3 wirte low register
+
+    register_high =   (vcm_reg_L>>8)&0xFF;
+    register_low  =   (vcm_reg_L)   &0xFF;
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, register_high); waitI2cIdle(camera);   
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW, register_low);   waitI2cIdle(camera);   
+    writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, code_3_0);     waitI2cIdle(camera); 
+    
+    return CAM_ERR_SUCCESS;
+}
+
+
 
 CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format)
 {
@@ -718,6 +769,16 @@ CamStatus setAutoFocus(ArducamCamera* camera, uint8_t val)
     return camera->arducamCameraOp->setAutoFocus(camera, val);
 }
 
+uint8_t getAutoFocusSta(ArducamCamera* camera)
+{
+    return camera->arducamCameraOp->getAutoFocusSta(camera);
+}
+
+CamStatus setManualFocus(ArducamCamera* camera, uint16_t val)
+{
+    return camera->arducamCameraOp->setManualFocus(camera, val);
+}
+
 CamStatus setSaturation(ArducamCamera* camera, CAM_STAURATION_LEVEL level)
 {
     return camera->arducamCameraOp->setSaturation(camera, level);
@@ -860,6 +921,8 @@ const struct CameraOperations ArducamcameraOperations = {
     .setAutoWhiteBalanceMode = cameraSetAutoWhiteBalanceMode,
     .setColorEffect          = cameraSetColorEffect,
     .setAutoFocus            = cameraSetAutoFocus,
+    .getAutoFocusSta         = cameraGetAutoFocusSta,
+    .setManualFocus          = cameraSetManualFocus,
     .setSaturation           = cameraSetSaturation,
     .setEV                   = cameraSetEV,
     .setContrast             = cameraSetContrast,

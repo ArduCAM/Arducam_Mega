@@ -291,6 +291,8 @@ struct CameraOperations {
     CamStatus (*setAutoWhiteBalanceMode)(ArducamCamera*, CAM_WHITE_BALANCE);
     CamStatus (*setColorEffect)(ArducamCamera*, CAM_COLOR_FX);
     CamStatus (*setAutoFocus)(ArducamCamera*, uint8_t);
+    uint8_t   (*getAutoFocusSta)(ArducamCamera*);
+    CamStatus (*setManualFocus)(ArducamCamera*, uint16_t);
     CamStatus (*setSaturation)(ArducamCamera*, CAM_STAURATION_LEVEL);
     CamStatus (*setEV)(ArducamCamera*, CAM_EV_LEVEL);
     CamStatus (*setContrast)(ArducamCamera*, CAM_CONTRAST_LEVEL);
@@ -509,6 +511,28 @@ CamStatus setColorEffect(ArducamCamera* camera, CAM_COLOR_FX effect);
 //! @note Only `5MP` cameras support auto focus control
 //**********************************************
 CamStatus setAutoFocus(ArducamCamera* camera, uint8_t val);
+
+//**********************************************
+//!
+//! @brief Get auto focus status
+//!
+//! @return Return 0x10：focus is finished 
+//!
+//! @note Only `5MP` cameras support auto focus control
+//**********************************************
+uint8_t getAutoFocusSta(ArducamCamera* camera) ;
+
+//**********************************************
+//!
+//! @brief Set manual focus mode
+//!
+//! @param  value of VCM code 
+//!
+//! @return Return operation status
+//!
+//! @note Only `5MP` cameras support maunal focus control
+//**********************************************
+CamStatus setManualFocus(ArducamCamera* camera,uint16_t val);
 
 //**********************************************
 //!

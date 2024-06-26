@@ -201,6 +201,30 @@ class Arducam_Mega
     //! @note Only `5MP` cameras support auto focus control
     //**********************************************
     CamStatus setAutoFocus(uint8_t val);
+
+    //**********************************************
+    //!
+    //! @brief Get auto focus status
+    //!
+    //! @return Return 0x10：focus is finished 
+    //!
+    //! @note Only `5MP` cameras support auto focus control
+    //**********************************************
+    uint8_t getAutoFocusSta(void);
+
+    //**********************************************
+    //!
+    //! @brief Set manual focus mode
+    //!
+    //! @param  value of VCM code 
+    //!
+    //! @return Return operation status
+    //!
+    //! @note Only `5MP` cameras support maunal focus control
+    //**********************************************
+    CamStatus setManualFocus(uint16_t val);
+
+
     //**********************************************
     //!
     //! @brief Set saturation level

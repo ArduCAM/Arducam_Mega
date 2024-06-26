@@ -88,6 +88,16 @@ CamStatus Arducam_Mega::setAutoFocus(uint8_t val)
     return ::setAutoFocus(&cameraInfo, val);
 }
 
+uint8_t Arducam_Mega::getAutoFocusSta(void)
+{
+    return ::getAutoFocusSta(&cameraInfo);
+}
+
+CamStatus Arducam_Mega::setManualFocus(uint16_t val)
+{
+    return ::setManualFocus(&cameraInfo, val);
+}
+
 CamStatus Arducam_Mega::setSaturation(CAM_STAURATION_LEVEL level)
 {
     return ::setSaturation(&cameraInfo, level);
