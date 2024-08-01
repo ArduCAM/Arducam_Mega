@@ -563,7 +563,7 @@ void cameraWaitI2cIdle(ArducamCamera*MyCamera)
 {
 	while ((readReg(MyCamera,CAM_REG_SENSOR_STATE)&0X03) != CAM_REG_SENSOR_STATE_IDLE)
 	{
-		arducamDelayMs(2);
+		;//arducamDelayMs(2);
 	}
 }
 

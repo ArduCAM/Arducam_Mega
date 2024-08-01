@@ -660,7 +660,7 @@ uint8_t cameraBusRead(ArducamCamera* camera, uint8_t address)
 void cameraWaitI2cIdle(ArducamCamera* camera)
 {
     while ((readReg(camera, CAM_REG_SENSOR_STATE) & 0X03) != CAM_REG_SENSOR_STATE_IDLE) {
-        arducamDelayMs(2);
+       // arducamDelayMs(2);
     }
 }
 
