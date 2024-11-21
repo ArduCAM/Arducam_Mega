@@ -163,6 +163,14 @@ typedef enum {
 }CAM_SHARPNESS_LEVEL;
 
 
+
+enum {
+    SENSOR_5MP_1 = 0x81,
+    SENSOR_3MP_1 = 0x82,
+    SENSOR_5MP_2 = 0x83, /* 2592x1936 */
+    SENSOR_3MP_2 = 0x84,
+};
+
 /**
   * @enum CAM_VIDEO_MODE
   * @brief Configure resolution in video streaming mode 
