@@ -628,7 +628,7 @@ uint32_t cameraReadBuff(ArducamCamera* camera, uint8_t* buff, uint32_t length)
         buff[count] = arducamSpiTransfer(0x00);
     }
 #else
-    arducamSpiReadBlock(buff, length);
+    arducamSpiBlockTransfer(0x00, buff, length);
 #endif
     arducamSpiCsPinHigh(camera->csPin);
     camera->receivedLength -= length;

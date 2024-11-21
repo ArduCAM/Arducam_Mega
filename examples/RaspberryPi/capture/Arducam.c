@@ -502,10 +502,15 @@ uint8_t cameraReadBuff(ArducamCamera*MyCamera,uint8_t* buff,uint8_t length)
 		MyCamera->burstFirstFlag = 1;
 		arducamSpiTransfer(0x00);
 	}
-	for (uint8_t count = 0; count < length; count++)
-	{
-		buff[count]=arducamSpiTransfer(0x00);
-	}
+
+#ifndef arducamSpiBlockTransfer
+    for (uint32_t count = 0; count < length; count++) {
+        buff[count] = arducamSpiTransfer(0x00);
+    }
+#else
+    arducamSpiBlockTransfer(0x00, buff, length);
+#endif
+
 	arducamSpiCsPinHigh(MyCamera->csPin);	
 	MyCamera->receivedLength-=length;
   return length;

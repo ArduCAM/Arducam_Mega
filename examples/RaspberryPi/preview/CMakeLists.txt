@@ -11,4 +11,4 @@ include_directories(../../../src/Arducam)
 add_subdirectory(Arducam)
 
 add_executable(preview main.cpp)
-target_link_libraries(preview libarducam  ${OpenCV_LIBS})
+target_link_libraries(preview  libarducam gpiod  ${OpenCV_LIBS})

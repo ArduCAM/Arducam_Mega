@@ -21,6 +21,7 @@
 #define arducamCsOutputMode(pin)             spiCsOutputMode(pin)
 #define arducamDelayMs(val)                  delayMs(val)           //  Delay Ms
 #define arducamDelayUs(val)                  delayUs(val) //Delay Us
+#define arducamSpiBlockTransfer(val,rxbuf,len)  spiBlockRead(val,rxbuf,len)    //  SPI communication reads block
 
 #endif /*__RASPBERRYHAL_H*/
 

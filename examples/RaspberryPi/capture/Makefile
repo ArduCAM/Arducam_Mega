@@ -3,9 +3,10 @@ CXX := gcc
 Source := $(wildcard *.c)
 DIR := $(notdir $(Source)) 
 OBJ := $(patsubst %.c,%.o,$(DIR))
+LIBS=-lgpiod
 
 $(Target):$(OBJ)
-	$(CXX) $^ -o $@
+	$(CXX) $^ $(LIBS) -o $@
 
 
 .PHONY:clean

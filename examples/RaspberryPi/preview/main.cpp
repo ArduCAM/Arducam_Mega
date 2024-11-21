@@ -18,7 +18,7 @@ using namespace cv;
 using namespace std;
 
 #define JPEG_BUF_SIZE 10 * 1024 * 1024 // 2M
-int csPin = 22;
+int csPin = 17;
 ArducamCamera myCAM;
 unsigned int imageLength = 0;
 

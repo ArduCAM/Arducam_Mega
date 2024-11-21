@@ -17,119 +17,183 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <stdlib.h>
+#include <getopt.h>
+#include <sys/stat.h>
+#include <gpiod.h>
 
+#ifndef	CONSUMER
+#define	CONSUMER	"Consumer"
+#endif
 
+SPI_SET spidev_01 = {
+  .spi_dev_path = "/dev/spidev0.1",
+  .mode = 0x00,
+  .bits = 8,
+  .speed = 22000000, 
+  .delayms = 1,
+};    
 
+// GPIO Pin
+char *chipname = "gpiochip0";	        
+struct timespec ts = { 1, 0 };
+struct gpiod_chip *chip;
+struct gpiod_line *line;
 
-int fb;
-static unsigned int  speed = 12000000;
-// Pointers that will be memory mapped when pioInit() is called
-volatile unsigned int *gpio; //pointer to base of gpio
-volatile unsigned int *spi;  //pointer to base of spi registers
+static void pabort(const char *s)
+{
+	perror(s);
+	abort();
+}
 
 void spiBegin(void)
 {
+    spiDevFileOpen();
+    spiModeSet(spidev_01.spi_fd, spidev_01.mode, spidev_01.speed, spidev_01.bits);
     pioInit();
-    //set GPIO 8 (CE), 9 (MISO), 10 (MOSI), 11 (SCLK) alt fxn 0 (SPI0)
-    //pinMode(8, ALT0);
-    SPI0CSbits.TA = 0;          // turn SPI on with the "transfer active" bit
-    pinMode(9, ALT0);
-    pinMode(10, ALT0);
-    pinMode(11, ALT0);
-
-    //Note: clock divisor will be rounded to the nearest power of 2
-    SPI0CLK = 250000000/speed;   // set SPI clock to 250MHz / freq
-    SPI0CS = 0;  
-	SPI0CSbits.CLEAR = 3;   // this is very important 
-    SPI0CSbits.TA = 1;          // turn SPI on with the "transfer active" bit
 }
+
 unsigned char spiReadWriteByte(unsigned char data)
 {
-	SPI0FIFO = data;            // send data to slave
-	while(!SPI0CSbits.DONE);	// wait until SPI transmission complete
-    return SPI0FIFO;            // return received data
+    unsigned char ret;
+    transfer(spidev_01.spi_fd, &data, &ret, 1);
+    return ret;
+}
+
+
+void spiBlockRead(uint8_t data, uint8_t *rx_buf, uint32_t len)
+{
+    transfer(spidev_01.spi_fd, &data, rx_buf, len);
+}
+
+void spiDevFileOpen(void)
+{
+	if ((spidev_01.spi_fd = open(spidev_01.spi_dev_path, O_RDWR | O_SYNC) ) < 0)
+	      pabort("can't open spi device");
+}
+
+void spiModeSet(int fd, uint32_t spi_mode, uint32_t spi_speed, uint8_t bits_per_word)
+{
+  int ret;
+  /* spi mode */
+  ret = ioctl(fd, SPI_IOC_WR_MODE, &spi_mode);
+	if (ret == -1)
+		pabort("can't set spi mode");
+  /* bits per word */
+  ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits_per_word);
+	if (ret == -1)
+		pabort("can't set bits per word");
+  /* max speed hz */
+  ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &spi_speed);
+	if (ret == -1)
+		pabort("can't set max speed hz");
+}
+
+static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, uint32_t len)
+{
+  int ret;
+	struct spi_ioc_transfer tr = {
+		.tx_buf = (unsigned long)tx,
+		.rx_buf = (unsigned long)rx,
+		.len = len,
+		.delay_usecs = spidev_01.delayms,
+		.speed_hz = spidev_01.speed,
+		.bits_per_word = spidev_01.bits,
+	};
+
+	if (spidev_01.mode & SPI_TX_QUAD)
+		tr.tx_nbits = 4;
+	else if (spidev_01.mode & SPI_TX_DUAL)
+		tr.tx_nbits = 2;
+	if (spidev_01.mode & SPI_RX_QUAD)
+		tr.rx_nbits = 4;
+	else if (spidev_01.mode & SPI_RX_DUAL)
+		tr.rx_nbits = 2;
+	if (!(spidev_01.mode & SPI_LOOP)) {
+		if (spidev_01.mode & (SPI_TX_QUAD | SPI_TX_DUAL))
+			tr.rx_buf = 0;
+		else if (spidev_01.mode & (SPI_RX_QUAD | SPI_RX_DUAL))
+			tr.tx_buf = 0;
+	}
+
+	ret = ioctl(fd, SPI_IOC_MESSAGE(1), &tr);
+	if (ret < 1)
+		pabort("can't send spi message");
 }
 
 void pioInit(void) 
 {
-	int  mem_fd;
-	void *reg_map;
-
-	// /dev/mem is a psuedo-driver for accessing memory in the Linux filesystem
-	if ((mem_fd = open("/dev/mem", O_RDWR|O_SYNC) ) < 0) {
-	      printf("can't open /dev/mem \n");
-	      exit(-1);
-	}
-
-	reg_map = mmap(
-	  NULL,             //Address at which to start local mapping (null means don't-care)
-      BLOCK_SIZE,       //Size of mapped memory block
-      PROT_READ|PROT_WRITE,// Enable both reading and writing to the mapped memory
-      MAP_SHARED,       // This program does not have exclusive access to this memory
-      mem_fd,           // Map to /dev/mem
-      GPIO_BASE);       // Offset to GPIO peripheral
-
-	if (reg_map == MAP_FAILED) {
-      printf("gpio mmap error %d\n", (int)reg_map);
-      close(mem_fd);
-      exit(-1);
-    }
-
-	gpio = (volatile unsigned *)reg_map;
-
-    reg_map = mmap(
-	  NULL,             //Address at which to start local mapping (null means don't-care)
-      BLOCK_SIZE,       //Size of mapped memory block
-      PROT_READ|PROT_WRITE,// Enable both reading and writing to the mapped memory
-      MAP_SHARED,       // This program does not have exclusive access to this memory
-      mem_fd,           // Map to /dev/mem
-      SPI0_BASE);       // Offset to SPI peripheral
-
-    if (reg_map == MAP_FAILED) {
-      printf("spi mmap error %d\n", (int)reg_map);
-      close(mem_fd);
-      exit(-1);
-    }
-
-    spi = (volatile unsigned *)reg_map;
-
-	close(mem_fd);
-}
-
-void pinMode(int pin, int function) 
-{
-    int reg      =  pin/10;
-    int offset   = (pin%10)*3;
-    GPFSEL[reg] &= ~((0b111 & ~function) << offset);
-    GPFSEL[reg] |=  ((0b111 &  function) << offset);
+  chip = gpiod_chip_open_by_name(chipname);
+  if (chip == NULL) {
+	  perror("Open chip failed\n");
+		gpiod_line_release(line);
+    gpiod_chip_close(chip);
+  }   
 }
 
 void digitalWrite(int pin, int val) 
 {
-    int reg = pin / 32;
-    int offset = pin % 32;
-
-    if (val) GPSET[reg] = 1 << offset;
-    else     GPCLR[reg] = 1 << offset;
+  int ret;
+  line = gpiod_chip_get_line(chip, pin);
+	if (line == NULL) {
+		perror("Get line failed\n");
+ 		gpiod_chip_close(chip);
+	}
+  ret = gpiod_line_set_value(line, val);
+	if (ret < 0) {
+		perror("Set line output failed\n");
+		gpiod_line_release(line);
+	}
 }
-
 
 void spiCsHigh(int pin)
 {
-    digitalWrite(pin,HIGH);
+  int ret;
+  line = gpiod_chip_get_line(chip, pin);
+	if (line == NULL) {
+		perror("Get line failed\n");
+ 		gpiod_chip_close(chip);
+	}
+
+	ret = gpiod_line_set_value(line, HIGH);
+	if (ret < 0) {
+		perror("Set line output failed\n");
+		gpiod_line_release(line);
+	}
 }
 void spiCsLow(int pin)
 {
-    digitalWrite(pin,LOW);
+  int ret;
+  line = gpiod_chip_get_line(chip, pin);
+	if (line == NULL) {
+		perror("Get line failed\n");
+ 		gpiod_chip_close(chip);
+	}
+
+	ret = gpiod_line_set_value(line, LOW);
+	if (ret < 0) {
+		perror("Set line output failed\n");
+		gpiod_line_release(line);
+	}
 }
 void spiCsOutputMode(int pin)
 {
-    pinMode(pin, OUTPUT);   
+  int ret;
+  line = gpiod_chip_get_line(chip, pin);
+	if (line == NULL) {
+		perror("Get line failed\n");
+ 		gpiod_chip_close(chip);
+	}
+
+	ret = gpiod_line_request_output(line, CONSUMER, 0);
+	if (ret < 0) {
+		perror("Request line as output failed\n");
+		gpiod_chip_close(chip);
+	} 
 }
 
 void spiRelease(void)
 {
-    close(fb);
+    close(spidev_01.spi_fd);
 }
 void delayMs(unsigned int s)
 {
