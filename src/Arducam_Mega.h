@@ -16,8 +16,8 @@
 /**
  * @file Arducam_Mega.h
  * @author Arducam
- * @date 2023/3/3
- * @version V2.0.1
+ * @date 2025/4/9
+ * @version V3.0.0
  * @copyright Arducam
  */
 /**
@@ -265,7 +265,7 @@ class Arducam_Mega
     //!
     //**********************************************
     CamStatus setBrightness(CAM_BRIGHTNESS_LEVEL level);
-    //**********************************************
+        //**********************************************
     //!
     //! @brief Set Sharpness level
     //!
@@ -285,6 +285,33 @@ class Arducam_Mega
     //! @return Return operation status
     //**********************************************
     CamStatus setImageQuality(IMAGE_QUALITY qualtiy);
+    //**********************************************
+    //!
+    //! @brief Set rotation
+    //!
+    //! @param  rotation Image rotation
+    //!
+    //! @return Return operation status
+    //**********************************************
+    CamStatus setRotation(CAM_ROTATION rotation);
+    //**********************************************
+    //!
+    //! @brief Set AE Freeze
+    //!
+    //! @param  status AE Freeze status
+    //!
+    //! @return Return operation status
+    //**********************************************
+    CamStatus setFreezeAE(CAM_AE_FREEZE status);
+    //**********************************************
+    //!
+    //! @brief Set AWB Freeze
+    //!
+    //! @param  status AWB Freeze status
+    //!
+    //! @return Return operation status
+    //**********************************************
+    CamStatus setFreezeAWB(CAM_AWB_FREEZE status);
     //**********************************************
     //!
     //! @brief Read image data with specified length to buffer

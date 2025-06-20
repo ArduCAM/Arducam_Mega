@@ -29,7 +29,7 @@ SPI_SET spidev_01 = {
   .spi_dev_path = "/dev/spidev0.1",
   .mode = 0x00,
   .bits = 8,
-  .speed = 24000000, 
+  .speed = 10000000, 
   .delayms = 1,
 };    
 

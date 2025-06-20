@@ -14,8 +14,8 @@
 /**
  * @file ArducamCamera.h
  * @author Arducam
- * @date 2023/3/6
- * @version V2.0.1
+ * @date 2025/4/9
+ * @version V3.0.0
  * @copyright Arducam
  */
 
@@ -73,6 +73,8 @@ struct CameraInfo {
     unsigned char supportSharpness; /**<Does the camera module support the
                                        sharpening function */
     unsigned char deviceAddress;
+    unsigned char supportFreezeAE;  /**<Does the camera module support the freeze AE function */
+    unsigned char supportFreezeAWB; /**<Does the camera module support the freeze AWB function */
 };
 
 /**
@@ -89,21 +91,22 @@ typedef enum {
  * @brief Configure camera resolution
  */
 typedef enum {
-    CAM_IMAGE_MODE_QQVGA  = 0x00,  /**<160x120 */
-    CAM_IMAGE_MODE_QVGA   = 0x01,  /**<320x240*/
-    CAM_IMAGE_MODE_VGA    = 0x02,  /**<640x480*/
-    CAM_IMAGE_MODE_SVGA   = 0x03,  /**<800x600*/
-    CAM_IMAGE_MODE_HD     = 0x04,  /**<1280x720*/
-    CAM_IMAGE_MODE_SXGAM  = 0x05,  /**<1280x960*/
-    CAM_IMAGE_MODE_UXGA   = 0x06,  /**<1600x1200*/
-    CAM_IMAGE_MODE_FHD    = 0x07,  /**<1920x1080*/
-    CAM_IMAGE_MODE_QXGA   = 0x08,  /**<2048x1536*/
-    CAM_IMAGE_MODE_WQXGA2 = 0x09,  /**<2592x1944*/
-    CAM_IMAGE_MODE_96X96  = 0x0a,  /**<96x96*/
-    CAM_IMAGE_MODE_128X128 = 0x0b, /**<128x128*/
-    CAM_IMAGE_MODE_320X320 = 0x0c, /**<320x320*/
+    CAM_IMAGE_MODE_96X96     = 0x00,  /**<96x96*/
+    CAM_IMAGE_MODE_128X128   = 0x01,  /**<128x128*/
+    CAM_IMAGE_MODE_QQVGA     = 0x02,  /**<160x120*/
+    CAM_IMAGE_MODE_QVGA      = 0x03,  /**<320x240*/
+    CAM_IMAGE_MODE_320X320   = 0x04,  /**<320x320*/
+    CAM_IMAGE_MODE_VGA       = 0x05,  /**<640x480*/
+    CAM_IMAGE_MODE_SVGA      = 0x06,  /**<800x600*/
+    CAM_IMAGE_MODE_1024X768  = 0x07,  /**<1024x768*/
+    CAM_IMAGE_MODE_HD        = 0x08,  /**<1280x720*/
+    CAM_IMAGE_MODE_1280X1024 = 0x09,  /**<1280x1024*/
+    CAM_IMAGE_MODE_UXGA      = 0x0a,  /**<1600x1200*/
+    CAM_IMAGE_MODE_FHD       = 0x0b,  /**<1920x1080*/
+    CAM_IMAGE_MODE_QXGA      = 0x0c,  /**<2048x1536*/
+    CAM_IMAGE_MODE_WQXGA2    = 0x0d,  /**<2592x1944*/
+	
     /// @cond
-    CAM_IMAGE_MODE_12      = 0x0d, /**<Reserve*/
     CAM_IMAGE_MODE_13      = 0x0e, /**<Reserve*/
     CAM_IMAGE_MODE_14      = 0x0f, /**<Reserve*/
     CAM_IMAGE_MODE_15      = 0x10, /**<Reserve*/
@@ -186,12 +189,33 @@ typedef enum {
 } CAM_SHARPNESS_LEVEL;
 
 /**
+ * @enum CAM_POWER_MODE
+ * @brief Configure camera Power mode
+ */
+typedef enum {
+    CAM_POWER_MODE_NORMAL    = 0, /**< Power mode normal */
+    CAM_POWER_MODE_LOW       = 1, /**< Power mode low */
+} CAM_POWER_MODE;
+
+/**
  * @enum CAM_VIDEO_MODE
  * @brief Configure resolution in video streaming mode
  */
 typedef enum {
-    CAM_VIDEO_MODE_0 = 1, /**< 320x240 */
-    CAM_VIDEO_MODE_1 = 2, /**< 640x480 */
+    CAM_VIDEO_MODE_0 = 0,    /**< 96x96   */
+    CAM_VIDEO_MODE_1 = 1,    /**< 128x128 */
+    CAM_VIDEO_MODE_2 = 2,    /**< 160x120 */
+    CAM_VIDEO_MODE_3 = 3,    /**< 320x240 */
+    CAM_VIDEO_MODE_4 = 4,    /**< 320x320 */
+    CAM_VIDEO_MODE_5 = 5,    /**< 640x480 */
+    CAM_VIDEO_MODE_6 = 6,    /**<800x600*/
+    CAM_VIDEO_MODE_7 = 7,    /**<1024x768*/
+    CAM_VIDEO_MODE_8 = 8,    /**<1280x720*/
+    CAM_VIDEO_MODE_9 = 9,    /**<1280x1024*/
+    CAM_VIDEO_MODE_10 = 10,  /**<1600x1200*/
+    CAM_VIDEO_MODE_11 = 11,  /**<1920x1080*/
+    CAM_VIDEO_MODE_12 = 12,  /**<2048x1536*/
+    CAM_VIDEO_MODE_13 = 13,  /**<2592x1944*/
 } CAM_VIDEO_MODE;
 
 /**
@@ -199,8 +223,8 @@ typedef enum {
  * @brief Configure image pixel format
  */
 typedef enum {
+	CAM_IMAGE_PIX_FMT_JPG    = 0x01, /**< JPEG format */
     CAM_IMAGE_PIX_FMT_RGB565 = 0x02, /**< RGB565 format */
-    CAM_IMAGE_PIX_FMT_JPG    = 0x01, /**< JPEG format */
     CAM_IMAGE_PIX_FMT_YUV    = 0x03, /**< YUV format */
     CAM_IMAGE_PIX_FMT_NONE,          /**< No defined format */
 } CAM_IMAGE_PIX_FMT;
@@ -239,11 +263,41 @@ typedef enum {
     LOW_QUALITY     = 2,
 } IMAGE_QUALITY;
 
+/**
+ * @enum CAM_ROTATION
+ * @brief Configure image rotation
+ */
+typedef enum {
+    CAM_ROTATION_0 = 0,      /**< no rotate   */
+    CAM_ROTATION_180,        /**< rotate 180 degrees   */
+} CAM_ROTATION;
+
+/**
+ * @enum CAM_AE_FREEZE
+ * @brief Configure AE freeze
+ */
+typedef enum {
+    CAM_AE_FREEZE_DISABLE = 0, 
+    CAM_AE_FREEZE_ENABLE, 
+} CAM_AE_FREEZE;
+
+/**
+ * @enum CAM_AWB_FREEZE
+ * @brief Configure AWB freeze
+ */
+typedef enum {
+    CAM_AWB_FREEZE_DISABLE = 0, 
+    CAM_AWB_FREEZE_ENABLE, 
+} CAM_AWB_FREEZE;
+
 enum {
     SENSOR_5MP_1 = 0x81,
     SENSOR_3MP_1 = 0x82,
     SENSOR_5MP_2 = 0x83, /* 2592x1936 */
     SENSOR_3MP_2 = 0x84,
+    SENSOR_5MP   = 0x85,
+    SENSOR_3MP   = 0x86,
+    SENSOR_2MP   = 0x87,
 };
 
 typedef uint8_t (*BUFFER_CALLBACK)(uint8_t* buffer, uint8_t lenght); /**<Callback function prototype  */
@@ -272,6 +326,7 @@ typedef struct {
     STOP_HANDLE handle;
     uint8_t verDateAndNumber[4]; /**< Camera firmware version*/
     union SdkInfo* currentSDK;   /**< Current SDK version*/
+	uint8_t lowPowerMode;                           /**< Low power mode flag */
 } ArducamCamera;
 
 /// @cond
@@ -299,6 +354,9 @@ struct CameraOperations {
     CamStatus (*setBrightness)(ArducamCamera*, CAM_BRIGHTNESS_LEVEL);
     CamStatus (*setSharpness)(ArducamCamera*, CAM_SHARPNESS_LEVEL);
     CamStatus (*setImageQuality)(ArducamCamera* camera, IMAGE_QUALITY qualtiy);
+	CamStatus (*setRotation)(ArducamCamera* camera, CAM_ROTATION rotation);
+	CamStatus (*setFreezeAE)(ArducamCamera* camera, CAM_AE_FREEZE status);
+	CamStatus (*setFreezeAWB)(ArducamCamera* camera, CAM_AWB_FREEZE status);
     uint32_t (*imageAvailable)(ArducamCamera*);
     void (*csHigh)(ArducamCamera*);
     void (*csLow)(ArducamCamera*);
@@ -691,6 +749,39 @@ void lowPowerOff(ArducamCamera* camera);
 //! @return Returns camera status
 //**********************************************
 uint8_t cameraHeartBeat(ArducamCamera* camera);
+
+//**********************************************
+//!
+//! @brief Set Rotation
+//!
+//! @param  camera ArducamCamera instance
+//! @param  rotation Image rotation
+//!
+//! @return Return operation status
+//**********************************************
+CamStatus setRotation(ArducamCamera* camera, CAM_ROTATION rotation);
+
+//**********************************************
+//!
+//! @brief Set AE Freeze
+//!
+//! @param  camera ArducamCamera instance
+//! @param  status AE Freeze status
+//!
+//! @return Return operation status
+//**********************************************
+CamStatus setFreezeAE(ArducamCamera* camera, CAM_AE_FREEZE status);
+
+//**********************************************
+//!
+//! @brief Set AWB Freeze
+//!
+//! @param  camera ArducamCamera instance
+//! @param  status AWB Freeze status
+//!
+//! @return Return operation status
+//**********************************************
+CamStatus setFreezeAWB(ArducamCamera* camera, CAM_AWB_FREEZE status);
 
 typedef enum { Camera_uninit = 0, Camera_init, Camera_open, Camera_close } CameraStatus;
 

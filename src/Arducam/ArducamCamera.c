@@ -57,8 +57,12 @@
 #define CAM_REG_WHILEBALANCE_MODE_CONTROL          0X26
 #define CAM_REG_COLOR_EFFECT_CONTROL               0X27
 #define CAM_REG_SHARPNESS_CONTROL                  0X28
+#define CAM_REG_POWER_MODE_CONTROL                 0X28
 #define CAM_REG_AUTO_FOCUS_CONTROL                 0X29
 #define CAM_REG_IMAGE_QUALITY                      0x2A
+#define CAM_REG_ROTATION_CONTROL                   0x2B
+#define CAM_REG_AE_FREEZE_CONTROL                  0x2C
+#define CAM_REG_AWB_FREEZE_CONTROL                 0x2D
 #define CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL 0X30
 #define CAM_REG_MANUAL_GAIN_BIT_9_8                0X31
 #define CAM_REG_MANUAL_GAIN_BIT_7_0                0X32
@@ -81,6 +85,7 @@
 
 #define CAM_I2C_READ_MODE                          (1 << 0)
 #define CAM_REG_SENSOR_STATE_IDLE                  (1 << 1)
+#define CAM_REG_SENSOR_STATE1_IDLE                 (1 << 3)
 #define CAM_SENSOR_RESET_ENABLE                    (1 << 6)
 #define CAM_FORMAT_BASICS                          (0 << 0)
 #define CAM_SET_CAPTURE_MODE                       (0 << 7)
@@ -90,26 +95,28 @@
 #define SET_EXPOSURE                               0X01
 #define SET_GAIN                                   0X00
 
-#define CAMERA_TYPE_NUMBER                         2
+#define CAMERA_TYPE_NUMBER                         3
 
 // #define FORMAT_NONE                                0X00
 // #define FORMAT_JPEG                                0X01
 // #define FORMAT_RGB                                 0X02
 // #define FORMAT_YUV                                 0X03
 
-#define RESOLUTION_160X120                         (1 << 0)
-#define RESOLUTION_320X240                         (1 << 1)
-#define RESOLUTION_640X480                         (1 << 2)
-#define RESOLUTION_800X600                         (1 << 3)
-#define RESOLUTION_1280X720                        (1 << 4)
-#define RESOLUTION_1280X960                        (1 << 5)
-#define RESOLUTION_1600X1200                       (1 << 6)
-#define RESOLUTION_1920X1080                       (1 << 7)
-#define RESOLUTION_2048X1536                       (1 << 8)
-#define RESOLUTION_2592X1944                       (1 << 9)
-#define RESOLUTION_320x320                         (1 << 10)
-#define RESOLUTION_128x128                         (1 << 11)
-#define RESOLUTION_96x96                           (1 << 12)
+#define RESOLUTION_96x96                           (1 << 0)
+#define RESOLUTION_128x128                         (1 << 1)
+#define RESOLUTION_160x120                         (1 << 2)
+#define RESOLUTION_320X240                         (1 << 3)
+#define RESOLUTION_320x320                         (1 << 4)
+#define RESOLUTION_640X480                         (1 << 5)
+#define RESOLUTION_800X600                         (1 << 6)
+#define RESOLUTION_1024X768                        (1 << 7)
+#define RESOLUTION_1280X720                        (1 << 8)
+#define RESOLUTION_1280X1024                       (1 << 9)
+#define RESOLUTION_1600X1200                       (1 << 10)
+#define RESOLUTION_1920X1080                       (1 << 11)
+#define RESOLUTION_2048X1536                       (1 << 12)
+#define RESOLUTION_2592X1944                       (1 << 13)
+
 
 #define SPECIAL_NORMAL                             (0 << 0)
 #define SPECIAL_BLUEISH                            (1 << 0)
@@ -123,10 +130,10 @@
 #define SPECIAL_YELLOWISH                          (1 << 8)
 
 union SdkInfo currentSDK = {
-    .sdkInfo.year    = 24,
-    .sdkInfo.month   = 6,
-    .sdkInfo.day     = 18,
-    .sdkInfo.version = 0x020C,  //V2.0.11  H bit[11:8] M bit[7:4] L bit[3:0] 
+    .sdkInfo.year    = 25,
+    .sdkInfo.month   = 2,
+    .sdkInfo.day     = 28,
+    .sdkInfo.version = 0x0300,  //V3.0.0  H bit[11:8] M bit[7:4] L bit[3:0] 
 };
 
 struct cameraDefaultState {
@@ -153,6 +160,62 @@ void startCapture(ArducamCamera* camera);
 
 struct CameraInfo CameraInfo_5MP = {
     .cameraId          = "5MP",
+    .supportResolution = RESOLUTION_96x96 | RESOLUTION_128x128 | RESOLUTION_160x120 | RESOLUTION_320X240 |
+                         RESOLUTION_320x320 | RESOLUTION_640X480 | RESOLUTION_800X600 | RESOLUTION_1024X768 |
+						 RESOLUTION_1280X720 | RESOLUTION_1280X1024 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 | 
+						 RESOLUTION_2048X1536 | RESOLUTION_2592X1944,
+    .supportSpecialEffects = SPECIAL_BLUEISH | SPECIAL_REDISH | SPECIAL_BW | SPECIAL_SEPIA |  
+                             SPECIAL_NEGATIVE | SPECIAL_GREENISH /*| SPECIAL_OVEREXPOSURE | SPECIAL_SOLARIZE*/,
+	.exposureValueMax = 10000,
+    .exposureValueMin = 1,
+    .gainValueMax     = 240,
+    .gainValueMin     = 0,
+    .supportFocus     = FALSE,
+    .supportSharpness = FALSE,
+    .supportFreezeAE  = TRUE,
+    .supportFreezeAWB = TRUE,
+    .deviceAddress    = 0x78,
+};
+
+struct CameraInfo CameraInfo_3MP = {
+    .cameraId          = "3MP",
+    .supportResolution = RESOLUTION_96x96 | RESOLUTION_128x128 | RESOLUTION_160x120 | RESOLUTION_320X240 |
+                         RESOLUTION_320x320 | RESOLUTION_640X480 | RESOLUTION_800X600 | RESOLUTION_1024X768 |
+						 RESOLUTION_1280X720 | RESOLUTION_1280X1024 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 | 
+						 RESOLUTION_2048X1536,
+    .supportSpecialEffects = SPECIAL_BLUEISH | SPECIAL_REDISH | SPECIAL_BW | SPECIAL_SEPIA | SPECIAL_NEGATIVE |
+                             SPECIAL_GREENISH | SPECIAL_YELLOWISH,
+    .exposureValueMax = 10000,
+    .exposureValueMin = 1,
+    .gainValueMax     = 240,
+    .gainValueMin     = 0,
+    .supportFocus     = FALSE,
+    .supportSharpness = FALSE,
+    .supportFreezeAE  = TRUE,
+    .supportFreezeAWB = TRUE,
+    .deviceAddress    = 0x78,
+};
+
+struct CameraInfo CameraInfo_2MP = {
+    .cameraId          = "2MP",
+    .supportResolution = RESOLUTION_96x96 | RESOLUTION_128x128 | RESOLUTION_160x120 | RESOLUTION_320X240 |
+                         RESOLUTION_320x320 | RESOLUTION_640X480 | RESOLUTION_800X600 | RESOLUTION_1024X768 |
+						 RESOLUTION_1280X720 | RESOLUTION_1280X1024 | RESOLUTION_1600X1200,
+    .supportSpecialEffects = SPECIAL_BLUEISH | SPECIAL_REDISH | SPECIAL_BW | SPECIAL_SEPIA | SPECIAL_NEGATIVE |
+                             SPECIAL_GREENISH | SPECIAL_YELLOWISH,
+    .exposureValueMax = 10000,
+    .exposureValueMin = 1,
+    .gainValueMax     = 240,
+    .gainValueMin     = 0,
+    .supportFocus     = FALSE,
+    .supportSharpness = FALSE,
+    .supportFreezeAE  = TRUE,
+    .supportFreezeAWB = TRUE,
+    .deviceAddress    = 0x78,
+};
+
+struct CameraInfo CameraInfo_5MP_legacy = {
+    .cameraId          = "5MP",
     .supportResolution = RESOLUTION_320x320 | RESOLUTION_128x128 | RESOLUTION_96x96 | RESOLUTION_320X240 |
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
                          RESOLUTION_2592X1944,
@@ -164,10 +227,12 @@ struct CameraInfo CameraInfo_5MP = {
     .gainValueMin     = 1,
     .supportFocus     = TRUE,
     .supportSharpness = FALSE,
+    .supportFreezeAE  = FALSE,
+    .supportFreezeAWB = FALSE,
     .deviceAddress    = 0x78,
 };
 
-struct CameraInfo CameraInfo_3MP = {
+struct CameraInfo CameraInfo_3MP_legacy = {
     .cameraId          = "3MP",
     .supportResolution = RESOLUTION_320x320 | RESOLUTION_128x128 | RESOLUTION_96x96 | RESOLUTION_320X240 |
                          RESOLUTION_640X480 | RESOLUTION_1280X720 | RESOLUTION_1600X1200 | RESOLUTION_1920X1080 |
@@ -180,6 +245,8 @@ struct CameraInfo CameraInfo_3MP = {
     .gainValueMin     = 1,
     .supportFocus     = FALSE,
     .supportSharpness = TRUE,
+    .supportFreezeAE  = FALSE,
+    .supportFreezeAWB = FALSE,
     .deviceAddress    = 0x78,
 };
 
@@ -202,11 +269,11 @@ uint8_t ov3640GainValue[] = {0x00, 0x10, 0x18, 0x30, 0x34, 0x38, 0x3b, 0x3f, 0x7
                              0xf7, 0xf8, 0xf9, 0xfa, 0xfb, 0xfc, 0xfd, 0xfe, 0xff};
 
 void updateCameraInfo(ArducamCamera* camera){
-    if(camera->cameraId == SENSOR_5MP_2  || camera->cameraId == SENSOR_3MP_2){
-            camera->myCameraInfo.exposureValueMax = 0xFFFF;
-            camera->myCameraInfo.gainValueMax = 0xFFFF;
+   if(camera->cameraId == SENSOR_5MP_2  || camera->cameraId == SENSOR_3MP_2){
+           camera->myCameraInfo.exposureValueMax = 0xFFFF;
+           camera->myCameraInfo.gainValueMax = 0xFFFF;
 
-    }
+   }
 
 }
 
@@ -226,11 +293,18 @@ void cameraGetSensorConfig(ArducamCamera* camera)
     case SENSOR_5MP_2:
         CameraInfo_5MP.cameraId = "5MP_2";
     case SENSOR_5MP_1:
+        CameraType[0] = &CameraInfo_5MP_legacy;
+    case SENSOR_5MP:
         cameraIdx = 0x00;
         break;
     case SENSOR_3MP_1:
     case SENSOR_3MP_2:
+        CameraType[1] = &CameraInfo_3MP_legacy;
+    case SENSOR_3MP:
         cameraIdx = 0x01;
+        break;
+    case SENSOR_2MP:
+        cameraIdx = 0x02;
         break;
     }
 
@@ -265,8 +339,10 @@ void cameraSetCapture(ArducamCamera* camera)
     // flushFifo(camera);
     clearFifoFlag(camera);
     startCapture(camera);
-    while (getBit(camera, ARDUCHIP_TRIG, CAP_DONE_MASK) == 0)
-        ;
+    while (getBit(camera, ARDUCHIP_TRIG, CAP_DONE_MASK) == 0){
+        if(camera->lowPowerMode == 1)
+            break;
+	}
     camera->receivedLength = readFifoLength(camera);
     camera->totalLength    = camera->receivedLength;
     camera->burstFirstFlag = 0;
@@ -312,14 +388,14 @@ CamStatus cameraSetManualFocus(ArducamCamera* camera, uint16_t val)
     uint8_t  code_9_4 =  (val >> 4) & 0x3F;
     uint8_t  code_3_0 =  (val<<4)&0xF0;
 
-    // step 2 wirte high register
+    // step 2 write high register
     register_high =   (vcm_reg_H>>8)&0xFF;
     register_low  =   (vcm_reg_H)   &0xFF;
     writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, register_high); waitI2cIdle(camera);   
     writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW, register_low);   waitI2cIdle(camera);   
     writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, code_9_4);     waitI2cIdle(camera); 
     
-    // step 3 wirte low register
+    // step 3 write low register
 
     register_high =   (vcm_reg_L>>8)&0xFF;
     register_low  =   (vcm_reg_L)   &0xFF;
@@ -330,6 +406,24 @@ CamStatus cameraSetManualFocus(ArducamCamera* camera, uint16_t val)
     return CAM_ERR_SUCCESS;
 }
 
+CAM_IMAGE_MODE legacyMode(ArducamCamera* camera, CAM_IMAGE_MODE mode)
+{
+    if(camera->cameraId < SENSOR_5MP){ // legacy sensor
+        switch(mode){
+            case CAM_IMAGE_MODE_96X96:    mode = (CAM_IMAGE_MODE)0x0a; break;
+            case CAM_IMAGE_MODE_128X128:  mode = (CAM_IMAGE_MODE)0x0b; break;
+            case CAM_IMAGE_MODE_QVGA:     mode = (CAM_IMAGE_MODE)0x01; break;
+            case CAM_IMAGE_MODE_320X320:  mode = (CAM_IMAGE_MODE)0x0c; break;
+            case CAM_IMAGE_MODE_VGA:      mode = (CAM_IMAGE_MODE)0x02; break;
+            case CAM_IMAGE_MODE_HD:       mode = (CAM_IMAGE_MODE)0x04; break;
+            case CAM_IMAGE_MODE_UXGA:     mode = (CAM_IMAGE_MODE)0x06; break;
+            case CAM_IMAGE_MODE_FHD:      mode = (CAM_IMAGE_MODE)0x07; break;
+            case CAM_IMAGE_MODE_QXGA:     mode = (CAM_IMAGE_MODE)0x08; break;
+            case CAM_IMAGE_MODE_WQXGA2:   mode = (CAM_IMAGE_MODE)0x09; break;
+        }
+    }
+    return mode;
+}
 
 
 CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAGE_PIX_FMT pixel_format)
@@ -338,10 +432,16 @@ CamStatus cameraTakePicture(ArducamCamera* camera, CAM_IMAGE_MODE mode, CAM_IMAG
         camera->currentPixelFormat = pixel_format;
         writeReg(camera, CAM_REG_FORMAT, pixel_format); // set the data format
         waitI2cIdle(camera);                            // Wait I2c Idle
+        if(camera->cameraId >= SENSOR_5MP){ // new sensor
+            camera->currentPictureMode = mode;
+            writeReg(camera, CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | mode);
+            waitI2cIdle(camera); // Wait I2c Idle
+        }
     }
 
     if (camera->currentPictureMode != mode) {
         camera->currentPictureMode = mode;
+        mode = legacyMode(camera, mode);
         writeReg(camera, CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | mode);
         waitI2cIdle(camera); // Wait I2c Idle
     }
@@ -361,6 +461,7 @@ CamStatus cameratakeMultiPictures(ArducamCamera* camera, CAM_IMAGE_MODE mode, CA
 
      if (camera->currentPictureMode != mode) {
         camera->currentPictureMode = mode;
+        mode = legacyMode(camera, mode);
         writeReg(camera, CAM_REG_CAPTURE_RESOLUTION, CAM_SET_CAPTURE_MODE | mode);
         waitI2cIdle(camera); // Wait I2c Idle
     }
@@ -391,6 +492,7 @@ CamStatus cameraStartPreview(ArducamCamera* camera, CAM_VIDEO_MODE mode)
     }
     writeReg(camera, CAM_REG_FORMAT, CAM_IMAGE_PIX_FMT_JPG); // set  jpeg format
     waitI2cIdle(camera);                                     // Wait I2c Idle
+    mode = (CAM_VIDEO_MODE)legacyMode(camera, (CAM_IMAGE_MODE)mode);
     writeReg(camera, CAM_REG_CAPTURE_RESOLUTION,
              CAM_SET_VIDEO_MODE | mode); // set  video mode
     waitI2cIdle(camera);                 // Wait I2c Idle
@@ -439,8 +541,8 @@ CamStatus cameraReset(ArducamCamera* camera)
 {
     writeReg(camera, CAM_REG_SENSOR_RESET, CAM_SENSOR_RESET_ENABLE);
     waitI2cIdle(camera); // Wait I2c Idle
-    camera->currentPixelFormat = -1;
-    camera->currentPictureMode = -1;
+    camera->currentPixelFormat = CAM_IMAGE_PIX_FMT_NONE;
+    camera->currentPictureMode = CAM_IMAGE_MODE_NONE;
     return CAM_ERR_SUCCESS;
 }
 
@@ -461,6 +563,11 @@ CamStatus cameraSetAutoWhiteBalance(ArducamCamera* camera, uint8_t val)
     writeReg(camera, CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL,
              symbol);    // while balance control
     waitI2cIdle(camera); // Wait I2c Idle
+    if(camera->cameraId >= SENSOR_5MP){ // new sensor
+        while ((readReg(camera, CAM_REG_SENSOR_STATE) & 0X08) == CAM_REG_SENSOR_STATE1_IDLE) {
+        ;// arducamDelayMs(2);
+        }
+    }
     return CAM_ERR_SUCCESS;
 }
 
@@ -474,14 +581,19 @@ CamStatus cameraSetAutoISOSensitive(ArducamCamera* camera, uint8_t val)
     writeReg(camera, CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL,
              symbol);    // auto gain control
     waitI2cIdle(camera); // Wait I2c Idle
+    if(camera->cameraId >= SENSOR_5MP){ // new sensor
+        while ((readReg(camera, CAM_REG_SENSOR_STATE) & 0X08) == CAM_REG_SENSOR_STATE1_IDLE) {
+        ;// arducamDelayMs(2);
+        }
+    }
     return CAM_ERR_SUCCESS;
 }
 
 CamStatus cameraSetISOSensitivity(ArducamCamera* camera, int iso_sense)
 {
-    if (camera->cameraId == SENSOR_3MP_1) {
-        iso_sense = ov3640GainValue[iso_sense - 1];
-    }
+  if (camera->cameraId == SENSOR_3MP_1) {
+      iso_sense = ov3640GainValue[iso_sense - 1];
+  }
     writeReg(camera, CAM_REG_MANUAL_GAIN_BIT_9_8,
              iso_sense >> 8); // set AGC VALUE
     waitI2cIdle(camera);
@@ -500,14 +612,21 @@ CamStatus cameraSetAutoExposure(ArducamCamera* camera, uint8_t val)
     writeReg(camera, CAM_REG_EXPOSURE_GAIN_WHILEBALANCE_CONTROL,
              symbol);    // auto EXPOSURE control
     waitI2cIdle(camera); // Wait I2c Idle
+    if(camera->cameraId >= SENSOR_5MP){ // new sensor
+        while ((readReg(camera, CAM_REG_SENSOR_STATE) & 0X08) == CAM_REG_SENSOR_STATE1_IDLE) {
+            ;// arducamDelayMs(2);
+        }
+    }
     return CAM_ERR_SUCCESS;
 }
 
 CamStatus cameraSetAbsoluteExposure(ArducamCamera* camera, uint32_t exposure_time)
 {
-    // set exposure output [19:16]
-    writeReg(camera, CAM_REG_MANUAL_EXPOSURE_BIT_19_16, (uint8_t)((exposure_time >> 16) & 0xff));
-    waitI2cIdle(camera);
+    if(camera->cameraId < SENSOR_5MP){ // legacy sensor
+        // set exposure output [19:16]
+        writeReg(camera, CAM_REG_MANUAL_EXPOSURE_BIT_19_16, (uint8_t)((exposure_time >> 16) & 0xff));
+        waitI2cIdle(camera);
+    }
     // set exposure output [15:8]
     writeReg(camera, CAM_REG_MANUAL_EXPOSURE_BIT_15_8, (uint8_t)((exposure_time >> 8) & 0xff));
     waitI2cIdle(camera);
@@ -544,8 +663,10 @@ CamStatus cameraSetContrast(ArducamCamera* camera, CAM_CONTRAST_LEVEL level)
 }
 CamStatus cameraSetSharpness(ArducamCamera* camera, CAM_SHARPNESS_LEVEL level)
 {
-    writeReg(camera, CAM_REG_SHARPNESS_CONTROL, level); // set Brightness Level
-    waitI2cIdle(camera);                                // Wait I2c Idle
+    if(camera->cameraId < SENSOR_5MP){ // legacy sensor
+        writeReg(camera, CAM_REG_SHARPNESS_CONTROL, level); // set Brightness Level
+        waitI2cIdle(camera);                                // Wait I2c Idle
+    }
     return CAM_ERR_SUCCESS;
 }
 
@@ -623,7 +744,7 @@ uint32_t cameraReadBuff(ArducamCamera* camera, uint8_t* buff, uint32_t length)
         arducamSpiTransfer(0x00);
     }
 
-#ifndef arducamSpiReadBlock
+#ifndef arducamSpiBlockTransfer
     for (uint32_t count = 0; count < length; count++) {
         buff[count] = arducamSpiTransfer(0x00);
     }
@@ -702,61 +823,97 @@ void cameraDebugWriteRegister(ArducamCamera* camera, uint8_t* buff)
 void cameraLowPowerOn(ArducamCamera* camera)
 {
     
-    if((camera->cameraId ==  SENSOR_5MP_2) ||(camera->cameraId ==  SENSOR_3MP_2 ) ){
-        uint16_t reg1  =  0x0028;
-        uint16_t data1 =  0xD000;
-        uint16_t reg2  =  0x002A;
-        uint16_t data2 =  0x107E;
-        uint16_t reg3  =  0x0F12;
-        uint16_t data3 =  0x0001;
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg1>>8)&0xFF); waitI2cIdle(camera);   
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg1)&0xFF);   waitI2cIdle(camera); 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data1>>8)&0xFF);  waitI2cIdle(camera);
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data1)&0xFF);     waitI2cIdle(camera); 
+   if((camera->cameraId ==  SENSOR_5MP_2) ||(camera->cameraId ==  SENSOR_3MP_2 ) ){
+       uint16_t reg1  =  0x0028;
+       uint16_t data1 =  0xD000;
+       uint16_t reg2  =  0x002A;
+       uint16_t data2 =  0x107E;
+       uint16_t reg3  =  0x0F12;
+       uint16_t data3 =  0x0001;
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg1>>8)&0xFF); waitI2cIdle(camera);   
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg1)&0xFF);   waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data1>>8)&0xFF);  waitI2cIdle(camera);
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data1)&0xFF);     waitI2cIdle(camera); 
 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg2>>8)&0xFF); waitI2cIdle(camera);   
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg2)&0xFF);   waitI2cIdle(camera); 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data2>>8)&0xFF);  waitI2cIdle(camera);
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data2)&0xFF);     waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg2>>8)&0xFF); waitI2cIdle(camera);   
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg2)&0xFF);   waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data2>>8)&0xFF);  waitI2cIdle(camera);
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data2)&0xFF);     waitI2cIdle(camera); 
 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg3>>8)&0xFF); waitI2cIdle(camera);   
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg3)&0xFF);   waitI2cIdle(camera); 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data3>>8)&0xFF);  waitI2cIdle(camera);
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data3)&0xFF);     waitI2cIdle(camera); 
-    
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg3>>8)&0xFF); waitI2cIdle(camera);   
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg3)&0xFF);   waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data3>>8)&0xFF);  waitI2cIdle(camera);
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data3)&0xFF);     waitI2cIdle(camera); 
+   
+   }else if(camera->cameraId >= SENSOR_5MP){ // new sensor
+        writeReg(camera, CAM_REG_POWER_MODE_CONTROL, CAM_POWER_MODE_LOW); // set Power Mode
+        waitI2cIdle(camera);                                // Wait I2c Idle
+        camera->lowPowerMode = CAM_POWER_MODE_LOW;
     }else{
-        writeReg(camera, CAM_REG_POWER_CONTROL, 0X07);
-    }
+       writeReg(camera, CAM_REG_POWER_CONTROL, 0X07);
+   }
     
 }
 
 void cameraLowPowerOff(ArducamCamera* camera)
 {
-    if((camera->cameraId ==  SENSOR_5MP_2) ||(camera->cameraId ==  SENSOR_3MP_2 ) ){
-        uint16_t reg1  =  0x0028;
-        uint16_t data1 =  0xD000;
-        uint16_t reg2  =  0x002A;
-        uint16_t data2 =  0x107E;
-        uint16_t reg3  =  0x0F12;
-        uint16_t data3 =  0x0000;
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg1>>8)&0xFF); waitI2cIdle(camera);   
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg1)&0xFF);   waitI2cIdle(camera); 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data1>>8)&0xFF);  waitI2cIdle(camera);
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data1)&0xFF);     waitI2cIdle(camera); 
+   if((camera->cameraId ==  SENSOR_5MP_2) ||(camera->cameraId ==  SENSOR_3MP_2 ) ){
+       uint16_t reg1  =  0x0028;
+       uint16_t data1 =  0xD000;
+       uint16_t reg2  =  0x002A;
+       uint16_t data2 =  0x107E;
+       uint16_t reg3  =  0x0F12;
+       uint16_t data3 =  0x0000;
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg1>>8)&0xFF); waitI2cIdle(camera);   
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg1)&0xFF);   waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data1>>8)&0xFF);  waitI2cIdle(camera);
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data1)&0xFF);     waitI2cIdle(camera); 
 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg2>>8)&0xFF); waitI2cIdle(camera);   
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg2)&0xFF);   waitI2cIdle(camera); 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data2>>8)&0xFF);  waitI2cIdle(camera);
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data2)&0xFF);     waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg2>>8)&0xFF); waitI2cIdle(camera);   
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg2)&0xFF);   waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data2>>8)&0xFF);  waitI2cIdle(camera);
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data2)&0xFF);     waitI2cIdle(camera); 
 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg3>>8)&0xFF); waitI2cIdle(camera);   
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg3)&0xFF);   waitI2cIdle(camera); 
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data3>>8)&0xFF);  waitI2cIdle(camera);
-        writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data3)&0xFF);     waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_HIGH, (reg3>>8)&0xFF); waitI2cIdle(camera);   
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_LOW,  (reg3)&0xFF);   waitI2cIdle(camera); 
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE_H, (data3>>8)&0xFF);  waitI2cIdle(camera);
+       writeReg(camera, CAM_REG_DEBUG_REGISTER_VALUE, (data3)&0xFF);     waitI2cIdle(camera); 
 
-    }else{
-        writeReg(camera, CAM_REG_POWER_CONTROL, 0X05);
+   }else if(camera->cameraId >= SENSOR_5MP){ // new sensor
+		writeReg(camera, CAM_REG_POWER_MODE_CONTROL, CAM_POWER_MODE_NORMAL); // set Power Mode
+		waitI2cIdle(camera);                                // Wait I2c Idle
+		camera->lowPowerMode = CAM_POWER_MODE_NORMAL;
+   }else{
+       writeReg(camera, CAM_REG_POWER_CONTROL, 0X05);
+   }
+}
+
+CamStatus cameraSetRotation(ArducamCamera* camera, CAM_ROTATION rotation)
+{
+    writeReg(camera, CAM_REG_ROTATION_CONTROL, rotation); 
+    waitI2cIdle(camera);      
+    // Wait I2c Idle
+    return CAM_ERR_SUCCESS;
+}
+
+CamStatus cameraSetFreezeAE(ArducamCamera* camera, CAM_AE_FREEZE status)
+{
+    if(camera->cameraId >= SENSOR_5MP){ // new sensor
+        writeReg(camera, CAM_REG_AE_FREEZE_CONTROL, status); 
+        waitI2cIdle(camera);      
+        // Wait I2c Idle
     }
+    return CAM_ERR_SUCCESS;
+}
+
+CamStatus cameraSetFreezeAWB(ArducamCamera* camera, CAM_AWB_FREEZE status)
+{
+    if(camera->cameraId >= SENSOR_5MP){ // new sensor
+        writeReg(camera, CAM_REG_AWB_FREEZE_CONTROL, status); 
+        waitI2cIdle(camera);      
+        // Wait I2c Idle
+    }
+    return CAM_ERR_SUCCESS;
 }
 
 CamStatus reset(ArducamCamera* camera)
@@ -862,7 +1019,7 @@ CamStatus setBrightness(ArducamCamera* camera, CAM_BRIGHTNESS_LEVEL level)
 
 CamStatus setSharpness(ArducamCamera* camera, CAM_SHARPNESS_LEVEL level)
 {
-    return camera->arducamCameraOp->setSharpness(camera, level);
+   return camera->arducamCameraOp->setSharpness(camera, level);
 }
 
 uint32_t readBuff(ArducamCamera* camera, uint8_t* buff, uint32_t length)
@@ -965,6 +1122,20 @@ CamStatus setImageQuality(ArducamCamera* camera, IMAGE_QUALITY qualtiy)
 {
     return camera->arducamCameraOp->setImageQuality(camera, qualtiy);
 }
+CamStatus setRotation(ArducamCamera* camera, CAM_ROTATION rotation)
+{
+    return camera->arducamCameraOp->setRotation(camera, rotation);
+}
+
+CamStatus setFreezeAE(ArducamCamera* camera, CAM_AE_FREEZE status)
+{
+    return camera->arducamCameraOp->setFreezeAE(camera, status);
+}
+
+CamStatus setFreezeAWB(ArducamCamera* camera, CAM_AWB_FREEZE status)
+{
+    return camera->arducamCameraOp->setFreezeAWB(camera, status);
+}
 
 const struct CameraOperations ArducamcameraOperations = {
     .reset                   = cameraReset,
@@ -1011,6 +1182,9 @@ const struct CameraOperations ArducamcameraOperations = {
     .lowPowerOn              = cameraLowPowerOn,
     .lowPowerOff             = cameraLowPowerOff,
     .setImageQuality         = cameraSetImageQuality,
+    .setRotation             = cameraSetRotation,
+    .setFreezeAE             = cameraSetFreezeAE,
+    .setFreezeAWB            = cameraSetFreezeAWB,
 };
 
 ArducamCamera createArducamCamera(int CS)
@@ -1018,6 +1192,7 @@ ArducamCamera createArducamCamera(int CS)
     ArducamCamera camera;
     CameraType[0] = &CameraInfo_5MP;
     CameraType[1] = &CameraInfo_3MP;
+    CameraType[2] = &CameraInfo_2MP;
     // cameraDefaultInfo[0] = &DefaultState_5mp;
     // cameraDefaultInfo[1] = &DefaultState_3mp;
     camera.cameraId           = FALSE;

@@ -6,12 +6,10 @@
  * This work is licensed under the MIT license, see the file LICENSE for details.
  *
  */
-#ifndef __USART_H
-#define __USART_H
-
-#include "ArducamCamera.h"
-#include "stdio.h"
-#include "stm32f10x.h"
+#ifndef __ARDUCAMLINK_H
+#define __ARDUCAMLINK_H
+#include "Arducam_Mega.h"
+#include "stdint.h"
 
 #define RESET_CAMERA                0XFF
 #define SET_PICTURE_RESOLUTION      0X01
@@ -36,29 +34,31 @@
 #define GET_FRM_VER_INFO            0X30
 #define GET_SDK_VER_INFO            0X40
 #define SET_IMAGE_QUALITY           0X50
-#define SET_ROTATION                0X51
-#define SET_AE_FREEZE               0X52
-#define SET_AWB_FREEZE              0X53
 
 #define READ_IMAGE_LENGTH           255
 
-volatile extern uint8_t uart_state;
-volatile extern uint8_t uart1_rx_cnt;
-volatile extern uint8_t uart1_rx_head;
-volatile extern uint8_t uart1_rx_len;
-extern uint8_t UartCommBuff[20];
+class ArducamLink
+{
+  public:
+    uint8_t uartCommandProcessing(Arducam_Mega*, uint8_t*);
 
-uint8_t commandProcessing(ArducamCamera*, uint8_t*, uint8_t);
-void reportCameraInfo(ArducamCamera*);
-void reportVerInfo(ArducamCamera* myCamera);
-void reportSdkVerInfo(ArducamCamera* myCamera);
-void cameraGetPicture(ArducamCamera*);
-void send_data_pack(char cmd_type, char* msg);
+  public:
+    ArducamLink();
+    ~ArducamLink();
+    void arducamUartBegin(uint32_t);
+    void reportCameraInfo(Arducam_Mega*);
+    void reportVerInfo(Arducam_Mega* myCamera);
+    void reportSdkVerInfo(Arducam_Mega* myCamera);
+    void cameraGetPicture(Arducam_Mega*);
+    void arducamFlush(void);
+    void send_data_pack(char cmd_type, char* msg);
 
-void uartInit(uint32_t BaudRate);
-void arducamUartWrite(uint8_t data);
-void uartWriteBuffer(uint8_t* buff, uint32_t length);
-uint32_t arducamUartAvailable(void);
-uint8_t arducamUartRead(void);
+  public:
+    void printf(char* buff);
+    void arducamUartWrite(uint8_t);
+    void arducamUartWriteBuff(uint8_t*, uint16_t);
+    uint32_t arducamUartAvailable(void);
+    uint8_t arducamUartRead(void);
+};
 
-#endif
+#endif /*__ARDUCAMLINK_H*/

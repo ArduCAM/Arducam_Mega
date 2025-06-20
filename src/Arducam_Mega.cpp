@@ -125,6 +125,22 @@ CamStatus Arducam_Mega::setImageQuality(IMAGE_QUALITY quality)
 {
     return ::setImageQuality(&cameraInfo,quality);
 }
+
+CamStatus Arducam_Mega::setRotation(CAM_ROTATION rotation)
+{
+    return ::setRotation(&cameraInfo,rotation);
+}
+
+CamStatus Arducam_Mega::setFreezeAE(CAM_AE_FREEZE status)
+{
+    return ::setFreezeAE(&cameraInfo,status);
+}
+
+CamStatus Arducam_Mega::setFreezeAWB(CAM_AWB_FREEZE status)
+{
+    return ::setFreezeAWB(&cameraInfo,status);
+}
+
 uint8_t Arducam_Mega::readBuff(uint8_t* buff, uint8_t length)
 {
     return ::readBuff(&cameraInfo, buff, length);

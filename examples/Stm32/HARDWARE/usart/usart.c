@@ -190,6 +190,16 @@ uint8_t commandProcessing(ArducamCamera* camera, uint8_t* buff, uint8_t length)
         reset(camera);
     case SET_IMAGE_QUALITY:
         setImageQuality(camera,(IMAGE_QUALITY)buff[1]);
+    break;
+    case SET_ROTATION:
+        setRotation(camera,(CAM_ROTATION)buff[1]);
+        break;
+    case SET_AE_FREEZE:
+        setFreezeAE(camera, (CAM_AE_FREEZE)buff[1]);
+        break;
+    case SET_AWB_FREEZE:
+        setFreezeAWB(camera, (CAM_AWB_FREEZE)buff[1]);
+        break;
     default:
         break;
     }
