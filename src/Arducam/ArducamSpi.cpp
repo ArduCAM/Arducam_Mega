@@ -15,7 +15,7 @@
 
 void arducamSpiBegin(void)
 {
-    return SPI.begin();
+    SPI.begin();
 }
 
 uint8_t arducamSpiTransfer(uint8_t data)
