@@ -279,7 +279,7 @@ void updateCameraInfo(ArducamCamera* camera){
 
 void cameraInit(ArducamCamera* camera)
 {
-    arducamSpiBegin();
+    //arducamSpiBegin();
     arducamCsOutputMode(camera->csPin);
     arducamSpiCsPinLow(camera->csPin);
 }
